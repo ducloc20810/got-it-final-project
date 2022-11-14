@@ -1,7 +1,12 @@
-import React from "react";
+import { Button } from '@ahaui/react';
 
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <div>Home</div>
+      <Button>Example button</Button>
+    </>
+  );
 };
 
 export default Home;
