@@ -4,16 +4,12 @@ import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../hooks";
 import { userSelector } from "../../redux/reducers/user.reducer";
-
+import styles from "./Header.module.scss";
 const Header = () => {
   const user = useAppSelector(userSelector);
 
   return (
-    <AhaHeader
-      fullWidth
-      className="u-widthFull u-backgroundWhite "
-      style={{ gridArea: "Header" }}
-    >
+    <AhaHeader fullWidth className={styles.header}>
       <AhaHeader.Brand>
         <Link to="/">
           <Logo width={100} height={36} />

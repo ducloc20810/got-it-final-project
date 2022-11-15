@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { SidebarMenu, Icon, IconType } from "@ahaui/react";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import styles from "./Sidebar.module.scss";
 type NavItemsType = Array<{
   id: string;
   icon?: IconType;
@@ -35,7 +35,7 @@ const Sidebar = () => {
   }, [location]);
 
   return (
-    <div className="u-backgroundPrimaryDarker" style={{ gridArea: "Sidebar" }}>
+    <div className={`${styles.sidebar} u-backgroundPrimaryDarker`}>
       <SidebarMenu
         current={current}
         onSelect={(eventKey) => {
