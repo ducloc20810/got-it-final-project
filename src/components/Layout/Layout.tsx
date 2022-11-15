@@ -6,7 +6,7 @@ type LayoutProps = {
 };
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className={styles.layout}>
+    <div className={`${styles.layout} u-screenHeightFull`}>
       <Header />
       {children}
       <Sidebar />

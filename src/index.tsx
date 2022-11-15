@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import "@ahaui/css/dist/index.min.css";
 import "./index.scss";
-import '@ahaui/css/dist/index.min.css';
 
 const container = document.getElementById("root")!;
 ReactDOM.render(

@@ -6,25 +6,27 @@ $sidebar-background-color: #081a51;
 $active-link-color: #51cbff;
 $primary-color: #017efa;
 $box-shadow-body: 0 3px 10px rgb(0 0 0 / 0.2);
+
+:root {
+  --colorPrimary: #017efa;
+  --colorPrimaryDark: #0070e0;
+  --colorPrimaryDarker: #081a51;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  font-size: 10px;
+:global(.u-textPrimary) {
+  color: $primary-color;
 }
 
-body a {
-  text-decoration: none;
-  color: #000;
+:global(.u-borderBottom) {
+  border-color: #dbdbdb;
 }
 
-body a:hover {
-  text-decoration: none;
-}
-
-body ul {
-  list-style: none;
+:global(.u-backgroundPrimary) {
+  background-color: $primary-color;
 }
