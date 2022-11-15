@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Sidebar.module.scss";
 import { SidebarMenu } from "@ahaui/react";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const [current, setCurrent] = React.useState("/");
   const navigate = useNavigate();
-  React.useEffect(() => {
-    navigate(current);
-  }, [current, navigate]);
+  const location = useLocation();
+  useEffect(() => {
+    setCurrent(location.pathname);
+  }, [location]);
 
   return (
     <div className={styles.sidebar}>
       <SidebarMenu
         current={current}
-        onSelect={setCurrent}
+        onSelect={(eventKey) => {
+          setCurrent(eventKey);
+          navigate(eventKey);
+        }}
         className={styles.sidebarMenu}
       >
         <SidebarMenu.Item
@@ -24,8 +27,9 @@ const Sidebar = () => {
         >
           Home
         </SidebarMenu.Item>
+
         <SidebarMenu.Item
-          eventKey="category"
+          eventKey="/category"
           className={styles.sidebarItem}
           icon="list"
         >

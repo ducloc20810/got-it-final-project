@@ -11,7 +11,9 @@ const Header = () => {
   return (
     <AhaHeader fullWidth className={styles.header}>
       <AhaHeader.Brand>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
       </AhaHeader.Brand>
 
       <AhaHeader.Main>
