@@ -1,4 +1,9 @@
 // Reset css
+$header-background-color: #fff;
+$body-background-color: #c3c3c3;
+$sidebar-background-color: #081a51;
+$active-link-color: #51cbff;
+$primary-color: #017efa;
 
 * {
   margin: 0;
@@ -10,10 +15,15 @@ html {
   font-size: 10px;
 }
 
-a {
+body a {
+  text-decoration: none;
+  color: #000;
+}
+
+body a:hover {
   text-decoration: none;
 }
 
-ul {
+body ul {
   list-style: none;
 }

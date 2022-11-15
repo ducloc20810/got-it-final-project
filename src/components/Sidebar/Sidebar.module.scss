@@ -1,0 +1,47 @@
+@import "../../index.scss";
+
+.sidebar {
+  grid-area: Sidebar;
+  background-color: $sidebar-background-color;
+  width: 100%;
+
+  .sidebarMenu {
+    background-color: transparent;
+    padding: 0;
+
+    .sidebarItem {
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+        a {
+          color: $primary-color;
+        }
+
+        svg {
+          color: $primary-color;
+        }
+      }
+
+      a {
+        color: #fff;
+      }
+
+      svg {
+        color: #fff;
+      }
+    }
+
+    .sidebarItem :global(.u-textPrimary) {
+      color: $primary-color;
+    }
+
+    .sidebarItem :global(.u-borderBottom) {
+      border-color: #dbdbdb;
+    }
+
+    .sidebarItem :global(.u-backgroundPrimary) {
+      background-color: $primary-color;
+    }
+  }
+}

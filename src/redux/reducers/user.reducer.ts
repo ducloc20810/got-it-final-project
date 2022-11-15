@@ -48,6 +48,7 @@ const userReducer = (state = initialState, action: Action) => {
     case "FETCH_USER_SUCCESS":
       return {
         ...state,
+        isLoggedIn: true,
         ...action.payload,
       };
 

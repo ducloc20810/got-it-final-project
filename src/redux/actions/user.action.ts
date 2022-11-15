@@ -1,4 +1,4 @@
-import { AppDispatch } from "../store";
+import { TypedDispatch } from "../store";
 import AuthService from "../../services/auth.service";
 import { setMessage } from "./message.action";
 import UserService from "../../services/user.service";
@@ -8,7 +8,7 @@ export const DELETE_USER: string = "DELETE_USER";
 
 export const register =
   (name: string, email: string, password: string) =>
-  async (dispatch: AppDispatch) => {
+  async (dispatch: TypedDispatch) => {
     const response: any = await AuthService.register(name, email, password);
     let data = null;
     if (response.status === 200 || response.status === 400) {
@@ -50,7 +50,7 @@ export const register =
   };
 
 export const login =
-  (email: string, password: string) => async (dispatch: AppDispatch) => {
+  (email: string, password: string) => async (dispatch: TypedDispatch) => {
     const response: any = await AuthService.login(email, password);
     let data = null;
     if (response.status === 200 || response.status === 400) {
@@ -87,12 +87,12 @@ export const login =
     return Promise.reject();
   };
 
-export const logout = () => (dispatch: AppDispatch) => {
+export const logout = () => (dispatch: TypedDispatch) => {
   AuthService.logout();
   dispatch({ type: "LOGOUT" });
 };
 
-export const getUserInfo = () => async (dispatch: AppDispatch) => {
+export const getUserInfo = () => async (dispatch: TypedDispatch) => {
   const response = await UserService.getUserInfo();
 
   let data = null;
@@ -120,9 +120,7 @@ export const getUserInfo = () => async (dispatch: AppDispatch) => {
         })
       );
 
-      dispatch({
-        type: "FETCH_USER_FAILURE",
-      });
+      dispatch(logout());
       break;
 
     default:

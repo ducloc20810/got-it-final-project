@@ -1,10 +1,10 @@
-import { Button } from '@ahaui/react';
+import { Button } from "@ahaui/react";
 
 const Home = () => {
   return (
     <>
       <div>Home</div>
-      <Button>Example button</Button>
+      <Button onClick={() => console.log("hello")}>Example button</Button>
     </>
   );
 };

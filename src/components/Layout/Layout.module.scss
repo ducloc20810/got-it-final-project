@@ -1,0 +1,11 @@
+.layout {
+  display: grid;
+  height: 100vh;
+  grid-template-areas:
+    "Header  Header"
+    "Sidebar Children"
+    "Sidebar Children";
+
+  grid-template-rows: 80px 1fr;
+  grid-template-columns: 220px 1fr;
+}

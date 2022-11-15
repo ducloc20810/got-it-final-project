@@ -1,6 +1,6 @@
 import authHeader from "./auth-header.service";
 
-const API_URL = `${process.env.REACT_APP_URL}/categories`;
+const API_URL = `${process.env.REACT_APP_BACK_END_URL}/categories`;
 
 type CategoryPayload = {
   name?: string;
