@@ -8,7 +8,10 @@ import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import messageReducer from "./reducers/message.reducer";
 import userReducer from "./reducers/user.reducer";
 
-const reducer = combineReducers({ user: userReducer, message: messageReducer });
+export const reducer = combineReducers({
+  user: userReducer,
+  message: messageReducer,
+});
 export const store = createStore(reducer, applyMiddleware(thunk));
 
 export type AppDispatch = typeof store.dispatch;

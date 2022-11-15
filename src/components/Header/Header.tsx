@@ -3,11 +3,12 @@ import { Header as AhaHeader, Dropdown, Icon } from "@ahaui/react";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
-const user = {
-  isLogged: false,
-};
+import { useAppSelector } from "../../hooks";
+import { userSelector } from "../../redux/reducers/user.reducer";
 
 const Header = () => {
+  const user = useAppSelector(userSelector);
+
   return (
     <AhaHeader fullWidth className={styles.header}>
       <AhaHeader.Brand>
@@ -18,7 +19,7 @@ const Header = () => {
 
       <AhaHeader.Main>
         <AhaHeader.Right>
-          {user.isLogged && (
+          {user.isLoggedIn && (
             <>
               <Dropdown alignRight className="u-marginLeftExtraSmall">
                 <Dropdown.Toggle className="u-textLight u-lineHeightNone">
@@ -36,7 +37,7 @@ const Header = () => {
             </>
           )}
 
-          {!user.isLogged && (
+          {!user.isLoggedIn && (
             <div className={styles.authenticationLink}>
               <Link to="/login">Login</Link>
               <Link to="/signup">Register</Link>
