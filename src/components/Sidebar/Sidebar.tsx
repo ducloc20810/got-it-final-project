@@ -52,7 +52,6 @@ const Sidebar = () => {
           >
             <div
               className="u-flex u-widthFull"
-              style={{ gap: "1rem" }}
               onMouseOver={() => setHoverItem(() => item.id)}
               onMouseOut={() => setHoverItem(() => "")}
             >
@@ -62,7 +61,7 @@ const Sidebar = () => {
                   hoverItem === item.id || current === item.path
                     ? "u-textPrimary"
                     : "u-textWhite"
-                }`}
+                } u-marginRightSmall`}
               />
               <p
                 className={`${

@@ -8,7 +8,9 @@ function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <div className={styles.App}>
+        <div
+          className={`${styles.App} u-backgroundLightest u-padding u-positionRelative u-paddingLarge`}
+        >
           <Routes>
             <Route index element={<Home />} />
             <Route path="/login" element={<Login />}></Route>

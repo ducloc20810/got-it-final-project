@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <Form
-      className={`${styles.login} u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium`}
+      className={`${styles.login} u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium`}
     >
       <Logo
         width={40}

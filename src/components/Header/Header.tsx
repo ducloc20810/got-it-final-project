@@ -38,7 +38,7 @@ const Header = () => {
           )}
 
           {!user.isLoggedIn && (
-            <div className="u-flex u-alignItemsCenter" style={{ gap: "1rem" }}>
+            <div className="u-flex u-alignItemsCenter">
               <Link
                 className="hover:u-textPrimary hover:u-textUnderline u-textDark"
                 to="/login"
@@ -46,7 +46,7 @@ const Header = () => {
                 Login
               </Link>
               <Link
-                className="hover:u-textPrimary hover:u-textUnderline u-textDark"
+                className="hover:u-textPrimary hover:u-textUnderline u-textDark u-marginLeftSmall"
                 to="/signup"
               >
                 Register

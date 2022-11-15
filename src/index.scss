@@ -7,18 +7,6 @@ $active-link-color: #51cbff;
 $primary-color: #017efa;
 $box-shadow-body: 0 3px 10px rgb(0 0 0 / 0.2);
 
-:global(.u-textPrimary) {
-  color: $primary-color;
-}
-
-:global(.u-borderBottom) {
-  border-color: #dbdbdb;
-}
-
-:global(.u-backgroundPrimary) {
-  background-color: $primary-color;
-}
-
 :root {
   --colorPrimary: #017efa;
   --colorPrimaryDark: #0070e0;
@@ -29,4 +17,12 @@ $box-shadow-body: 0 3px 10px rgb(0 0 0 / 0.2);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.u-shadowMedium {
+  box-shadow: $box-shadow-body;
+}
+
+.u-borderBottom {
+  border-color: #dbdbdb;
 }
