@@ -1,11 +1,11 @@
-import { Button } from "@ahaui/react";
+import styles from "./Home.module.scss";
 
 const Home = () => {
   return (
-    <>
-      <div>Home</div>
-      <Button onClick={() => console.log("hello")}>Example button</Button>
-    </>
+    <div className={styles.home}>
+      <h1>Welcome to Hello</h1>
+      <h3>This is my final project</h3>
+    </div>
   );
 };
 
