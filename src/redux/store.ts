@@ -5,8 +5,8 @@ import {
   AnyAction,
 } from "redux";
 import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
-import messageReducer from "./reducers/message.reducer";
-import userReducer from "./reducers/user.reducer";
+import messageReducer from "redux/reducers/message.reducer";
+import userReducer from "redux/reducers/user.reducer";
 
 export const reducer = combineReducers({
   user: userReducer,
