@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { messageSelector } from "redux/reducers/message.reducer";
 
