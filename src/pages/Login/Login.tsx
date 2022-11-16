@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "@ahaui/react";
+import { useForm } from "react-hook-form";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { useThunkDispatch } from "hooks";
 // import {
@@ -12,17 +13,27 @@ import { useThunkDispatch } from "hooks";
 
 import styles from "./Login.module.scss";
 import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
+import { emailPattern } from "utils/variables";
+import { InlineError } from "components";
+
+interface IFormInputs {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  const emailRef = useRef<HTMLInputElement>();
-  const passwordRef = useRef<HTMLInputElement>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>({ mode: "onChange" });
+
   const navigate = useNavigate();
   const dispatch = useThunkDispatch();
 
-  const handleLoginSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    if (emailRef.current && passwordRef.current) {
-      // dispatch(login(emailRef.current.value, passwordRef.current.value))
+  const handleLoginSubmit = (data: IFormInputs) => {
+    if (data.email && data.password) {
+      // dispatch(login(data.email, data.password))
       //   .then(() => {
       //     dispatch(getUserInfo());
       //   })
@@ -35,8 +46,6 @@ const Login = () => {
         .then(() => navigate("/"));
     }
   };
-
-  // const validate = () => {};
 
   return (
     <Form
@@ -51,11 +60,40 @@ const Login = () => {
         Login to Hello
       </h1>
       <Form.Group sizeControl="large">
-        <Form.Input type="text" placeholder="Email" ref={emailRef} />
+        <Form.Input
+          type="text"
+          placeholder="Email"
+          {...register("email", {
+            required: "Email is required",
+            pattern: emailPattern,
+          })}
+        />
+
+        {errors.email?.type === "required" && (
+          <InlineError>Please enter your email</InlineError>
+        )}
+        {errors.email?.type === "pattern" && (
+          <InlineError>Email is invalid</InlineError>
+        )}
       </Form.Group>
 
       <Form.Group sizeControl="large">
-        <Form.Input type="password" placeholder="Password" ref={passwordRef} />
+        <Form.Input
+          type="password"
+          placeholder="Password"
+          {...register("password", {
+            required: "Password is required",
+            minLength: 6,
+          })}
+        />
+
+        {errors.password?.type === "required" && (
+          <InlineError>Please enter your password</InlineError>
+        )}
+
+        {errors.password?.type === "minLength" && (
+          <InlineError>Password should be at least 6 characters</InlineError>
+        )}
       </Form.Group>
 
       <Link
@@ -69,7 +107,7 @@ const Login = () => {
         variant="primary"
         size="large"
         className="u-backgroundPrimary hover:u-background"
-        onClick={(e) => handleLoginSubmit(e)}
+        onClick={handleSubmit(handleLoginSubmit)}
       >
         <Button.Label>Login</Button.Label>
       </Button>
