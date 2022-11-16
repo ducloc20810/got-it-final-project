@@ -1,17 +1,38 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "@ahaui/react";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
+import { useThunkDispatch } from "hooks";
+// import {
+//   getUserInfo,
+//   handleAsyncAction,
+//   LOGIN,
+//   login,
+// } from "redux/actions/user.action";
+
 import styles from "./Login.module.scss";
+import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>();
   const passwordRef = useRef<HTMLInputElement>();
+  const navigate = useNavigate();
+  const dispatch = useThunkDispatch();
 
   const handleLoginSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (emailRef.current && passwordRef.current) {
-      console.log(emailRef.current.value, passwordRef.current.value);
+      // dispatch(login(emailRef.current.value, passwordRef.current.value))
+      //   .then(() => {
+      //     dispatch(getUserInfo());
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+
+      dispatch(loginMockSuccess())
+        .then(() => dispatch(getUserInfoMockSuccess))
+        .then(() => navigate("/"));
     }
   };
 
