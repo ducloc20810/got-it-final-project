@@ -16,7 +16,7 @@ const AuthService = {
   },
 
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("auth");
   },
 
   register(name: string, email: string, password: string) {

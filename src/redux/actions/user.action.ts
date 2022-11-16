@@ -9,7 +9,7 @@ export const DELETE_USER: string = "DELETE_USER";
 export const LOGIN = "LOGIN";
 export const REGISTER = "REGISTER";
 
-export const GET_USER_INFO = "GET_USER_INFO";
+export const GET_USER_INFO = "FETCH_USER_INFO";
 
 export const register =
   (name: string, email: string, password: string) =>
@@ -43,9 +43,10 @@ export const handleAsyncAction = async (
     console.log(res);
 
     if (res.ok) {
-      const newType =
-        type.toLowerCase().charAt(0).toUpperCase() +
-        type.toLowerCase().slice(1);
+      let newType = type.split("_").join(" ");
+      newType =
+        newType.toLowerCase().charAt(0).toUpperCase() +
+        newType.toLowerCase().slice(1);
       if (type === "LOGIN") localStorage.setItem("auth", JSON.stringify(data));
 
       dispatch(

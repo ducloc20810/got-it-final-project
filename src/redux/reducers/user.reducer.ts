@@ -45,14 +45,14 @@ const userReducer = (state = initialState, action: Action) => {
         isLoggedIn: false,
       };
 
-    case "FETCH_USER_SUCCESS":
+    case "FETCH_USER_INFO_SUCCESS":
       return {
         ...state,
         isLoggedIn: true,
         ...action.payload,
       };
 
-    case "FETCH_USER_FAILURE":
+    case "FETCH_USER_INFO_FAILURE":
       return state;
 
     default:
