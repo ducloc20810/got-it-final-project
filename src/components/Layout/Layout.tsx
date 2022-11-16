@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./Layout.module.scss";
-import { Header, Sidebar } from "../";
+import styles from "components/Layout/Layout.module.scss";
+import { Header, Sidebar } from "components";
 type LayoutProps = {
   children: React.ReactNode;
 };

@@ -1,15 +1,16 @@
-import { Message } from "../../types/redux";
-import { SET_MESSAGE, CLEAR_MESSAGE } from "../actions/message.action";
-
-const initialState: Message = {
-  message: "",
-  data: {},
-  status: NaN,
-};
+import { RootState } from "redux/store";
+import { Message } from "types/redux";
+import { SET_MESSAGE, CLEAR_MESSAGE } from "redux/actions/message.action";
 
 type Action = {
   type: string;
   payload: Message;
+};
+
+const initialState: Message = {
+  message: "",
+  data: {},
+  status: null,
 };
 
 const messageReducer = (state = initialState, action: Action) => {
@@ -20,11 +21,17 @@ const messageReducer = (state = initialState, action: Action) => {
       return payload;
 
     case CLEAR_MESSAGE:
-      return {};
+      return {
+        message: "",
+        data: {},
+        status: null,
+      };
 
     default:
       return state;
   }
 };
+
+export const messageSelector = (state: RootState) => state.message;
 
 export default messageReducer;

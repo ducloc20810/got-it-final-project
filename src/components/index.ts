@@ -1,4 +1,5 @@
-import Header from "./Header/Header";
-import Layout from "./Layout/Layout";
-import Sidebar from "./Sidebar/Sidebar";
-export { Header, Layout, Sidebar };
+import Header from "components/Header/Header";
+import Layout from "components/Layout/Layout";
+import Sidebar from "components/Sidebar/Sidebar";
+import Message from "components/Common/Message";
+export { Header, Layout, Sidebar, Message };

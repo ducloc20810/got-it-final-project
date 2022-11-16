@@ -1,10 +1,22 @@
 import { Form, Button } from "@ahaui/react";
-import React from "react";
-import styles from "./Login.module.scss";
-import { ReactComponent as Logo } from "../../assets/images/logo-only.svg";
+import React, { useRef } from "react";
+import styles from "pages/Login/Login.module.scss";
+import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const emailRef = useRef<HTMLInputElement>();
+  const passwordRef = useRef<HTMLInputElement>();
+
+  const handleLoginSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (emailRef.current && passwordRef.current) {
+      console.log(emailRef.current.value, passwordRef.current.value);
+    }
+  };
+
+  // const validate = () => {};
+
   return (
     <Form
       className={`${styles.login} u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium`}
@@ -18,11 +30,11 @@ const Login = () => {
         Login to Hello
       </h1>
       <Form.Group sizeControl="large">
-        <Form.Input type="text" placeholder="Email" />
+        <Form.Input type="text" placeholder="Email" ref={emailRef} />
       </Form.Group>
 
       <Form.Group sizeControl="large">
-        <Form.Input type="text" placeholder="Password" />
+        <Form.Input type="password" placeholder="Password" ref={passwordRef} />
       </Form.Group>
 
       <Link
@@ -36,6 +48,7 @@ const Login = () => {
         variant="primary"
         size="large"
         className="u-backgroundPrimary hover:u-background"
+        onClick={(e) => handleLoginSubmit(e)}
       >
         <Button.Label>Login</Button.Label>
       </Button>

@@ -5,7 +5,7 @@ export type User = {
 };
 
 export type Message = {
-  status: number;
+  status: number | null;
   message: string;
   data?: object;
 };

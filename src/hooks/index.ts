@@ -1,4 +1,4 @@
-import useAppDispatch from "./useAppDispatch";
-import useAppSelector from "./useAppSelector";
-import useThunkDispatch from "./useThunkDispatch";
+import useAppDispatch from "hooks/useAppDispatch";
+import useAppSelector from "hooks/useAppSelector";
+import useThunkDispatch from "hooks/useThunkDispatch";
 export { useAppDispatch, useAppSelector, useThunkDispatch };
