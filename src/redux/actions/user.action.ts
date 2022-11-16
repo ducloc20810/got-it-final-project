@@ -6,125 +6,74 @@ import { setMessage } from "redux/actions/message.action";
 export const SET_USER: string = "SET_USER";
 export const DELETE_USER: string = "DELETE_USER";
 
+export const LOGIN = "LOGIN";
+export const REGISTER = "REGISTER";
+
+export const GET_USER_INFO = "GET_USER_INFO";
+
 export const register =
   (name: string, email: string, password: string) =>
-  async (dispatch: TypedDispatch) => {
-    const response: any = await AuthService.register(name, email, password);
-    let data = null;
-    if (response.status === 200 || response.status === 400) {
-      data = await response.json();
-    }
-    switch (response.status) {
-      case 200:
-        dispatch(
-          setMessage({
-            message: "Register successfully",
-            status: response.status,
-          })
-        );
-        dispatch({
-          type: "REGISTER_SUCCESS",
-        });
-
-        return Promise.resolve();
-
-      case 400:
-        dispatch(
-          setMessage({
-            status: response.status,
-            message: data.message,
-          })
-        );
-
-        dispatch({
-          type: "REGISTER_FAILURE",
-        });
-
-        break;
-
-      default:
-        break;
-    }
-
-    return Promise.reject();
-  };
+  (dispatch: TypedDispatch) =>
+    handleAsyncAction(dispatch, REGISTER, () =>
+      AuthService.register(name, email, password)
+    );
 
 export const login =
-  (email: string, password: string) => async (dispatch: TypedDispatch) => {
-    const response: any = await AuthService.login(email, password);
-    let data = null;
-    if (response.status === 200 || response.status === 400) {
-      data = await response.json();
-    }
-
-    switch (response.status) {
-      case 200:
-        localStorage.setItem("auth", JSON.stringify(data));
-        dispatch(
-          setMessage({
-            message: "Login successfully",
-            status: response.status,
-          })
-        );
-        dispatch({ type: "LOGIN_SUCCESS", payload: { isLoggedIn: true } });
-        return Promise.resolve();
-
-      case 400:
-        dispatch(
-          setMessage({
-            status: response.status,
-            message: data.message,
-          })
-        );
-
-        dispatch({ type: "LOGIN_FAILURE" });
-        break;
-
-      default:
-        break;
-    }
-
-    return Promise.reject();
-  };
+  (email: string, password: string) => (dispatch: TypedDispatch) =>
+    handleAsyncAction(dispatch, LOGIN, () =>
+      AuthService.login(email, password)
+    );
 
 export const logout = () => (dispatch: TypedDispatch) => {
   AuthService.logout();
   dispatch({ type: "LOGOUT" });
 };
 
-export const getUserInfo = () => async (dispatch: TypedDispatch) => {
-  const response = await UserService.getUserInfo();
+export const getUserInfo = () => async (dispatch: TypedDispatch) =>
+  handleAsyncAction(dispatch, GET_USER_INFO, () => UserService.getUserInfo());
 
-  let data = null;
-  if (
-    response.status === 200 ||
-    response.status === 400 ||
-    response.status === 401
-  ) {
-    data = await response.json();
-  }
+export const handleAsyncAction = async (
+  dispatch: TypedDispatch,
+  type: string,
+  promise: Function
+) => {
+  try {
+    const res = await promise();
+    const data = await res.json();
+    console.log(res);
 
-  switch (response.status) {
-    case 200:
-      dispatch({
-        type: "FETCH_USER_SUCCESS",
-        payload: { ...data, isLoggedIn: true },
-      });
-      return Promise.resolve();
+    if (res.ok) {
+      const newType =
+        type.toLowerCase().charAt(0).toUpperCase() +
+        type.toLowerCase().slice(1);
+      if (type === "LOGIN") localStorage.setItem("auth", JSON.stringify(data));
 
-    case 400 || 404:
       dispatch(
         setMessage({
-          message: data.message,
-          status: response.status,
+          message: `${newType} successfully`,
+          status: res.status,
         })
       );
 
-      dispatch(logout());
-      break;
+      dispatch({ type: `${type}_SUCCESS` });
+      return Promise.resolve();
+    }
 
-    default:
-      break;
+    // If res is not ok
+    dispatch(
+      setMessage({
+        status: res.status,
+        error: data,
+      })
+    );
+    return Promise.reject(data.message);
+  } catch (err) {
+    console.log(err);
+    dispatch(
+      setMessage({
+        error: { message: "Something is wrong" },
+      })
+    );
+    return Promise.reject(err);
   }
-  return Promise.reject();
 };
