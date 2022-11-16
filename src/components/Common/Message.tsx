@@ -7,13 +7,25 @@ const Message = () => {
   const message = useAppSelector(messageSelector);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (message && message.status && message.data) {
-      toast(`${message.status}: ${message.message}`);
+    // If API return error
+    if (message.status && message.error) {
+      if (!message.error.hasOwnProperty("data")) {
+        toast.error(`${message.status}: ${message.error.message}`);
+      } else {
+        for (let keys in message.error.data) {
+          toast.error(`${message.status}: ${message.error.data[keys][0]}`);
+        }
+      }
+      return;
     }
 
-    return () => {
-      dispatch({ type: "CLEAR_MESSAGE" });
-    };
+    // If fetch error
+    if (!message.status && message.error) {
+      toast.error(message.error.message);
+      return;
+    }
+
+    if (message.message) toast(message.message);
   }, [message, dispatch]);
   return (
     <div>

@@ -5,7 +5,10 @@ export type User = {
 };
 
 export type Message = {
-  status: number | null;
-  message: string;
-  data?: object;
+  status?: number | null;
+  message?: string;
+  error?: {
+    message?: string;
+    data?: any;
+  } | null;
 };

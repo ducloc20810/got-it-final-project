@@ -9,7 +9,7 @@ type Action = {
 
 const initialState: Message = {
   message: "",
-  data: {},
+  error: null,
   status: null,
 };
 
@@ -23,7 +23,7 @@ const messageReducer = (state = initialState, action: Action) => {
     case CLEAR_MESSAGE:
       return {
         message: "",
-        data: {},
+        error: null,
         status: null,
       };
 
