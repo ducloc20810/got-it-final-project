@@ -1,8 +1,8 @@
-import { Form, Button } from "@ahaui/react";
 import React, { useRef } from "react";
-import styles from "pages/Login/Login.module.scss";
-import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { Link } from "react-router-dom";
+import { Form, Button } from "@ahaui/react";
+import { ReactComponent as Logo } from "assets/images/logo-only.svg";
+import styles from "./Login.module.scss";
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>();

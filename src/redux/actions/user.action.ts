@@ -1,7 +1,7 @@
 import { TypedDispatch } from "redux/store";
 import AuthService from "services/auth.service";
-import { setMessage } from "redux/actions/message.action";
 import UserService from "services/user.service";
+import { setMessage } from "redux/actions/message.action";
 
 export const SET_USER: string = "SET_USER";
 export const DELETE_USER: string = "DELETE_USER";

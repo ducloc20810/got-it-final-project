@@ -1,9 +1,11 @@
 import React from "react";
-import styles from "components/Layout/Layout.module.scss";
 import { Header, Sidebar } from "components";
+import styles from "./Layout.module.scss";
+
 type LayoutProps = {
   children: React.ReactNode;
 };
+
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={`${styles.layout} u-screenHeightFull`}>

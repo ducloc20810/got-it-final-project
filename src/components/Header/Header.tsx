@@ -1,10 +1,12 @@
 import React from "react";
 import { Header as AhaHeader, Dropdown, Icon } from "@ahaui/react";
-import { ReactComponent as Logo } from "assets/images/logo.svg";
 import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "assets/images/logo.svg";
 import { useAppSelector } from "hooks";
 import { userSelector } from "redux/reducers/user.reducer";
-import styles from "components/Header/Header.module.scss";
+
+import styles from "./Header.module.scss";
+
 const Header = () => {
   const user = useAppSelector(userSelector);
 

@@ -2,8 +2,9 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home, Login } from "pages";
 import { Layout } from "components";
-import styles from "App.module.scss";
 import { Message } from "components";
+import styles from "App.module.scss";
+
 function App() {
   return (
     <BrowserRouter>
@@ -14,7 +15,7 @@ function App() {
         >
           <Routes>
             <Route index element={<Home />} />
-            <Route path="/login" element={<Login />}></Route>
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </Layout>
