@@ -1,21 +1,20 @@
-import { ReactElement } from "react";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../../../App";
-import { renderWithProviders } from "../../../utils/test.utils";
+import { renderWithReduxProviderOnly } from "../../../utils/test.utils";
 
 test("Layout contains header and sidebar", () => {
-  renderWithProviders(<App />, { user: { isLoggedIn: false } });
+  renderWithReduxProviderOnly(<App />, { user: { isLoggedIn: false } });
 
-  const header = document.querySelector(".header");
-  expect(header?.querySelector("svg")).toBeInTheDocument();
+  const loginText = screen.queryByText(/login/i);
+  expect(loginText).toBeInTheDocument();
 
-  const sidebarText = screen.getByText(/home/i);
+  const sidebarText = screen.queryByText(/home/i);
   expect(sidebarText).toBeInTheDocument();
 });
 
 test("Layout appears on every page", async () => {
-  renderWithProviders(<App />, { user: { isLoggedIn: false } });
+  renderWithReduxProviderOnly(<App />, { user: { isLoggedIn: false } });
 
   const sidebarCategoryText = screen.getByText(/category/i);
   const headerLoginText = screen.getByText(/login/i);
