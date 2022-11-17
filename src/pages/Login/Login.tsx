@@ -1,6 +1,6 @@
-import React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button } from "@ahaui/react";
+import { Form, Button, Loader } from "@ahaui/react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { useThunkDispatch } from "hooks";
@@ -23,17 +23,23 @@ const Login = () => {
     formState: { errors },
   } = useForm<IFormInputs>({ mode: "onChange" });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useThunkDispatch();
 
   const handleLoginSubmit = (data: IFormInputs) => {
     if (data.email && data.password) {
+      setIsLoading(true);
+
       dispatch(login(data.email, data.password))
+        .then(() => dispatch(getUserInfo()))
         .then(() => {
-          dispatch(getUserInfo());
+          setIsLoading(false);
         })
         .catch((err) => {
           console.log(err);
+          setIsLoading(false);
         });
 
       // dispatch(loginMockSuccess())
@@ -104,7 +110,12 @@ const Login = () => {
         className="u-backgroundPrimary hover:u-background"
         onClick={handleSubmit(handleLoginSubmit)}
       >
-        <Button.Label>Login</Button.Label>
+        {!isLoading && <Button.Label>Login</Button.Label>}
+        {isLoading && (
+          <Button.Label>
+            <Loader />
+          </Button.Label>
+        )}
       </Button>
     </Form>
   );
