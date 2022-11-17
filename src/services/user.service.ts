@@ -8,7 +8,7 @@ const UserService = {
       method: "GET",
       headers: {
         ...authHeader(),
-        " Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
     });
   },
