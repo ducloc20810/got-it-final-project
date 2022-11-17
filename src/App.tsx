@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home, Login } from "pages";
+import { Home, Login, SignUp } from "pages";
 import { Layout } from "components";
 import { Message } from "components";
 import styles from "App.module.scss";
@@ -16,6 +16,7 @@ function App() {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
       </Layout>

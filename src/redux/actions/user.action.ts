@@ -14,7 +14,7 @@ export const GET_USER_INFO = "FETCH_USER_INFO";
 export const register =
   (name: string, email: string, password: string) =>
   (dispatch: TypedDispatch) =>
-    handleAsyncAction(dispatch, REGISTER, () =>
+    handleAsyncAction(dispatch, LOGIN, () =>
       AuthService.register(name, email, password)
     );
 
@@ -42,21 +42,21 @@ export const handleAsyncAction = async (
     const data = await res.json();
 
     if (res.ok) {
-      let newType = type.split("_").join(" ");
-      newType =
-        newType.toLowerCase().charAt(0).toUpperCase() +
-        newType.toLowerCase().slice(1);
+      // let newType = type.split("_").join(" ");
+      // newType =
+      //   newType.toLowerCase().charAt(0).toUpperCase() +
+      //   newType.toLowerCase().slice(1);
 
       if (type === "LOGIN") {
         localStorage.setItem("auth", JSON.stringify(data));
       }
 
-      dispatch(
-        setMessage({
-          message: `${newType} successfully`,
-          status: res.status,
-        })
-      );
+      // dispatch(
+      //   setMessage({
+      //     message: `${newType} successfully`,
+      //     status: res.status,
+      //   })
+      // );
 
       dispatch({ type: `${type}_SUCCESS` });
       return Promise.resolve();
