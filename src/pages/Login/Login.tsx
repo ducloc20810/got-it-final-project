@@ -10,11 +10,7 @@ import styles from "./Login.module.scss";
 // import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
 import { emailPattern } from "utils/variables";
 import { InlineError } from "components";
-
-interface IFormInputs {
-  email: string;
-  password: string;
-}
+import { IFormInputs } from "types/form";
 
 const Login = () => {
   const {
@@ -36,6 +32,7 @@ const Login = () => {
         .then(() => dispatch(getUserInfo()))
         .then(() => {
           setIsLoading(false);
+          navigate("/");
         })
         .catch((err) => {
           console.log(err);
@@ -104,19 +101,17 @@ const Login = () => {
         Create account
       </Link>
 
-      <Button
-        variant="primary"
-        size="large"
-        className="u-backgroundPrimary hover:u-background"
-        onClick={handleSubmit(handleLoginSubmit)}
-      >
-        {!isLoading && <Button.Label>Login</Button.Label>}
-        {isLoading && (
-          <Button.Label>
-            <Loader />
-          </Button.Label>
-        )}
-      </Button>
+      {!isLoading && (
+        <Button
+          variant="primary"
+          size="large"
+          className="u-backgroundPrimary hover:u-background"
+          onClick={handleSubmit(handleLoginSubmit)}
+        >
+          <Button.Label>Login</Button.Label>
+        </Button>
+      )}
+      {isLoading && <Loader className="u-marginAuto" />}
     </Form>
   );
 };
