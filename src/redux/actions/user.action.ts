@@ -29,7 +29,7 @@ export const logout = () => (dispatch: TypedDispatch) => {
   dispatch({ type: "LOGOUT" });
 };
 
-export const getUserInfo = () => async (dispatch: TypedDispatch) =>
+export const getUserInfo = () => (dispatch: TypedDispatch) =>
   handleAsyncAction(dispatch, GET_USER_INFO, () => UserService.getUserInfo());
 
 export const handleAsyncAction = async (
@@ -40,14 +40,16 @@ export const handleAsyncAction = async (
   try {
     const res = await promise();
     const data = await res.json();
-    console.log(res);
 
     if (res.ok) {
       let newType = type.split("_").join(" ");
       newType =
         newType.toLowerCase().charAt(0).toUpperCase() +
         newType.toLowerCase().slice(1);
-      if (type === "LOGIN") localStorage.setItem("auth", JSON.stringify(data));
+
+      if (type === "LOGIN") {
+        localStorage.setItem("auth", JSON.stringify(data));
+      }
 
       dispatch(
         setMessage({

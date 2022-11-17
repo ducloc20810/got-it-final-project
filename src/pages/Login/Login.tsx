@@ -4,15 +4,10 @@ import { Form, Button } from "@ahaui/react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { useThunkDispatch } from "hooks";
-// import {
-//   getUserInfo,
-//   handleAsyncAction,
-//   LOGIN,
-//   login,
-// } from "redux/actions/user.action";
+import { getUserInfo, login } from "redux/actions/user.action";
 
 import styles from "./Login.module.scss";
-import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
+// import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
 import { emailPattern } from "utils/variables";
 import { InlineError } from "components";
 
@@ -33,17 +28,17 @@ const Login = () => {
 
   const handleLoginSubmit = (data: IFormInputs) => {
     if (data.email && data.password) {
-      // dispatch(login(data.email, data.password))
-      //   .then(() => {
-      //     dispatch(getUserInfo());
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      dispatch(login(data.email, data.password))
+        .then(() => {
+          dispatch(getUserInfo());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-      dispatch(loginMockSuccess())
-        .then(() => dispatch(getUserInfoMockSuccess))
-        .then(() => navigate("/"));
+      // dispatch(loginMockSuccess())
+      //   .then(() => dispatch(getUserInfoMockSuccess))
+      //   .then(() => navigate("/"));
     }
   };
 

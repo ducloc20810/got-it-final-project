@@ -1,14 +1,15 @@
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import { render } from "@testing-library/react";
 import { reducer } from "redux/store";
 import { BrowserRouter } from "react-router-dom";
+import thunk from "redux-thunk";
 
 export function renderWithProviders(
   ui: React.ReactElement,
   initState = {},
   // Automatically create a store instance if no store was passed in
-  store = createStore(reducer, initState),
+  store = createStore(reducer, initState, applyMiddleware(thunk)),
   ...renderOptions: any
 ) {
   function Wrapper({ children }: React.PropsWithChildren<{}>): JSX.Element {
