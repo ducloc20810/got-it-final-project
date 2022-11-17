@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppDispatch, useAppSelector } from "hooks";
+import { useAppSelector } from "hooks";
 import { messageSelector } from "redux/reducers/message.reducer";
 
 const Message = () => {
   const message = useAppSelector(messageSelector);
-  const dispatch = useAppDispatch();
   useEffect(() => {
     // If API return error
     if (message.status && message.error) {
@@ -27,7 +26,7 @@ const Message = () => {
     }
 
     if (message.message) toast(message.message);
-  }, [message, dispatch]);
+  }, [message]);
   return (
     <div>
       <ToastContainer />
