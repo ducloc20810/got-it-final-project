@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { InlineError } from "components";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { useThunkDispatch } from "hooks";
-import { emailPattern } from "utils/variables";
+import { emailPattern, namePattern } from "utils/variables";
 import { IFormInputs } from "types/form";
 import styles from "./SignUp.module.scss";
 import {
@@ -73,8 +73,15 @@ const SignUp = () => {
           {...register("name", {
             required: "Name is required",
             maxLength: 30,
+            pattern: namePattern,
           })}
         />
+        {errors.name?.type === "pattern" && (
+          <InlineError>
+            Name should not contain any special characters, numbers and have
+            only one space between words
+          </InlineError>
+        )}
 
         {errors.name?.type === "required" && (
           <InlineError>Please enter your name</InlineError>
