@@ -45,6 +45,27 @@ describe("login validate", () => {
       screen.getByText(/password should be at least 6 characters/i)
     ).toBeInTheDocument();
   });
+
+  test("login with email longer than 30 characters", async () => {
+    renderWithProviders(<Login />, { user: { isLoggedIn: false } });
+
+    const data = {
+      email: Array(30).fill("a") + "@gmail.com",
+      password: "123456",
+    };
+
+    await userEvent.type(screen.getByPlaceholderText(/email/i), data.email);
+    await userEvent.type(
+      screen.getByPlaceholderText(/password/i),
+      data.password
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: /login/i }));
+
+    expect(
+      screen.getByText(/maximum length of email is 30 characters/i)
+    ).toBeInTheDocument();
+  });
 });
 
 describe("login with API call", () => {
