@@ -64,6 +64,7 @@ const Login = () => {
           {...register("email", {
             required: "Email is required",
             pattern: emailPattern,
+            maxLength: 30,
           })}
         />
 
@@ -72,6 +73,10 @@ const Login = () => {
         )}
         {errors.email?.type === "pattern" && (
           <InlineError>Email is invalid</InlineError>
+        )}
+
+        {errors.email?.type === "maxLength" && (
+          <InlineError>Maximum length of email is 30 characters</InlineError>
         )}
       </Form.Group>
 
