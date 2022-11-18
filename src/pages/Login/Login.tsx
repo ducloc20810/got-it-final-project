@@ -11,6 +11,7 @@ import styles from "./Login.module.scss";
 import { emailPattern } from "utils/variables";
 import { InlineError } from "components";
 import { IFormInputs } from "types/form";
+import classNames from "classnames";
 
 const Login = () => {
   const {
@@ -47,7 +48,10 @@ const Login = () => {
 
   return (
     <Form
-      className={`${styles.login} u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium`}
+      className={classNames(
+        styles.login,
+        "u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium"
+      )}
     >
       <Logo
         width={40}

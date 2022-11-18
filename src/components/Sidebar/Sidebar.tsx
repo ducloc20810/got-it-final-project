@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { SidebarMenu, Icon, IconType } from "@ahaui/react";
 
 import styles from "./Sidebar.module.scss";
+import classNames from "classnames";
 
 type NavItemsType = Array<{
   id: string;
@@ -37,7 +38,7 @@ const Sidebar = () => {
   }, [location]);
 
   return (
-    <div className={`${styles.sidebar} u-backgroundPrimaryDarker`}>
+    <div className={classNames(styles.sidebar, "u-backgroundPrimaryDarker")}>
       <SidebarMenu
         current={current}
         onSelect={(eventKey) => {
@@ -59,18 +60,22 @@ const Sidebar = () => {
             >
               <Icon
                 name={item.icon}
-                className={`${
+                className={classNames(
                   hoverItem === item.id || current === item.path
                     ? "u-textPrimary"
-                    : "u-textWhite"
-                } u-marginRightSmall`}
+                    : "u-textWhite",
+                  current === item.path ? "u-cursorDefault" : "",
+                  "u-marginRightSmall"
+                )}
               />
               <p
-                className={`${
+                className={classNames(
                   hoverItem === item.id || current === item.path
                     ? "u-textPrimary"
-                    : "u-textWhite"
-                }  u-marginNone`}
+                    : "u-textWhite",
+                  current === item.path ? "u-cursorDefault" : "",
+                  "u-marginNone"
+                )}
               >
                 {item.content}
               </p>

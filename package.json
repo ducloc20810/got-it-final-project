@@ -10,6 +10,7 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
     "@types/react-redux": "^7.1.24",
+    "classnames": "^2.3.2",
     "env-cmd": "^10.1.0",
     "lodash.once": "^4.1.1",
     "react": "^17.0.2",
@@ -27,11 +28,11 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "msw": "^0.48.3",
     "@faker-js/faker": "^7.6.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3"
+    "@testing-library/user-event": "^14.4.3",
+    "msw": "^0.48.3"
   },
   "scripts": {
     "test": "react-scripts test",

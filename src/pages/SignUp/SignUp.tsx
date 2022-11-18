@@ -14,6 +14,7 @@ import {
   getUserInfo,
 } from "redux/actions/user.action";
 import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
+import classNames from "classnames";
 const SignUp = () => {
   const {
     register,
@@ -55,7 +56,10 @@ const SignUp = () => {
 
   return (
     <Form
-      className={`${styles.signUp} u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium`}
+      className={classNames(
+        styles.signUp,
+        "u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium"
+      )}
     >
       <Logo
         width={40}

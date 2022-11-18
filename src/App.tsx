@@ -4,6 +4,7 @@ import { Home, Login, SignUp } from "pages";
 import { Layout } from "components";
 import { Message } from "components";
 import styles from "App.module.scss";
+import classNames from "classnames";
 
 function App() {
   return (
@@ -11,7 +12,10 @@ function App() {
       <Message />
       <Layout>
         <div
-          className={`${styles.App} u-backgroundLightest u-padding u-positionRelative u-paddingLarge`}
+          className={classNames(
+            styles.App,
+            `u-backgroundLightest u-padding u-positionRelative u-paddingLarge`
+          )}
         >
           <Routes>
             <Route index element={<Home />} />
