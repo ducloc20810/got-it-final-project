@@ -1,16 +1,34 @@
+import { Button } from "@ahaui/react";
 import classNames from "classnames";
 import styles from "./Home.module.scss";
-
+import { ReactComponent as Logo } from "assets/images/logo-only.svg";
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div
       className={classNames(
         styles.home,
-        `u-backgroundWhite u-positionAbsolute u-positionCenter u-flex u-flexColumn u-paddingLarge u-roundedMedium u-shadowMedium u-alignItemsCenter u-justifyContentCenter`
+        `u-backgroundWhite u-positionAbsolute u-positionCenter u-flex u-flexColumn u-paddingMedium u-roundedMedium u-shadowMedium u-alignItemsCenter n`
       )}
     >
-      <h1 className="u-displayBlock u-text1200 ">Welcome to Hello</h1>
-      <h3 className="u-displayBlock">This is my final project</h3>
+      <div className="head ">
+        <Logo className="u-marginAuto u-block" />
+        <h3 className="u-displayBlock u-text800 u-textPrimary u-marginTopTiny u-marginBottomNone">
+          Welcome to Hello
+        </h3>
+      </div>
+
+      <h1 className="u-textCenter u-marginBottomNone u-marginTopMedium ">
+        A category management system that allow you to share category and item
+        list
+      </h1>
+
+      <Link
+        to="/categories"
+        className="u-textWhite hover:u-textWhite u-marginTopAuto"
+      >
+        <Button size="large">GET STARTED</Button>
+      </Link>
     </div>
   );
 };

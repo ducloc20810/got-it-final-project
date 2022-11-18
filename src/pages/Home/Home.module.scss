@@ -2,5 +2,11 @@
 
 .home {
   width: 70%;
-  height: 50%;
+  height: 360px;
+
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
