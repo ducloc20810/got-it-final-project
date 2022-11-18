@@ -84,7 +84,7 @@ describe("login with API call", () => {
         if (!password)
           return res(
             ctx.status(401),
-            ctx.json({ message: "Email is missing" })
+            ctx.json({ message: "Password is missing" })
           );
         return res(
           ctx.status(200),
@@ -133,6 +133,7 @@ describe("login with API call", () => {
       store
     );
     const loginSpy = jest.spyOn(action, "login");
+    const fetchUserDataSpy = jest.spyOn(action, "getUserInfo");
 
     const { email, password } = buildLoginData();
     await userEvent.type(screen.getByPlaceholderText(/email/i), email);
@@ -148,10 +149,14 @@ describe("login with API call", () => {
 
     expect(loginSpy).toBeCalledTimes(1);
     expect(loginSpy).toBeCalledWith(email, password);
-    const pathName = window.location.pathname;
-    loginSpy.mockRestore();
 
+    expect(fetchUserDataSpy).toBeCalledTimes(1);
+
+    const pathName = window.location.pathname;
     expect(pathName).toBe("/");
+
+    loginSpy.mockRestore();
+    fetchUserDataSpy.mockRestore();
   });
 
   test("login with unregistered email", async () => {
