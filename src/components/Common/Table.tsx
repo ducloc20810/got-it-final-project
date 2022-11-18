@@ -3,10 +3,11 @@ import React from "react";
 type TableProps = {
   list: Array<any>;
   headers: Array<string>;
+  objectKeys: Array<string>;
 };
 
-const Table: React.FC<TableProps> = ({ list, headers }) => {
-  console.log(list);
+const Table: React.FC<TableProps> = ({ list, headers, objectKeys }) => {
+  console.log(headers);
   return (
     <>
       {list && list.length > 0 && (
@@ -22,7 +23,7 @@ const Table: React.FC<TableProps> = ({ list, headers }) => {
             <tbody>
               {list.map((item, index) => (
                 <tr key={item.id}>
-                  {Object.keys(list[0]).map((keyValue) => (
+                  {objectKeys.map((keyValue) => (
                     <td key={keyValue}>{list[index][keyValue]}</td>
                   ))}
                 </tr>
