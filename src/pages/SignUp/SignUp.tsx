@@ -30,26 +30,26 @@ const SignUp = () => {
     if (data.email && data.password && data.name) {
       setIsLoading(true);
       const { email, name, password } = data;
-      //   dispatch(myRegister(name, email, password))
-      //     .then(() => dispatch(login(email, password)))
-      //     .then(() => dispatch(getUserInfo()))
-      //     .then(() => {
-      //       setIsLoading(false);
-      //       navigate("/");
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //       setIsLoading(false);
-      //     });
-
       dispatch(myRegister(name, email, password))
-        .then(() => dispatch(loginMockSuccess()))
-        .then(() => dispatch(getUserInfoMockSuccess()))
-        .then(() => navigate("/"))
-        .catch((err) => {
-          console.log(err);
+        .then(() => dispatch(login(email, password)))
+        .then(() => dispatch(getUserInfo()))
+        .then(() => {
+          setIsLoading(false);
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
           setIsLoading(false);
         });
+
+      // dispatch(myRegister(name, email, password))
+      //   .then(() => dispatch(loginMockSuccess()))
+      //   .then(() => dispatch(getUserInfoMockSuccess()))
+      //   .then(() => navigate("/"))
+      //   .catch((err) => {
+      //     console.log(err);
+      //     setIsLoading(false);
+      //   });
     }
   };
 
