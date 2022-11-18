@@ -1,14 +1,11 @@
-import {
-  GET_USER_INFO,
-  handleAsyncAction,
-  LOGIN,
-} from "redux/actions/user.action";
+import { userActions } from "redux/actions/user.action";
 import { TypedDispatch } from "redux/store";
+import { handleAsyncAction } from "./library";
 
 export const loginMockSuccess = () => (dispatch: TypedDispatch) =>
   handleAsyncAction(
     dispatch,
-    LOGIN,
+    userActions.LOGIN,
     () =>
       new Promise((resolve) =>
         resolve({
@@ -23,7 +20,7 @@ export const loginMockSuccess = () => (dispatch: TypedDispatch) =>
 export const getUserInfoMockSuccess = () => (dispatch: TypedDispatch) =>
   handleAsyncAction(
     dispatch,
-    GET_USER_INFO,
+    userActions.GET_USER_INFO,
     () =>
       new Promise((resolve) =>
         resolve({
