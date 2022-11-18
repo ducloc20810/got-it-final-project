@@ -23,7 +23,7 @@ const navItems: NavItemsType = [
     id: "2",
     icon: "list",
     content: "Category",
-    path: "/category",
+    path: "/categories",
   },
 ];
 
