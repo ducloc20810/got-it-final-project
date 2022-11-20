@@ -16,14 +16,12 @@ test("Layout contains header and sidebar", () => {
 test("Layout appears on every page", async () => {
   renderWithReduxProviderOnly(<App />, { user: { isLoggedIn: false } });
 
-  const sidebarCategoryText = screen.getByText(/category/i);
-  const headerLoginText = screen.getByText(/login/i);
-  expect(sidebarCategoryText).toBeInTheDocument();
+  expect(screen.getByText(/home/i)).toBeInTheDocument();
 
   // Click to navigate to /login
-  await userEvent.click(headerLoginText);
+  await userEvent.click(screen.getByText(/login/i));
 
   // Check if sidebar and header is still appear
-  expect(sidebarCategoryText).toBeInTheDocument();
-  expect(headerLoginText).toBeInTheDocument();
+  expect(screen.getByText(/home/i)).toBeInTheDocument();
+  expect(screen.getByText(/register/i)).toBeInTheDocument();
 });
