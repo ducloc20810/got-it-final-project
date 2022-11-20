@@ -13,11 +13,7 @@ export const handleAsyncAction = async (
     const data = await res.json();
 
     if (res.ok) {
-      let newType = type.split("_").join(" ");
-      newType =
-        newType.toLowerCase().charAt(0).toUpperCase() +
-        newType.toLowerCase().slice(1);
-
+      const newType = upperFirstChar(type);
       if (type === "LOGIN") {
         localStorage.setItem("auth", JSON.stringify(data));
       }
@@ -56,4 +52,16 @@ export const handleAsyncAction = async (
     );
     return Promise.reject(err);
   }
+};
+
+export const generateNumberArray = (length: number) =>
+  Array.from({ length: length }, (_, i) => i + 1);
+
+export const upperFirstChar = (yourString: string) => {
+  let newString = yourString.split("_").join(" ");
+  newString =
+    newString.toLowerCase().charAt(0).toUpperCase() +
+    newString.toLowerCase().slice(1);
+
+  return newString;
 };
