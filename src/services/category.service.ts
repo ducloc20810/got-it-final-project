@@ -1,3 +1,4 @@
+import { itemsPerPage } from "utils/variables";
 import authHeader from "./auth-header.service";
 
 const API_URL = `${process.env.REACT_APP_BACK_END_URL}/categories`;
@@ -9,7 +10,7 @@ type CategoryPayload = {
 };
 
 const CategoryService = {
-  getCategories(offset: number = 0, limit: number = 20) {
+  getCategories(offset: number = 0, limit: number = itemsPerPage) {
     return fetch(`${API_URL}?offset=${offset}&limit=${limit}`, {
       method: "GET",
     });
