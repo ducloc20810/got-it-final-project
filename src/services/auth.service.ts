@@ -1,18 +1,12 @@
+import helper from "./helper";
+
 const LOGIN_API_URL: string = `${process.env.REACT_APP_BACK_END_URL}/auth`;
 const REGISTER_API_URL: string = `${process.env.REACT_APP_BACK_END_URL}/users`;
 
 const AuthService = {
   login(email: string, password: string) {
-    return fetch(LOGIN_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    const payload = { email, password };
+    return helper.post(LOGIN_API_URL, payload);
   },
 
   logout() {
@@ -20,17 +14,8 @@ const AuthService = {
   },
 
   register(name: string, email: string, password: string) {
-    return fetch(REGISTER_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        name,
-      }),
-    });
+    const payload = { email, password, name };
+    return helper.post(REGISTER_API_URL, payload);
   },
 };
 export default AuthService;

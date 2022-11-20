@@ -1,5 +1,5 @@
+import helper from "./helper";
 import { itemsPerPage } from "utils/variables";
-import authHeader from "./auth-header.service";
 
 const API_URL = `${process.env.REACT_APP_BACK_END_URL}/categories`;
 
@@ -11,32 +11,16 @@ type CategoryPayload = {
 
 const CategoryService = {
   getCategories(offset: number = 0, limit: number = itemsPerPage) {
-    return fetch(`${API_URL}?offset=${offset}&limit=${limit}`, {
-      method: "GET",
-    });
+    const url = `${API_URL}?offset=${offset}&limit=${limit}`;
+    return helper.get(url);
   },
 
   createCategories(payload: CategoryPayload) {
-    return fetch(API_URL, {
-      method: "POST",
-      headers: {
-        ...authHeader(),
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    return helper.post(API_URL, payload);
   },
 
   editCategory(id: string, payload: CategoryPayload) {
-    return fetch(`${API_URL}/${id}`, {
-      method: "PUT",
-      headers: {
-        ...authHeader(),
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify(payload),
-    });
+    return helper.put(`${API_URL}/${id}`, payload);
   },
 };
 
