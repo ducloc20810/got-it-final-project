@@ -58,14 +58,11 @@ const Header = () => {
 
           {!user.isLoggedIn && (
             <div className="u-flex u-alignItemsCenter">
-              <Link
-                className="hover:u-textPrimary hover:u-textUnderline u-textDark"
-                to="/login"
-              >
+              <Link className="hover:u-textPrimary u-textDark" to="/login">
                 Login
               </Link>
               <Link
-                className="hover:u-textPrimary hover:u-textUnderline u-textDark u-marginLeftSmall"
+                className="hover:u-textPrimary u-textDark u-marginLeftSmall"
                 to="/signup"
               >
                 Register
