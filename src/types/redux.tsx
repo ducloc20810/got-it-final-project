@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type User = {
   name?: string;
   id?: string;
@@ -11,4 +13,12 @@ export type Message = {
     message?: string;
     data?: any;
   } | null;
+};
+
+export type Modal = {
+  isLoading: boolean;
+  isOpen: boolean;
+  children: ReactNode;
+  closeHandle: Function;
+  submitHandle: Function;
 };
