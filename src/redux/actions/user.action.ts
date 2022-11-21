@@ -8,7 +8,7 @@ export const userActions = {
   DELETE_USER: "DELETE_USER",
   LOGIN: "LOGIN",
   REGISTER: "REGISTER",
-  GET_USER_INFO: "GET_USER_INFO",
+  FETCH_USER_INFO: "FETCH_USER_INFO",
   LOGOUT: "LOGOUT",
 };
 
@@ -31,6 +31,6 @@ export const logout = () => (dispatch: TypedDispatch) => {
 };
 
 export const getUserInfo = () => (dispatch: TypedDispatch) =>
-  handleAsyncAction(dispatch, userActions.GET_USER_INFO, () =>
+  handleAsyncAction(dispatch, userActions.FETCH_USER_INFO, () =>
     UserService.getUserInfo()
   );

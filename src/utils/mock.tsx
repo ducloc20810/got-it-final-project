@@ -20,7 +20,7 @@ export const loginMockSuccess = () => (dispatch: TypedDispatch) =>
 export const getUserInfoMockSuccess = () => (dispatch: TypedDispatch) =>
   handleAsyncAction(
     dispatch,
-    userActions.GET_USER_INFO,
+    userActions.FETCH_USER_INFO,
     () =>
       new Promise((resolve) =>
         resolve({

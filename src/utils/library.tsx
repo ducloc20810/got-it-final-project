@@ -21,7 +21,7 @@ export const handleAsyncAction = async (
       if (
         type !== userActions.LOGIN &&
         type !== userActions.REGISTER &&
-        type !== userActions.GET_USER_INFO &&
+        type !== userActions.FETCH_USER_INFO &&
         type !== categoryActions.FETCH_CATEGORY_LIST
       )
         dispatch(
@@ -31,7 +31,7 @@ export const handleAsyncAction = async (
           })
         );
 
-      dispatch({ type: `${type}_SUCCESS` });
+      dispatch({ type: `${type}_SUCCESS`, payload: data });
       return Promise.resolve(data);
     }
 
