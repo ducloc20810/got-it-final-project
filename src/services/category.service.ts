@@ -16,11 +16,11 @@ const CategoryService = {
   },
 
   createCategories(payload: CategoryPayload) {
-    return helper.post(API_URL, payload);
+    return helper.postWithAuthentication(API_URL, payload);
   },
 
   editCategory(id: string, payload: CategoryPayload) {
-    return helper.put(`${API_URL}/${id}`, payload);
+    return helper.putWithAuthentication(`${API_URL}/${id}`, payload);
   },
 };
 

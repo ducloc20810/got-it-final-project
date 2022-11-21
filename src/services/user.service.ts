@@ -1,16 +1,10 @@
-import authHeader from "./authHeader.service";
+import helper from "./helper";
 
 const API_URL = `${process.env.REACT_APP_BACK_END_URL}/users/me`;
 
 const UserService = {
   getUserInfo() {
-    return fetch(API_URL, {
-      method: "GET",
-      headers: {
-        ...authHeader(),
-        "Content-Type": "application/json",
-      },
-    });
+    return helper.getWithAuthentication(API_URL);
   },
 };
 export default UserService;
