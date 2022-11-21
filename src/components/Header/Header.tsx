@@ -4,9 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "assets/images/logo.svg";
 import { useAppSelector, useThunkDispatch } from "hooks";
 import { userSelector } from "redux/reducers/user.reducer";
-import { getUserInfoMockSuccess } from "utils/mock";
+import { getUserInfo, logout } from "redux/actions/user.action";
 import styles from "./Header.module.scss";
-import { logout } from "redux/actions/user.action";
 
 const Header = () => {
   const user = useAppSelector(userSelector);
@@ -14,11 +13,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("auth"))
-      dispatch(getUserInfoMockSuccess()).then(() => {
+    if (localStorage.getItem("auth") && !user.id && !user.name)
+      dispatch(getUserInfo()).then(() => {
         navigate("/");
       });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, user]);
 
   const logoutHandle = () => {
     dispatch(logout());
@@ -38,7 +37,14 @@ const Header = () => {
             <>
               <Dropdown alignRight className="u-marginLeftExtraSmall">
                 <Dropdown.Toggle className="u-textLight u-lineHeightNone">
-                  <Icon name="contact" size="medium" />
+                  <div className="u-flex u-alignItemsCenter">
+                    <Icon
+                      name="contact"
+                      size="medium"
+                      className="u-marginRightTiny"
+                    />
+                    <div>{user.name}</div>
+                  </div>
                 </Dropdown.Toggle>
                 <Dropdown.Container
                   className={`u-cursorPointer u-marginNone u-minWidth-0`}
