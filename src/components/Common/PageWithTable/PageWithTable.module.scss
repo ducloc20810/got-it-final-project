@@ -11,4 +11,12 @@
       margin-bottom: 0;
     }
   }
+
+  tbody td,
+  thead th {
+    vertical-align: middle;
+  }
+  a {
+    text-decoration: none;
+  }
 }

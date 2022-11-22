@@ -1,27 +1,36 @@
 // @ts-nocheck
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { Pagination, Loader } from "@ahaui/react";
 import classNames from "classnames";
-import { Table } from "components";
 import { itemsPerPage } from "utils/variables";
 import { CategoriesDataType } from "pages/Categories/CategoriesType";
 import { itemsDataType } from "pages/Items/ItemsType";
 import { useThunkDispatch } from "hooks";
-import { fetchCategoryList } from "redux/actions/category.action";
-import { generateNumberArray, upperFirstChar } from "utils/library";
+import { generateNumberArray } from "utils/library";
 import styles from "./PageWithTable.module.scss";
 
 type PageWithTableProps = {
-  type: string;
+  tableTitle: string;
   breadcrumb: string;
+  fetchData: Function;
+  CreateButton: React.ReactNode;
+  renderTable: Function;
 };
 
-const PageWithTable: React.FC<PageWithTableProps> = ({ type, breadcrumb }) => {
+const PageWithTable: React.FC<PageWithTableProps> = ({
+  tableTitle,
+  breadcrumb,
+  fetchData,
+  CreateButton,
+  renderTable,
+}) => {
   const [data, setData] = useState<CategoriesDataType | itemsDataType>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
-  const typedDispatch = useThunkDispatch();
+  const dispatch = useThunkDispatch();
+
+  const componentRef = useRef<HTMLDivElement>();
 
   const totalPage = useMemo(
     () => (data?.total_items ? Math.ceil(data.total_items / itemsPerPage) : 0),
@@ -40,37 +49,25 @@ const PageWithTable: React.FC<PageWithTableProps> = ({ type, breadcrumb }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    switch (type.toLowerCase()) {
-      case "category":
-        typedDispatch(fetchCategoryList((currentPage - 1) * itemsPerPage))
-          .then((data) => {
-            console.log(data);
-            setData(data);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            console.log(err);
-            setIsLoading(false);
-          });
-        break;
-
-      case "item":
-        // typedDispatch(fetchCategoryList((currentPage - 1) * itemsPerPage)).then(
-        //   (data) => {
-        //     console.log(data);
-        //     setData(data);
-        //   }
-        // );
-        break;
-
-      default:
-        break;
-    }
-  }, [typedDispatch, currentPage, type]);
+    dispatch(fetchData())
+      .then((data) => {
+        if (componentRef.current) {
+          setData(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((e) => {
+        if (componentRef.current) setIsLoading(false);
+        throw Error(e);
+      });
+  }, [dispatch, currentPage, fetchData]);
 
   return (
-    <div className={classNames(styles.page)}>
-      <h1 className="u-text600">{breadcrumb}</h1>
+    <div className={classNames(styles.page)} ref={componentRef}>
+      <div className="u-flex u-justifyContentBetween u-alignItemsCenter u-marginBottomSmall">
+        <h1 className="u-text600 u-marginNone">{breadcrumb}</h1>
+        {CreateButton}
+      </div>
 
       <div
         className={classNames(
@@ -79,18 +76,13 @@ const PageWithTable: React.FC<PageWithTableProps> = ({ type, breadcrumb }) => {
         )}
       >
         <header className="u-backgroundLightest u-paddingHorizontalMedium u-paddingVerticalTiny u-textPrimaryDarker">
-          {upperFirstChar(type)} list
+          {tableTitle}
         </header>
         <div className="u-paddingHorizontalMedium u-paddingVerticalSmall">
           {!isLoading && (
             <>
               {/*Table section  */}
-              <Table
-                list={data?.items}
-                type={type}
-                editHandle={() => {}}
-                removeHandle={() => {}}
-              />
+              {renderTable(data?.items)}
 
               {/* Pagination section*/}
               {data && data.total_items > 0 && (
