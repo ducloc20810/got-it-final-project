@@ -11,8 +11,8 @@ const initialState: Modal = {
   isLoading: false,
   isOpen: false,
   Children: null,
-  CloseButton: null,
-  SubmitButton: null,
+  // CloseButton: null,
+  // SubmitButton: null,
   title: "",
   closeHandle: () => {},
 };
@@ -54,8 +54,8 @@ const modalReducer = (state: Modal = initialState, action: Action): Modal => {
         isLoading: false,
         isOpen: false,
         Children: null,
-        CloseButton: null,
-        SubmitButton: null,
+        // CloseButton: null,
+        // SubmitButton: null,
         title: "",
         closeHandle: () => {},
       };

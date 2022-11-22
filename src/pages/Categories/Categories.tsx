@@ -9,19 +9,8 @@ import { CategoryType } from "./CategoriesType";
 import { IFormCRUDInputs } from "types/form";
 import CategoryCreateForm from "components/Categories/CategoryCreateForm";
 import CategoryService from "services/category.service";
-import { useEffect } from "react";
 
 const Categories = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormCRUDInputs>({ mode: "onChange" });
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   const dispatch = useThunkDispatch();
 
   const renderTable = (list: Array<CategoryType>) => (
@@ -31,10 +20,6 @@ const Categories = () => {
       editHandle={() => {}}
     />
   );
-
-  const closeModalHandle = () => {
-    dispatch(clearModal());
-  };
 
   const submitModalHandle = (data: IFormCRUDInputs) => {
     console.log("hello");
@@ -49,27 +34,22 @@ const Categories = () => {
     }
   };
 
+  const closeModalHandle = () => {
+    dispatch(clearModal());
+  };
+
   const createCategoryOnClick = () => {
     dispatch(
       setModal({
-        Children: <CategoryCreateForm />,
+        Children: (
+          <CategoryCreateForm
+            submitHandle={submitModalHandle}
+            closeHandle={closeModalHandle}
+          />
+        ),
         isLoading: false,
         isOpen: true,
         title: "Create category form",
-        SubmitButton: (
-          <Button
-            variant="primary"
-            width="full"
-            onClick={handleSubmit(submitModalHandle)}
-          >
-            Submit
-          </Button>
-        ),
-        CloseButton: (
-          <Button variant="secondary" width="full" onClick={closeModalHandle}>
-            Close
-          </Button>
-        ),
         closeHandle: closeModalHandle,
       })
     );

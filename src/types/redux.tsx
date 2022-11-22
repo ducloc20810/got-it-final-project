@@ -19,7 +19,7 @@ export type Modal = {
   isOpen: boolean;
   title: string;
   Children: React.ReactNode;
-  CloseButton: React.ReactNode;
-  SubmitButton: React.ReactNode;
+  // CloseButton: React.ReactNode;
+  // SubmitButton: React.ReactNode;
   closeHandle: Function;
 };

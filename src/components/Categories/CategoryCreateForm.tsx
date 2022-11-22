@@ -1,10 +1,24 @@
-import { Form } from "@ahaui/react";
+import { Button, Form } from "@ahaui/react";
 import { InlineError } from "components/Common";
 import React from "react";
+import { useForm } from "react-hook-form";
+import { IFormCRUDInputs } from "types/form";
 
-type CreateFormProps = any;
+type CreateFormProps = {
+  submitHandle: (data: IFormCRUDInputs) => void;
+  closeHandle: Function;
+};
 
-const CategoryCreateForm: React.FC<CreateFormProps> = () => {
+const CategoryCreateForm: React.FC<CreateFormProps> = ({
+  submitHandle,
+  closeHandle,
+}) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormCRUDInputs>({ mode: "onChange" });
+
   return (
     <>
       <Form.Group sizeControl="large">
@@ -68,6 +82,28 @@ const CategoryCreateForm: React.FC<CreateFormProps> = () => {
           </InlineError>
         )}
       </Form.Group>
+
+      <div className="u-backgroundLightest u-paddingMedium u-flex u-alignItemsCenter u-justifyContentEnd">
+        <Button
+          className="u-marginRightSmall"
+          variant="secondary"
+          onClick={(e) => {
+            e.preventDefault();
+            closeHandle();
+          }}
+          width="full"
+        >
+          Close
+        </Button>
+
+        <Button
+          width="full"
+          variant="primary"
+          onClick={handleSubmit(submitHandle)}
+        >
+          Submit
+        </Button>
+      </div>
     </>
   );
 };
