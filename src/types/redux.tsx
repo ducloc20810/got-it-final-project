@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-
+import React from "react";
 export type User = {
   name?: string;
   id?: string;
@@ -19,9 +18,8 @@ export type Modal = {
   isLoading: boolean;
   isOpen: boolean;
   title: string;
-  children: ReactNode;
-  closeButtonContent: string;
-  submitButtonContent: string;
+  Children: React.ReactNode;
+  CloseButton: React.ReactNode;
+  SubmitButton: React.ReactNode;
   closeHandle: Function;
-  submitHandle: Function;
 };

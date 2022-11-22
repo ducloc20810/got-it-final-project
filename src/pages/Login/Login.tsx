@@ -10,7 +10,7 @@ import styles from "./Login.module.scss";
 // import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
 import { emailPattern } from "utils/variables";
 import { InlineError } from "components/Common";
-import { IFormInputs } from "types/form";
+import { IFormAuthInputs } from "types/form";
 import classNames from "classnames";
 
 const Login = () => {
@@ -18,14 +18,14 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({ mode: "onChange" });
+  } = useForm<IFormAuthInputs>({ mode: "onChange" });
 
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useThunkDispatch();
 
-  const handleLoginSubmit = (data: IFormInputs) => {
+  const handleLoginSubmit = (data: IFormAuthInputs) => {
     if (data.email && data.password) {
       setIsLoading(true);
 

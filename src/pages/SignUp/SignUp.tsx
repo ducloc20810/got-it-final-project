@@ -6,7 +6,7 @@ import { InlineError } from "components/Common";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { useThunkDispatch } from "hooks";
 import { emailPattern, namePattern } from "utils/variables";
-import { IFormInputs } from "types/form";
+import { IFormAuthInputs } from "types/form";
 import styles from "./SignUp.module.scss";
 import {
   register as myRegister,
@@ -19,14 +19,14 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({ mode: "onChange" });
+  } = useForm<IFormAuthInputs>({ mode: "onChange" });
 
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useThunkDispatch();
 
-  const handleLoginSubmit = (data: IFormInputs) => {
+  const handleLoginSubmit = (data: IFormAuthInputs) => {
     if (data.email && data.password && data.name) {
       setIsLoading(true);
       const { email, name, password } = data;

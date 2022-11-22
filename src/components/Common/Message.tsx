@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAppSelector } from "hooks";
+import { useAppSelector, useThunkDispatch } from "hooks";
 import { messageSelector } from "redux/reducers/message.reducer";
+import { clearMessage } from "redux/actions/message.action";
 
 const Message = () => {
   const message = useAppSelector(messageSelector);
+  const dispatch = useThunkDispatch();
   useEffect(() => {
+    if (!message.status && !message.error && !message.message) return;
+
     // If API return error
     if (message.status && message.error) {
       if (!message.error.hasOwnProperty("data")) {
@@ -16,16 +20,16 @@ const Message = () => {
           toast.error(`${message.status}: ${message.error.data[keys][0]}`);
         }
       }
-      return;
     }
 
     // If fetch error
-    if (!message.status && message.error) {
+    else if (!message.status && message.error) {
       toast.error(message.error.message);
-      return;
-    }
+    } else if (message.message) toast(message.message);
 
-    if (message.message) toast(message.message);
+    return () => {
+      dispatch(clearMessage());
+    };
   }, [message]);
   return (
     <div>

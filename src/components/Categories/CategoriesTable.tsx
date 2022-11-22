@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import { Icon } from "@ahaui/react";
 import { Link } from "react-router-dom";
 import { CategoryType } from "pages/Categories/CategoriesType";

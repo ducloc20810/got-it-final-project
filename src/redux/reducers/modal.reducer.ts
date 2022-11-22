@@ -10,12 +10,11 @@ type Action = {
 const initialState: Modal = {
   isLoading: false,
   isOpen: false,
-  children: null,
+  Children: null,
+  CloseButton: null,
+  SubmitButton: null,
   title: "",
-  closeButtonContent: "Close",
-  submitButtonContent: "Submit",
   closeHandle: () => {},
-  submitHandle: () => {},
 };
 
 const modalReducer = (state: Modal = initialState, action: Action): Modal => {
@@ -50,49 +49,17 @@ const modalReducer = (state: Modal = initialState, action: Action): Modal => {
         isLoading: true,
       };
 
-    case modalActions.SET_TITLE:
+    case modalActions.CLEAR_MODAL:
       return {
-        ...state,
-        title: action.payload?.title ? action.payload.title : "Close",
+        isLoading: false,
+        isOpen: false,
+        Children: null,
+        CloseButton: null,
+        SubmitButton: null,
+        title: "",
+        closeHandle: () => {},
       };
 
-    case modalActions.SET_CLOSE_BUTTON_CONTENT:
-      return {
-        ...state,
-        closeButtonContent: action.payload?.closeButtonContent
-          ? action.payload.closeButtonContent
-          : "Close",
-      };
-
-    case modalActions.SET_SUBMIT_BUTTON_CONTENT:
-      return {
-        ...state,
-        submitButtonContent: action.payload?.submitButtonContent
-          ? action.payload.submitButtonContent
-          : "Submit",
-      };
-
-    case modalActions.SET_CHILDREN:
-      return {
-        ...state,
-        children: action.payload?.children,
-      };
-
-    case modalActions.SET_CLOSE_HANDLE:
-      return {
-        ...state,
-        closeHandle: action.payload?.closeHandle
-          ? action.payload.closeHandle
-          : state.closeHandle,
-      };
-
-    case modalActions.SET_SUBMIT_HANDLE:
-      return {
-        ...state,
-        submitHandle: action.payload?.submitHandle
-          ? action.payload.submitHandle
-          : state.closeHandle,
-      };
     default:
       return state;
   }

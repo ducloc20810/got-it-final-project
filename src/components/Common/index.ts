@@ -5,14 +5,4 @@ import Message from "components/Common/Message";
 import InlineError from "components/Common/InlineError";
 import PageWithTable from "components/Common/PageWithTable/PageWithTable";
 import Modal from "components/Common/Modal/Modal";
-import CreateForm from "components/Common/Form/CreateForm/CreateForm";
-export {
-  Header,
-  Layout,
-  Sidebar,
-  Message,
-  InlineError,
-  PageWithTable,
-  Modal,
-  CreateForm,
-};
+export { Header, Layout, Sidebar, Message, InlineError, PageWithTable, Modal };
