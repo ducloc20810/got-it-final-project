@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "../../../App";
-import { renderWithReduxProviderOnly } from "../../../utils/test.utils";
+import App from "../../../../App";
+import { renderWithReduxProviderOnly } from "../../../../utils/test.utils";
 
 test("Layout contains header and sidebar", () => {
   renderWithReduxProviderOnly(<App />, { user: { isLoggedIn: false } });

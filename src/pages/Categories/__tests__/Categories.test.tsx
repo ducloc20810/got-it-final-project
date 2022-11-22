@@ -5,7 +5,7 @@ import { rest } from "msw";
 import { renderWithProviders } from "utils/test.utils";
 import { Categories } from "pages";
 import * as action from "redux/actions/category.action";
-import { Message } from "components";
+import { Message } from "components/Common";
 
 describe("fetch category list data", () => {
   const server = setupServer(

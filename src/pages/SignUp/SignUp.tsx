@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Loader } from "@ahaui/react";
 import { useForm } from "react-hook-form";
-import { InlineError } from "components";
+import { InlineError } from "components/Common";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
 import { useThunkDispatch } from "hooks";
 import { emailPattern, namePattern } from "utils/variables";
@@ -13,7 +13,6 @@ import {
   login,
   getUserInfo,
 } from "redux/actions/user.action";
-import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
 import classNames from "classnames";
 const SignUp = () => {
   const {

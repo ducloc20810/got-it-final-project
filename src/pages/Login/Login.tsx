@@ -9,7 +9,7 @@ import { getUserInfo, login } from "redux/actions/user.action";
 import styles from "./Login.module.scss";
 // import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
 import { emailPattern } from "utils/variables";
-import { InlineError } from "components";
+import { InlineError } from "components/Common";
 import { IFormInputs } from "types/form";
 import classNames from "classnames";
 

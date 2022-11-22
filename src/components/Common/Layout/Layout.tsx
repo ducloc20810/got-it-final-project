@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Sidebar } from "components";
+import { Header, Sidebar } from "components/Common";
 import styles from "./Layout.module.scss";
 import classNames from "classnames";
 

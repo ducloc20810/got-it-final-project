@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Categories, Home, Login, SignUp } from "pages";
-import { Layout, Modal } from "components";
-import { Message } from "components";
+import { Layout, Modal } from "components/Common";
+import { Message } from "components/Common";
 import styles from "App.module.scss";
 import classNames from "classnames";
 
 function App() {
   return (
     <BrowserRouter>
-    <Modal />
+      <Modal />
       <Message />
       <Layout>
         <div
