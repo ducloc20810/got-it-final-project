@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Header as AhaHeader, Dropdown, Icon } from "@ahaui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "assets/images/logo.svg";
@@ -11,13 +11,20 @@ const Header = () => {
   const user = useAppSelector(userSelector);
   const dispatch = useThunkDispatch();
   const navigate = useNavigate();
+  const [isFetch, setIsFetch] = useState(0);
 
   useEffect(() => {
-    if (localStorage.getItem("auth") && !user.id && !user.name)
-      dispatch(getUserInfo()).then(() => {
-        navigate("/");
-      });
-  }, [dispatch, navigate, user]);
+    if (localStorage.getItem("auth") && !user.id && !user.name && isFetch === 0)
+      dispatch(getUserInfo())
+        .then(() => {
+          setIsFetch((prev) => prev + 1);
+          navigate("/");
+        })
+        .catch((e) => {
+          setIsFetch((prev) => prev + 1);
+          throw Error(e);
+        });
+  }, [dispatch, navigate, user, isFetch]);
 
   const logoutHandle = () => {
     dispatch(logout());
