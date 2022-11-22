@@ -18,7 +18,10 @@ export type Message = {
 export type Modal = {
   isLoading: boolean;
   isOpen: boolean;
+  title: string;
   children: ReactNode;
+  closeButtonContent: string;
+  submitButtonContent: string;
   closeHandle: Function;
   submitHandle: Function;
 };

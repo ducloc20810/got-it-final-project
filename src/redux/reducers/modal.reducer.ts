@@ -11,12 +11,21 @@ const initialState: Modal = {
   isLoading: false,
   isOpen: false,
   children: null,
+  title: "",
+  closeButtonContent: "Close",
+  submitButtonContent: "Submit",
   closeHandle: () => {},
   submitHandle: () => {},
 };
 
-const modalReducer = (state = initialState, action: Action) => {
+const modalReducer = (state: Modal = initialState, action: Action): Modal => {
   switch (action.type) {
+    case modalActions.SET_MODAL:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     case modalActions.CLOSE_MODAL:
       return {
         ...state,
@@ -41,6 +50,28 @@ const modalReducer = (state = initialState, action: Action) => {
         isLoading: true,
       };
 
+    case modalActions.SET_TITLE:
+      return {
+        ...state,
+        title: action.payload?.title ? action.payload.title : "Close",
+      };
+
+    case modalActions.SET_CLOSE_BUTTON_CONTENT:
+      return {
+        ...state,
+        closeButtonContent: action.payload?.closeButtonContent
+          ? action.payload.closeButtonContent
+          : "Close",
+      };
+
+    case modalActions.SET_SUBMIT_BUTTON_CONTENT:
+      return {
+        ...state,
+        submitButtonContent: action.payload?.submitButtonContent
+          ? action.payload.submitButtonContent
+          : "Submit",
+      };
+
     case modalActions.SET_CHILDREN:
       return {
         ...state,
@@ -50,14 +81,20 @@ const modalReducer = (state = initialState, action: Action) => {
     case modalActions.SET_CLOSE_HANDLE:
       return {
         ...state,
-        closeHandle: action.payload?.closeHandle,
+        closeHandle: action.payload?.closeHandle
+          ? action.payload.closeHandle
+          : state.closeHandle,
       };
 
     case modalActions.SET_SUBMIT_HANDLE:
       return {
         ...state,
-        submitHandle: action.payload?.submitHandle,
+        submitHandle: action.payload?.submitHandle
+          ? action.payload.submitHandle
+          : state.closeHandle,
       };
+    default:
+      return state;
   }
 };
 
