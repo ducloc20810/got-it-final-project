@@ -1,16 +1,20 @@
-import { Button } from "@ahaui/react";
-import CategoriesTable from "components/Categories/CategoriesTable";
-import { PageWithTable } from "components/Common";
-import { useTypedDispatch } from "hooks";
+import { Button } from '@ahaui/react';
+import CategoriesTable from 'components/Categories/CategoriesTable';
+import { PageWithTable } from 'components/Common';
+import { useTypedDispatch } from 'hooks';
 import {
   createCategory,
   fetchCategoryList,
-} from "redux/actions/category.action";
-import { clearModal, setLoading, setModal } from "redux/actions/modal.action";
-import { CategoriesDataType, CategoryType } from "./CategoriesType";
-import { IFormCRUDInputs } from "types/form";
-import CategoryCreateForm from "components/Categories/CategoryCreateForm";
-import { useState } from "react";
+} from 'redux/actions/category.action';
+import {
+  clearModal,
+  setLoading,
+  setModal,
+} from 'redux/actions/modal.action';
+import { CategoriesDataType, CategoryType } from './CategoriesType';
+import { IFormCategoryInputs } from 'types/form';
+import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
+import { useState } from 'react';
 
 const Categories = () => {
   const [data, setData] = useState<CategoriesDataType>({
@@ -27,7 +31,7 @@ const Categories = () => {
     />
   );
 
-  const submitCreateFormModalHandle = (data: IFormCRUDInputs) => {
+  const submitCreateFormModalHandle = (data: IFormCategoryInputs) => {
     if (data.name && data.description && data.imageUrl) {
       dispatch(setLoading());
 
@@ -36,19 +40,15 @@ const Categories = () => {
           name: data.name,
           description: data.description,
           image_url: data.imageUrl,
-        })
-      )
-        .then((data) => {
-          setData((prev) => ({
-            ...prev,
-            total_items: prev.total_items + 1,
-            items: [...prev.items, data],
-          }));
-          dispatch(clearModal());
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        }),
+      ).then((data) => {
+        setData((prev) => ({
+          ...prev,
+          total_items: prev.total_items + 1,
+          items: [...prev.items, data],
+        }));
+        dispatch(clearModal());
+      });
     }
   };
 
@@ -67,10 +67,10 @@ const Categories = () => {
         ),
         isLoading: false,
         isOpen: true,
-        title: "Create category form",
+        title: 'Create category form',
         footer: null,
         closeHandle: closeModalHandle,
-      })
+      }),
     );
   };
 
@@ -80,12 +80,14 @@ const Categories = () => {
         data={data}
         setData={setData}
         renderTable={renderTable}
-        breadcrumb={"Manage Category"}
+        breadcrumb={'Manage Category'}
         fetchData={fetchCategoryList}
         CreateButton={
-          <Button onClick={createCategoryOnClick}>Create category</Button>
+          <Button onClick={createCategoryOnClick}>
+            Create category
+          </Button>
         }
-        tableTitle={"Category List"}
+        tableTitle={'Category List'}
       />
     </div>
   );

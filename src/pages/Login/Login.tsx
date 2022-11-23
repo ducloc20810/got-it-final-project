@@ -1,29 +1,29 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Loader } from "@ahaui/react";
-import { useForm } from "react-hook-form";
-import { ReactComponent as Logo } from "assets/images/logo-only.svg";
-import { useTypedDispatch } from "hooks";
-import { getUserInfo, login } from "redux/actions/user.action";
-import { InlineError } from "components/Common";
-import { IFormAuthInputs } from "types/form";
-import classNames from "classnames";
-import { EMAIL_PATTERN } from "constants/form";
-import styles from "./Login.module.scss";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Form, Button, Loader } from '@ahaui/react';
+import { useForm } from 'react-hook-form';
+import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
+import { useTypedDispatch } from 'hooks';
+import { getUserInfo, login } from 'redux/actions/user.action';
+import { InlineError } from 'components/Common';
+import { IFormLoginInputs } from 'types/form';
+import classNames from 'classnames';
+import { EMAIL_PATTERN } from 'constants/form';
+import styles from './Login.module.scss';
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormAuthInputs>({ mode: "onChange" });
+  } = useForm<IFormLoginInputs>({ mode: 'onChange' });
 
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useTypedDispatch();
 
-  const handleLoginSubmit = (data: IFormAuthInputs) => {
+  const handleLoginSubmit = (data: IFormLoginInputs) => {
     if (data.email && data.password) {
       setIsLoading(true);
 
@@ -31,10 +31,9 @@ const Login = () => {
         .then(() => dispatch(getUserInfo()))
         .then(() => {
           setIsLoading(false);
-          navigate("/");
+          navigate('/');
         })
-        .catch((error: any) => {
-          console.log(error);
+        .catch(() => {
           setIsLoading(false);
         });
     }
@@ -44,7 +43,7 @@ const Login = () => {
     <Form
       className={classNames(
         styles.login,
-        "u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium"
+        'u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium',
       )}
     >
       <Logo
@@ -59,22 +58,24 @@ const Login = () => {
         <Form.Input
           type="text"
           placeholder="Email"
-          {...register("email", {
-            required: "Email is required",
+          {...register('email', {
+            required: 'Email is required',
             pattern: EMAIL_PATTERN,
             maxLength: 30,
           })}
         />
 
-        {errors.email?.type === "required" && (
+        {errors.email?.type === 'required' && (
           <InlineError>Please enter your email</InlineError>
         )}
-        {errors.email?.type === "pattern" && (
+        {errors.email?.type === 'pattern' && (
           <InlineError>Email is invalid</InlineError>
         )}
 
-        {errors.email?.type === "maxLength" && (
-          <InlineError>Maximum length of email is 30 characters</InlineError>
+        {errors.email?.type === 'maxLength' && (
+          <InlineError>
+            Maximum length of email is 30 characters
+          </InlineError>
         )}
       </Form.Group>
 
@@ -82,18 +83,20 @@ const Login = () => {
         <Form.Input
           type="password"
           placeholder="Password"
-          {...register("password", {
-            required: "Password is required",
+          {...register('password', {
+            required: 'Password is required',
             minLength: 6,
           })}
         />
 
-        {errors.password?.type === "required" && (
+        {errors.password?.type === 'required' && (
           <InlineError>Please enter your password</InlineError>
         )}
 
-        {errors.password?.type === "minLength" && (
-          <InlineError>Password should be at least 6 characters</InlineError>
+        {errors.password?.type === 'minLength' && (
+          <InlineError>
+            Password should be at least 6 characters
+          </InlineError>
         )}
       </Form.Group>
 
