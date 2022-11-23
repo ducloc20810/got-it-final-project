@@ -2,10 +2,10 @@ import { Button, Form } from '@ahaui/react';
 import { InlineError } from 'components/Common';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { IFormCRUDInputs } from 'types/form';
+import { IFormCategoryInputs } from 'types/form';
 
 type CreateFormProps = {
-  submitHandle: (data: IFormCRUDInputs) => void;
+  submitHandle: (data: IFormCategoryInputs) => void;
   closeHandle: Function;
 };
 
@@ -17,7 +17,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormCRUDInputs>({ mode: 'onChange' });
+  } = useForm<IFormCategoryInputs>({ mode: 'onChange' });
 
   return (
     <>
@@ -37,7 +37,9 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           )}
 
           {errors.name?.type === 'maxLength' && (
-            <InlineError>Maximum length of name is 30 characters</InlineError>
+            <InlineError>
+              Maximum length of name is 30 characters
+            </InlineError>
           )}
         </Form.Group>
 

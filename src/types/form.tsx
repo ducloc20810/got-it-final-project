@@ -1,11 +1,16 @@
-export interface IFormAuthInputs {
+export interface IFormSignUpInputs {
   email: string;
   password: string;
-  name?: string;
+  name: string;
 }
 
-export interface IFormCRUDInputs {
-  name?: string;
+export interface IFormLoginInputs {
+  email: string;
+  password: string;
+}
+
+export interface IFormCategoryInputs {
+  name: string;
   description: string;
   imageUrl: string;
 }
