@@ -10,9 +10,8 @@ type Action = {
 const initialState: Modal = {
   isLoading: false,
   isOpen: false,
-  Children: null,
-  // CloseButton: null,
-  // SubmitButton: null,
+  children: null,
+  footer: null,
   title: "",
   closeHandle: () => {},
 };
@@ -53,9 +52,8 @@ const modalReducer = (state: Modal = initialState, action: Action): Modal => {
       return {
         isLoading: false,
         isOpen: false,
-        Children: null,
-        // CloseButton: null,
-        // SubmitButton: null,
+        children: null,
+        footer: null,
         title: "",
         closeHandle: () => {},
       };

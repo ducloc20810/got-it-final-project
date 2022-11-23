@@ -59,7 +59,7 @@ const Categories = () => {
   const createCategoryOnClick = () => {
     dispatch(
       setModal({
-        Children: (
+        children: (
           <CategoryCreateForm
             submitHandle={submitCreateFormModalHandle}
             closeHandle={closeModalHandle}
@@ -68,6 +68,7 @@ const Categories = () => {
         isLoading: false,
         isOpen: true,
         title: "Create category form",
+        footer: null,
         closeHandle: closeModalHandle,
       })
     );

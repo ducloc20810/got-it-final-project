@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal as AhaModal } from "@ahaui/react";
+import { Button, Modal as AhaModal } from "@ahaui/react";
 import { useAppSelector } from "hooks";
 import { modalSelector } from "redux/reducers/modal.reducer";
 import styles from "./Modal.module.scss";
@@ -44,12 +44,20 @@ const Modal = () => {
           <AhaModal.Title>{state.title}</AhaModal.Title>
         </AhaModal.Header>
         <AhaModal.Body className="u-paddingNone">
-          <div className="u-textCenter">{state.Children}</div>
+          <div className="u-textCenter">{state.children}</div>
         </AhaModal.Body>
-        {/* <AhaModal.Footer ref={buttonsRef}>
-            {state.CloseButton}
-            {state.SubmitButton}
-          </AhaModal.Footer> */}
+        {state.footer === undefined ? (
+          <AhaModal.Footer>
+            <Button variant="secondary" width="full">
+              Cancel
+            </Button>
+            <Button variant="primary" width="full">
+              Ok, Got It!
+            </Button>
+          </AhaModal.Footer>
+        ) : (
+          state.footer
+        )}
       </AhaModal>
     </div>
   ) : null;
