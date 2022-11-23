@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState, useRef } from "react";
 import { Pagination, Loader } from "@ahaui/react";
 import classNames from "classnames";
 import { itemsPerPage } from "utils/variables";
-import { useThunkDispatch } from "hooks";
+import { useTypedDispatch } from "hooks";
 import { generateNumberArray } from "utils/library";
 import { CategoryType } from "pages/Categories/CategoriesType";
 import { GenericDataTable } from "types/genericDataTable";
@@ -30,7 +30,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
-  const dispatch = useThunkDispatch();
+  const dispatch = useTypedDispatch();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
 

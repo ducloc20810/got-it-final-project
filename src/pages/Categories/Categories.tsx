@@ -1,7 +1,7 @@
 import { Button } from "@ahaui/react";
 import CategoriesTable from "components/Categories/CategoriesTable";
 import { PageWithTable } from "components/Common";
-import { useThunkDispatch } from "hooks";
+import { useTypedDispatch } from "hooks";
 import {
   createCategory,
   fetchCategoryList,
@@ -17,7 +17,7 @@ const Categories = () => {
     total_items: 0,
     items: [],
   });
-  const dispatch = useThunkDispatch();
+  const dispatch = useTypedDispatch();
 
   const renderTable = (list: Array<CategoryType>) => (
     <CategoriesTable

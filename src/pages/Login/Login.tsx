@@ -3,15 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Loader } from "@ahaui/react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
-import { useThunkDispatch } from "hooks";
+import { useTypedDispatch } from "hooks";
 import { getUserInfo, login } from "redux/actions/user.action";
-
-import styles from "./Login.module.scss";
-// import { getUserInfoMockSuccess, loginMockSuccess } from "utils/mock";
-import { emailPattern } from "utils/variables";
 import { InlineError } from "components/Common";
 import { IFormAuthInputs } from "types/form";
 import classNames from "classnames";
+import { EMAIL_PATTERN } from "constants/form";
+import styles from "./Login.module.scss";
 
 const Login = () => {
   const {
@@ -23,7 +21,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useThunkDispatch();
+  const dispatch = useTypedDispatch();
 
   const handleLoginSubmit = (data: IFormAuthInputs) => {
     if (data.email && data.password) {
@@ -35,14 +33,10 @@ const Login = () => {
           setIsLoading(false);
           navigate("/");
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error: any) => {
+          console.log(error);
           setIsLoading(false);
         });
-
-      // dispatch(loginMockSuccess())
-      //   .then(() => dispatch(getUserInfoMockSuccess))
-      //   .then(() => navigate("/"));
     }
   };
 
@@ -67,7 +61,7 @@ const Login = () => {
           placeholder="Email"
           {...register("email", {
             required: "Email is required",
-            pattern: emailPattern,
+            pattern: EMAIL_PATTERN,
             maxLength: 30,
           })}
         />

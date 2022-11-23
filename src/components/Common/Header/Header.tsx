@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Header as AhaHeader, Dropdown, Icon } from "@ahaui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "assets/images/logo.svg";
-import { useAppSelector, useThunkDispatch } from "hooks";
+import { useAppSelector, useTypedDispatch } from "hooks";
 import { userSelector } from "redux/reducers/user.reducer";
 import { getUserInfo, logout } from "redux/actions/user.action";
 import styles from "./Header.module.scss";
 
 const Header = () => {
   const user = useAppSelector(userSelector);
-  const dispatch = useThunkDispatch();
+  const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const [isFetch, setIsFetch] = useState(0);
 

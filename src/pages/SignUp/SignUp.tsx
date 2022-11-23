@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button, Loader } from "@ahaui/react";
+import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { InlineError } from "components/Common";
 import { ReactComponent as Logo } from "assets/images/logo-only.svg";
-import { useThunkDispatch } from "hooks";
-import { emailPattern, namePattern } from "utils/variables";
+import { useTypedDispatch } from "hooks";
 import { IFormAuthInputs } from "types/form";
-import styles from "./SignUp.module.scss";
 import {
   register as myRegister,
   login,
   getUserInfo,
 } from "redux/actions/user.action";
-import classNames from "classnames";
+import { EMAIL_PATTERN, NAME_PATTERN } from "constants/form";
+import styles from "./SignUp.module.scss";
+
 const SignUp = () => {
   const {
     register,
@@ -24,7 +25,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useThunkDispatch();
+  const dispatch = useTypedDispatch();
 
   const handleLoginSubmit = (data: IFormAuthInputs) => {
     if (data.email && data.password && data.name) {
@@ -37,7 +38,7 @@ const SignUp = () => {
           setIsLoading(false);
           navigate("/");
         })
-        .catch((error) => {
+        .catch((error: any) => {
           console.log(error);
           setIsLoading(false);
         });
@@ -76,7 +77,7 @@ const SignUp = () => {
           {...register("name", {
             required: "Name is required",
             maxLength: 30,
-            pattern: namePattern,
+            pattern: NAME_PATTERN,
           })}
         />
         {errors.name?.type === "pattern" && (
@@ -100,7 +101,7 @@ const SignUp = () => {
           placeholder="Email"
           {...register("email", {
             required: "Email is required",
-            pattern: emailPattern,
+            pattern: EMAIL_PATTERN,
             maxLength: 30,
           })}
         />

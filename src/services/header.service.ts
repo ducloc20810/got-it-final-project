@@ -1,4 +1,4 @@
-export default function authHeader(type: string) {
+export default function generateHeader(type: string) {
   let user = null;
   let localStorageData = localStorage.getItem("auth");
   if (localStorageData) user = JSON.parse(localStorageData);
