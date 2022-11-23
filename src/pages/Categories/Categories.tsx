@@ -12,15 +12,9 @@ import CategoryService from "services/category.service";
 import { useEffect } from "react";
 
 const Categories = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IFormCRUDInputs>({ mode: "onChange" });
+  const form = useForm<IFormCRUDInputs>({ mode: "onChange" });
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const { handleSubmit } = form;
 
   const dispatch = useThunkDispatch();
 
@@ -52,7 +46,7 @@ const Categories = () => {
   const createCategoryOnClick = () => {
     dispatch(
       setModal({
-        Children: <CategoryCreateForm />,
+        Children: <CategoryCreateForm form={form} />,
         isLoading: false,
         isOpen: true,
         title: "Create category form",

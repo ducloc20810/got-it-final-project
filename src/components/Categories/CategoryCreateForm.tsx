@@ -4,7 +4,11 @@ import React from "react";
 
 type CreateFormProps = any;
 
-const CategoryCreateForm: React.FC<CreateFormProps> = () => {
+const CategoryCreateForm: React.FC<CreateFormProps> = ({ form }) => {
+  const {
+    formState: { errors },
+    register,
+  } = form;
   return (
     <>
       <Form.Group sizeControl="large">
