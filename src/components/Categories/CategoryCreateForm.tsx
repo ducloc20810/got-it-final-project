@@ -49,8 +49,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             placeholder="Image Url"
             {...register('imageUrl', {
               maxLength: 200,
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                console.log(e.target.value),
+              onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.value),
             })}
           />
 

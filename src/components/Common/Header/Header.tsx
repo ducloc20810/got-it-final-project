@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { Header as AhaHeader, Dropdown, Icon } from "@ahaui/react";
-import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as Logo } from "assets/images/logo.svg";
-import { useAppSelector, useTypedDispatch } from "hooks";
-import { userSelector } from "redux/reducers/user.reducer";
-import { getUserInfo, logout } from "redux/actions/user.action";
-import styles from "./Header.module.scss";
+import { useEffect, useState } from 'react';
+import { Header as AhaHeader, Dropdown, Icon } from '@ahaui/react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ReactComponent as Logo } from 'assets/images/logo.svg';
+import { useAppSelector, useTypedDispatch } from 'hooks';
+import { userSelector } from 'redux/reducers/user.reducer';
+import { getUserInfo, logout } from 'redux/actions/user.action';
+import styles from './Header.module.scss';
 
 const Header = () => {
   const user = useAppSelector(userSelector);
@@ -14,16 +14,17 @@ const Header = () => {
   const [isFetch, setIsFetch] = useState(0);
 
   useEffect(() => {
-    if (localStorage.getItem("auth") && !user.id && !user.name && isFetch === 0)
+    if (localStorage.getItem('auth') && !user.id && !user.name && isFetch === 0) {
       dispatch(getUserInfo())
         .then(() => {
           setIsFetch((prev) => prev + 1);
-          navigate("/");
+          navigate('/');
         })
         .catch((e) => {
           setIsFetch((prev) => prev + 1);
           throw Error(e);
         });
+    }
   }, [dispatch, navigate, user, isFetch]);
 
   const logoutHandle = () => {
@@ -41,32 +42,30 @@ const Header = () => {
       <AhaHeader.Main>
         <AhaHeader.Right>
           {user.isLoggedIn && (
-            <>
-              <Dropdown alignRight className="u-marginLeftExtraSmall">
-                <Dropdown.Toggle className="u-textLight u-lineHeightNone">
-                  <div className="u-flex u-alignItemsCenter">
-                    <Icon
-                      name="contact"
-                      size="medium"
-                      className="u-marginRightTiny"
-                    />
-                    <div>{user.name}</div>
-                  </div>
-                </Dropdown.Toggle>
-                <Dropdown.Container
-                  className={`u-cursorPointer u-marginNone u-minWidth-0`}
-                  additionalStyles={{ minWidth: "unset" }}
+            <Dropdown alignRight className="u-marginLeftExtraSmall">
+              <Dropdown.Toggle className="u-textLight u-lineHeightNone">
+                <div className="u-flex u-alignItemsCenter">
+                  <Icon
+                    name="contact"
+                    size="medium"
+                    className="u-marginRightTiny"
+                  />
+                  <div>{user.name}</div>
+                </div>
+              </Dropdown.Toggle>
+              <Dropdown.Container
+                className="u-cursorPointer u-marginNone u-minWidth-0"
+                additionalStyles={{ minWidth: 'unset' }}
+              >
+                <Dropdown.Item
+                  className="u-paddingVerticalExtraSmall u-paddingHorizontalExtraSmall"
+                  onClick={() => logoutHandle()}
                 >
-                  <Dropdown.Item
-                    className="u-paddingVerticalExtraSmall u-paddingHorizontalExtraSmall"
-                    onClick={() => logoutHandle()}
-                  >
-                    <Icon name="power" size="small" />
-                    <span className="u-marginLeftExtraSmall">Logout</span>
-                  </Dropdown.Item>
-                </Dropdown.Container>
-              </Dropdown>
-            </>
+                  <Icon name="power" size="small" />
+                  <span className="u-marginLeftExtraSmall">Logout</span>
+                </Dropdown.Item>
+              </Dropdown.Container>
+            </Dropdown>
           )}
 
           {!user.isLoggedIn && (

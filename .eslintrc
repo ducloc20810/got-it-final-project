@@ -1,27 +1,43 @@
 {
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "airbnb",
-    "airbnb/hooks",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": ["react", "prettier", "react-hooks", "promise"],
+  "parserOptions": {
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": [
+        "react-app"
+      ]
+    }
+  },
+  "plugins": [
+    "react-hooks",
+    "@typescript-eslint"
+  ],
   "rules": {
-    "prettier/prettier": "error",
     "no-unused-vars": "warn",
     "no-console": "warn",
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
     "class-methods-use-this": "off",
-    "react/tsx-filename-extension": [
-      1,
-      { "extensions": [".ts", ".tsx"] }
-    ]
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
+    "react/function-component-definition": 0
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": ["node_modules", "src/"]
+        "paths": ["./src"]
       }
     }
   }
