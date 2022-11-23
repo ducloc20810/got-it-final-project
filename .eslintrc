@@ -1,6 +1,10 @@
 {
-  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
-  "plugins": ["react", "prettier"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "prettier", "react-hooks", "promise"],
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
@@ -9,7 +13,10 @@
     "no-process-exit": "off",
     "object-shorthand": "off",
     "class-methods-use-this": "off",
-    "react/tsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }]
+    "react/tsx-filename-extension": [
+      1,
+      { "extensions": [".ts", ".tsx"] }
+    ]
   },
   "settings": {
     "import/resolver": {
