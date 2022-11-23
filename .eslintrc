@@ -1,43 +1,54 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": [
-    "airbnb",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["airbnb", "plugin:@typescript-eslint/recommended"],
   "parserOptions": {
     "requireConfigFile": false,
     "babelOptions": {
-      "presets": [
-        "react-app"
-      ]
-    }
+      "presets": ["react-app"]
+    },
+    "project": "./tsconfig.json"
   },
-  "plugins": [
-    "react-hooks",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react-hooks", "@typescript-eslint"],
   "rules": {
+    "import/prefer-default-export":"off",
+    "implicit-arrow-linebreak":"off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "object-curly-newline": "off",
     "no-unused-vars": "warn",
     "no-console": "warn",
+    "no-param-reassign": "off",
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
     "class-methods-use-this": "off",
+    "react/jsx-props-no-spreading": "off",
+    "brace-style": ["error", "stroustrup"],
     "react/jsx-filename-extension": [
       2,
       {
-        "extensions": [
-          ".jsx",
-          ".tsx"
-        ]
+        "extensions": [".jsx", ".tsx", ".ts", ".js"]
       }
     ],
-    "react/function-component-definition": 0
+    "react/function-component-definition": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["./src"]
+        "paths": ["./src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   }
