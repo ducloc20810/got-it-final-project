@@ -44,7 +44,7 @@ const Modal = () => {
         >
           <AhaModal.Title>{state.title}</AhaModal.Title>
         </AhaModal.Header>
-        <AhaModal.Body>
+        <AhaModal.Body className="u-paddingNone">
           <div className="u-textCenter">{state.Children}</div>
         </AhaModal.Body>
         {/* <AhaModal.Footer ref={buttonsRef}>

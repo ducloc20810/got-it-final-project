@@ -3,7 +3,7 @@ import { itemsPerPage } from "utils/variables";
 
 const API_URL = `${process.env.REACT_APP_BACK_END_URL}/categories`;
 
-type CategoryPayload = {
+export type CategoryPayload = {
   name?: string;
   description?: string;
   image_url?: string;

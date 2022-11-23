@@ -14,13 +14,16 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => {
     <>
       {list && list.length > 0 && (
         <div>
-          <table className="Table Table--stickyHeader Table--bordered  u-backgroundWhite u-textDark u-text200">
+          <table
+            width={"100%"}
+            className="Table Table--stickyHeader Table--bordered  u-backgroundWhite u-textDark u-text200"
+          >
             <thead>
               <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Image url</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -29,15 +32,23 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => {
                 list.map((category) => (
                   <tr key={category.id}>
                     <td>{category.id}</td>
-                    <td>
+                    <td width={"10%"}>
+                      <img
+                        width={"100%"}
+                        height={"auto"}
+                        style={{ objectFit: "cover" }}
+                        src={category.image_url}
+                        alt=""
+                      />
+                    </td>
+                    <td width={"30%"}>
                       <Link to={`/categories/${category.id}`}>
                         {category.name}
                       </Link>
                     </td>
-                    <td>{category.description}</td>
-                    <td>{category.image_url}</td>
+                    <td width={"40%"}>{category.description}</td>
 
-                    <td width={130}>
+                    <td width={"15%"}>
                       <div className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer">
                         <Icon
                           size="small"

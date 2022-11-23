@@ -1,15 +1,16 @@
-// @ts-nocheck
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import { Pagination, Loader } from "@ahaui/react";
 import classNames from "classnames";
 import { itemsPerPage } from "utils/variables";
-import { CategoriesDataType } from "pages/Categories/CategoriesType";
-import { itemsDataType } from "pages/Items/ItemsType";
 import { useThunkDispatch } from "hooks";
 import { generateNumberArray } from "utils/library";
+import { CategoryType } from "pages/Categories/CategoriesType";
+import { GenericDataTable } from "types/genericDataTable";
 import styles from "./PageWithTable.module.scss";
 
 type PageWithTableProps = {
+  data: GenericDataTable;
+  setData: Function;
   tableTitle: string;
   breadcrumb: string;
   fetchData: Function;
@@ -18,19 +19,20 @@ type PageWithTableProps = {
 };
 
 const PageWithTable: React.FC<PageWithTableProps> = ({
+  data,
+  setData,
   tableTitle,
   breadcrumb,
   fetchData,
   CreateButton,
   renderTable,
 }) => {
-  const [data, setData] = useState<CategoriesDataType | itemsDataType>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
   const dispatch = useThunkDispatch();
 
-  const componentRef = useRef<HTMLDivElement>();
+  const componentRef = useRef<HTMLDivElement | null>(null);
 
   const totalPage = useMemo(
     () => (data?.total_items ? Math.ceil(data.total_items / itemsPerPage) : 0),
@@ -50,17 +52,16 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   useEffect(() => {
     setIsLoading(true);
     dispatch(fetchData())
-      .then((data) => {
+      .then((data: CategoryType) => {
         if (componentRef.current) {
           setData(data);
           setIsLoading(false);
         }
       })
-      .catch((e) => {
+      .catch(() => {
         if (componentRef.current) setIsLoading(false);
-        throw Error(e);
       });
-  }, [dispatch, currentPage, fetchData]);
+  }, [dispatch, currentPage, fetchData, setData]);
 
   return (
     <div className={classNames(styles.page)} ref={componentRef}>

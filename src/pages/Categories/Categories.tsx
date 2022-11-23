@@ -1,16 +1,27 @@
 import { Button } from "@ahaui/react";
-import { useForm, Controller } from "react-hook-form";
 import CategoriesTable from "components/Categories/CategoriesTable";
 import { PageWithTable } from "components/Common";
 import { useThunkDispatch } from "hooks";
-import { fetchCategoryList } from "redux/actions/category.action";
-import { clearModal, setLoading, setModal } from "redux/actions/modal.action";
-import { CategoryType } from "./CategoriesType";
+import {
+  createCategory,
+  fetchCategoryList,
+} from "redux/actions/category.action";
+import {
+  clearModal,
+  closeModal,
+  setLoading,
+  setModal,
+} from "redux/actions/modal.action";
+import { CategoriesDataType, CategoryType } from "./CategoriesType";
 import { IFormCRUDInputs } from "types/form";
 import CategoryCreateForm from "components/Categories/CategoryCreateForm";
-import CategoryService from "services/category.service";
+import { useState } from "react";
 
 const Categories = () => {
+  const [data, setData] = useState<CategoriesDataType>({
+    total_items: 0,
+    items: [],
+  });
   const dispatch = useThunkDispatch();
 
   const renderTable = (list: Array<CategoryType>) => (
@@ -21,16 +32,28 @@ const Categories = () => {
     />
   );
 
-  const submitModalHandle = (data: IFormCRUDInputs) => {
-    console.log("hello");
+  const submitCreateFormModalHandle = (data: IFormCRUDInputs) => {
     if (data.name && data.description && data.imageUrl) {
       dispatch(setLoading());
 
-      CategoryService.createCategories({
-        name: data.name,
-        description: data.description,
-        image_url: data.imageUrl,
-      });
+      dispatch(
+        createCategory({
+          name: data.name,
+          description: data.description,
+          image_url: data.imageUrl,
+        })
+      )
+        .then((data) => {
+          setData((prev) => ({
+            ...prev,
+            total_items: prev.total_items + 1,
+            items: [...prev.items, data],
+          }));
+          dispatch(clearModal());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -43,7 +66,7 @@ const Categories = () => {
       setModal({
         Children: (
           <CategoryCreateForm
-            submitHandle={submitModalHandle}
+            submitHandle={submitCreateFormModalHandle}
             closeHandle={closeModalHandle}
           />
         ),
@@ -58,6 +81,8 @@ const Categories = () => {
   return (
     <div>
       <PageWithTable
+        data={data}
+        setData={setData}
         renderTable={renderTable}
         breadcrumb={"Manage Category"}
         fetchData={fetchCategoryList}
