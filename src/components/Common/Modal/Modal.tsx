@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Modal as AhaModal } from "@ahaui/react";
 import { useAppSelector } from "hooks";
 import { modalSelector } from "redux/reducers/modal.reducer";
@@ -6,7 +6,6 @@ import styles from "./Modal.module.scss";
 import classNames from "classnames";
 const Modal = () => {
   const state = useAppSelector(modalSelector);
-  const buttonsRef = useRef<HTMLDivElement>();
 
   return state.isOpen ? (
     <div

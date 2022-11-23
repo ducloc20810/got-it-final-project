@@ -30,7 +30,7 @@ const Message = () => {
     return () => {
       dispatch(clearMessage());
     };
-  }, [message]);
+  }, [message, dispatch]);
   return (
     <div>
       <ToastContainer />

@@ -6,12 +6,7 @@ import {
   createCategory,
   fetchCategoryList,
 } from "redux/actions/category.action";
-import {
-  clearModal,
-  closeModal,
-  setLoading,
-  setModal,
-} from "redux/actions/modal.action";
+import { clearModal, setLoading, setModal } from "redux/actions/modal.action";
 import { CategoriesDataType, CategoryType } from "./CategoriesType";
 import { IFormCRUDInputs } from "types/form";
 import CategoryCreateForm from "components/Categories/CategoryCreateForm";
