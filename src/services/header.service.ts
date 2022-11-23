@@ -1,4 +1,6 @@
-export default function generateHeader(type: string) {
+import { NO_AUTH, AUTH } from "constants/storage";
+
+export default function generateHeader(type: typeof AUTH | typeof NO_AUTH) {
   let user = null;
   let localStorageData = localStorage.getItem("auth");
   if (localStorageData) user = JSON.parse(localStorageData);
