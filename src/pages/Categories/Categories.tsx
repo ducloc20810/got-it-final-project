@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Button } from '@ahaui/react';
+import { useNavigate } from 'react-router-dom';
 import CategoriesTable from 'components/Categories/CategoriesTable';
-import { PageWithTable } from 'components/Common';
-import { useTypedDispatch } from 'hooks';
+import { AuthWarning, PageWithTable } from 'components/Common';
+import { useAppSelector, useTypedDispatch } from 'hooks';
 import {
   createCategory,
   fetchCategoryList,
@@ -14,9 +15,13 @@ import {
 } from 'redux/actions/modal.action';
 import { IFormCategoryInputs } from 'types/form';
 import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
+import { userSelector } from 'redux/reducers/user.reducer';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
+  const user = useAppSelector(userSelector);
+  const navigate = useNavigate();
+
   const [data, setData] = useState<CategoriesDataType>({
     totalItems: 0,
     items: [],
@@ -26,12 +31,8 @@ const Categories = () => {
   const renderTable = (list: Array<CategoryType>) => (
     <CategoriesTable
       list={list}
-      removeHandle={() => {
-        console.log('developing');
-      }}
-      editHandle={() => {
-        console.log('developing');
-      }}
+      removeHandle={() => null}
+      editHandle={() => null}
     />
   );
 
@@ -63,6 +64,33 @@ const Categories = () => {
   };
 
   const createCategoryOnClick = () => {
+    if (!user.isLoggedIn) {
+      dispatch(setModal({
+        children: <AuthWarning action="create category" />,
+        isLoading: false,
+        isOpen: true,
+        title: 'Warning authentication',
+        footer:
+        (
+          <>
+            <Button variant="secondary" width="full" onClick={() => closeModalHandle()}>Cancel</Button>
+            <Button
+              variant="primary"
+              width="full"
+              onClick={() => {
+                navigate('/login');
+                dispatch(clearModal());
+              }}
+            >
+              Okay
+            </Button>
+          </>
+        ),
+        closeHandle: closeModalHandle,
+      }));
+      return;
+    }
+
     dispatch(
       setModal({
         children: (

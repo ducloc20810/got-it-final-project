@@ -57,7 +57,9 @@ function Modal() {
             </Button>
           </AhaModal.Footer>
         ) : (
-          state.footer
+          <AhaModal.Footer>
+            {state.footer}
+          </AhaModal.Footer>
         )}
       </AhaModal>
     </div>
