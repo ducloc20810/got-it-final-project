@@ -34,6 +34,25 @@ export const camelize = (data: any) => {
   return data;
 };
 
+export const snakeLize = (data:any) => {
+  if (lodash.isArray(data)) {
+    const newDataArr: any[] = data.map((item) => camelize(item));
+    return newDataArr;
+  }
+
+  if (lodash.isObject(data)) {
+    const dataCopy: Record<string, unknown> = { ...data };
+    const newData: Record<string, unknown> = {};
+    Object.keys(data).forEach((key: string) => {
+      const newKey = lodash.snakeCase(key);
+      newData[newKey] = camelize(dataCopy[key]);
+    });
+    return newData;
+  }
+
+  return data;
+};
+
 export const handleAsyncAction = async (
   dispatch: TypedDispatch,
   type: string,

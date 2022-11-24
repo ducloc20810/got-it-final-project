@@ -45,7 +45,7 @@ const Categories = () => {
         createCategory({
           name: formData.name,
           description: formData.description,
-          image_url: formData.imageUrl,
+          imageUrl: formData.imageUrl,
         }),
       ).then((resData) => {
         setData((prev) => ({
