@@ -11,7 +11,6 @@ export const upperFirstChar = (yourString: string) => {
   return newString;
 };
 
-// eslint-disable-next-line max-len
 export const generateNumberArray = (length: number) =>
   Array.from({ length: length }, (_, i) => i + 1);
 
