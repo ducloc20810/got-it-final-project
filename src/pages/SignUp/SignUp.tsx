@@ -12,7 +12,7 @@ import {
   login,
   getUserInfo,
 } from 'redux/actions/user.action';
-import { EMAIL_REGEX, NAME_REGEX } from 'constants/form';
+import { EMAIL_REGEX, NAME_REGEX } from 'constants/validation';
 import styles from './SignUp.module.scss';
 
 const SignUp = () => {

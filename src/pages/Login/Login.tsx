@@ -8,7 +8,7 @@ import { getUserInfo, login } from 'redux/actions/user.action';
 import { InlineError } from 'components/Common';
 import { IFormLoginInputs } from 'types/form';
 import classNames from 'classnames';
-import { EMAIL_REGEX } from 'constants/form';
+import { EMAIL_REGEX } from 'constants/validation';
 import styles from './Login.module.scss';
 
 const Login = () => {

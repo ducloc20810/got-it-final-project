@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { EMAIL_REGEX, NAME_REGEX } from '../form';
+import { EMAIL_REGEX, NAME_REGEX } from '../validation';
 
 describe('valid val', () => {
   test('valid email', () => {
