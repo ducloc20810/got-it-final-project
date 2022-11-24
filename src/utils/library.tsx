@@ -15,9 +15,9 @@ export const upperFirstChar = (yourString: string) => {
 export const generateNumberArray = (length: number) =>
   Array.from({ length: length }, (_, i) => i + 1);
 
-export const toCamelCase = (data: any) => {
+export const camelCaseObjKeys = (data: any) => {
   if (lodash.isArray(data)) {
-    const newDataArr: any[] = data.map((item) => toCamelCase(item));
+    const newDataArr: any[] = data.map((item) => camelCaseObjKeys(item));
     return newDataArr;
   }
 
@@ -26,7 +26,7 @@ export const toCamelCase = (data: any) => {
     const newData: Record<string, unknown> = {};
     Object.keys(data).forEach((key: string) => {
       const newKey = lodash.camelCase(key);
-      newData[newKey] = toCamelCase(dataCopy[key]);
+      newData[newKey] = camelCaseObjKeys(dataCopy[key]);
     });
     return newData;
   }
@@ -34,9 +34,9 @@ export const toCamelCase = (data: any) => {
   return data;
 };
 
-export const toSnakeCase = (data:any) => {
+export const snakeCaseObjKeys = (data:any) => {
   if (lodash.isArray(data)) {
-    const newDataArr: any[] = data.map((item) => toSnakeCase(item));
+    const newDataArr: any[] = data.map((item) => snakeCaseObjKeys(item));
     return newDataArr;
   }
 
@@ -45,7 +45,7 @@ export const toSnakeCase = (data:any) => {
     const newData: Record<string, unknown> = {};
     Object.keys(data).forEach((key: string) => {
       const newKey = lodash.snakeCase(key);
-      newData[newKey] = toSnakeCase(dataCopy[key]);
+      newData[newKey] = snakeCaseObjKeys(dataCopy[key]);
     });
     return newData;
   }
@@ -62,7 +62,7 @@ export const handleAsyncAction = async (
     const res = await promise();
     let data = await res.json();
 
-    data = toCamelCase(data);
+    data = camelCaseObjKeys(data);
     if (res.ok) {
       const newType = upperFirstChar(type);
       if (type === 'LOGIN') {
