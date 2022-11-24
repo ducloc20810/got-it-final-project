@@ -65,7 +65,7 @@ export const handleAsyncAction = async (
     data = camelCaseObjKeys(data);
     if (res.ok) {
       const newType = upperFirstChar(type);
-      if (type === 'LOGIN') {
+      if (type === UserActions.LOGIN) {
         localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
       }
 
