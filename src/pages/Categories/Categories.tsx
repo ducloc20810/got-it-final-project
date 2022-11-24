@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '@ahaui/react';
 import CategoriesTable from 'components/Categories/CategoriesTable';
 import { PageWithTable } from 'components/Common';
@@ -11,14 +12,13 @@ import {
   setLoading,
   setModal,
 } from 'redux/actions/modal.action';
-import { CategoriesDataType, CategoryType } from './CategoriesType';
 import { IFormCategoryInputs } from 'types/form';
 import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
-import { useState } from 'react';
+import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
   const [data, setData] = useState<CategoriesDataType>({
-    total_items: 0,
+    totalItems: 0,
     items: [],
   });
   const dispatch = useTypedDispatch();
@@ -26,26 +26,32 @@ const Categories = () => {
   const renderTable = (list: Array<CategoryType>) => (
     <CategoriesTable
       list={list}
-      removeHandle={() => {}}
-      editHandle={() => {}}
+      removeHandle={() => {
+        console.log('developing');
+      }}
+      editHandle={() => {
+        console.log('developing');
+      }}
     />
   );
 
-  const submitCreateFormModalHandle = (data: IFormCategoryInputs) => {
-    if (data.name && data.description && data.imageUrl) {
+  const submitCreateFormModalHandle = (
+    formData: IFormCategoryInputs,
+  ) => {
+    if (formData.name && formData.description && formData.imageUrl) {
       dispatch(setLoading());
 
       dispatch(
         createCategory({
-          name: data.name,
-          description: data.description,
-          image_url: data.imageUrl,
+          name: formData.name,
+          description: formData.description,
+          image_url: formData.imageUrl,
         }),
-      ).then((data) => {
+      ).then((resData) => {
         setData((prev) => ({
           ...prev,
-          total_items: prev.total_items + 1,
-          items: [...prev.items, data],
+          total_items: prev.totalItems + 1,
+          items: [...prev.items, resData],
         }));
         dispatch(clearModal());
       });
@@ -80,14 +86,14 @@ const Categories = () => {
         data={data}
         setData={setData}
         renderTable={renderTable}
-        breadcrumb={'Manage Category'}
+        breadcrumb="Manage Category"
         fetchData={fetchCategoryList}
-        CreateButton={
+        CreateButton={(
           <Button onClick={createCategoryOnClick}>
             Create category
           </Button>
-        }
-        tableTitle={'Category List'}
+        )}
+        tableTitle="Category List"
       />
     </div>
   );

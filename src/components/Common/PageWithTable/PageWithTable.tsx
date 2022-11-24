@@ -1,21 +1,22 @@
-import React, { useEffect, useMemo, useState, useRef } from "react";
-import { Pagination, Loader } from "@ahaui/react";
-import classNames from "classnames";
-import { itemsPerPage } from "utils/variables";
-import { useTypedDispatch } from "hooks";
-import { generateNumberArray } from "utils/library";
-import { CategoryType } from "pages/Categories/CategoriesType";
-import { GenericDataTable } from "types/genericDataTable";
-import styles from "./PageWithTable.module.scss";
+import React, { useEffect, useMemo, useState, useRef } from 'react';
+import { Pagination, Loader } from '@ahaui/react';
+import classNames from 'classnames';
+import { itemsPerPage } from 'utils/variables';
+import { useTypedDispatch } from 'hooks';
+import { generateNumberArray } from 'utils/library';
+import { GenericDataTable } from 'types/genericDataTable';
+import { TypedDispatch } from 'redux/store';
+import { ITEMS_PER_PAGE } from 'constants/pagination';
+import styles from './PageWithTable.module.scss';
 
 type PageWithTableProps = {
   data: GenericDataTable;
-  setData: Function;
+  setData: (data: GenericDataTable) => void;
   tableTitle: string;
   breadcrumb: string;
-  fetchData: Function;
+  fetchData: (offset: number) => (dispatch: TypedDispatch) => Promise<any>;
   CreateButton: React.ReactNode;
-  renderTable: Function;
+  renderTable: (list: Array<any>) => JSX.Element;
 };
 
 const PageWithTable: React.FC<PageWithTableProps> = ({
@@ -28,22 +29,22 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   renderTable,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useTypedDispatch();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
 
   const totalPage = useMemo(
-    () => (data?.total_items ? Math.ceil(data.total_items / itemsPerPage) : 0),
-    [data]
+    () => (data?.totalItems ? Math.ceil(data.totalItems / itemsPerPage) : 0),
+    [data],
   );
+
   const startOffSet = (currentPage - 1) * itemsPerPage + 1;
 
-  const lastOffSet =
-    data && currentPage * itemsPerPage > data.total_items
-      ? data.total_items
-      : currentPage * itemsPerPage;
+  const lastOffSet = data && currentPage * itemsPerPage > data.totalItems
+    ? data.totalItems
+    : currentPage * itemsPerPage;
 
   const changePage = (page: number) => {
     setCurrentPage(() => page);
@@ -51,10 +52,10 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(fetchData())
-      .then((data: CategoryType) => {
+    dispatch(fetchData((currentPage - 1) * ITEMS_PER_PAGE))
+      .then((resData: GenericDataTable) => {
         if (componentRef.current) {
-          setData(data);
+          setData(resData);
           setIsLoading(false);
         }
       })
@@ -73,7 +74,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
       <div
         className={classNames(
           styles.pageContent,
-          "u-shadowMedium u-backgroundWhite u-roundedMedium"
+          'u-shadowMedium u-backgroundWhite u-roundedMedium',
         )}
       >
         <header className="u-backgroundLightest u-paddingHorizontalMedium u-paddingVerticalTiny u-textPrimaryDarker">
@@ -82,22 +83,20 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
         <div className="u-paddingHorizontalMedium u-paddingVerticalSmall">
           {!isLoading && (
             <>
-              {/*Table section  */}
+              {/* Table section  */}
               {renderTable(data?.items)}
 
-              {/* Pagination section*/}
-              {data && data.total_items > 0 && (
+              {/* Pagination section */}
+              {data && data.totalItems > 0 && (
                 <div className="u-flex u-justifyContentBetween u-alignItemsCenter u-textNeutral100">
                   <div className="u-text200">
-                    {`Show ${startOffSet} to ${lastOffSet} of ${data.total_items} entries`}
+                    {`Show ${startOffSet} to ${lastOffSet} of ${data.totalItems} entries`}
                   </div>
 
                   <Pagination className={classNames(styles.pagination)}>
                     <Pagination.Prev
                       disabled={currentPage === 1}
-                      onClick={() =>
-                        currentPage !== 1 ? changePage(currentPage - 1) : ""
-                      }
+                      onClick={() => (currentPage !== 1 ? changePage(currentPage - 1) : '')}
                       className="u-marginBottomNone"
                     />
                     {generateNumberArray(totalPage).map((page) => (
@@ -112,11 +111,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
                     ))}
                     <Pagination.Next
                       disabled={currentPage === totalPage}
-                      onClick={() =>
-                        currentPage !== totalPage
-                          ? changePage(currentPage + 1)
-                          : ""
-                      }
+                      onClick={() => (currentPage !== totalPage ? changePage(currentPage + 1) : '')}
                       className="u-marginBottomNone"
                     />
                   </Pagination>

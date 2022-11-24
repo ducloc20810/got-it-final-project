@@ -1,6 +1,6 @@
-import { RootState } from "redux/store";
-import { modalActions } from "redux/actions/modal.action";
-import { Modal } from "types/redux";
+import { RootState } from 'redux/store';
+import { modalActions } from 'redux/actions/modal.action';
+import { Modal } from 'types/redux';
 
 type Action = {
   type: string;
@@ -12,11 +12,14 @@ const initialState: Modal = {
   isOpen: false,
   children: null,
   footer: null,
-  title: "",
+  title: '',
   closeHandle: () => {},
 };
 
-const modalReducer = (state: Modal = initialState, action: Action): Modal => {
+const modalReducer = (
+  state: Modal = initialState,
+  action: Action,
+): Modal => {
   switch (action.type) {
     case modalActions.SET_MODAL:
       return {
@@ -54,7 +57,7 @@ const modalReducer = (state: Modal = initialState, action: Action): Modal => {
         isOpen: false,
         children: null,
         footer: null,
-        title: "",
+        title: '',
         closeHandle: () => {},
       };
 

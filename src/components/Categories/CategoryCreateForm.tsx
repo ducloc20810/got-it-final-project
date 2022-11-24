@@ -6,7 +6,7 @@ import { IFormCategoryInputs } from 'types/form';
 
 type CreateFormProps = {
   submitHandle: (data: IFormCategoryInputs) => void;
-  closeHandle: Function;
+  closeHandle: ()=>void;
 };
 
 const CategoryCreateForm: React.FC<CreateFormProps> = ({
@@ -49,7 +49,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             placeholder="Image Url"
             {...register('imageUrl', {
               maxLength: 200,
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) => console.log(e.target.value),
+
             })}
           />
 

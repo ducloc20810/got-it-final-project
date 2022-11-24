@@ -1,4 +1,4 @@
 export type GenericDataTable = {
-  total_items: number;
+  totalItems: number;
   items: Array<any>;
 };

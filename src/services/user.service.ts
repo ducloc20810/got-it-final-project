@@ -1,4 +1,4 @@
-import helper from "./helper";
+import helper from './helper';
 
 const API_URL = `${process.env.REACT_APP_BACK_END_URL}/users/me`;
 

@@ -1,10 +1,8 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Categories, Home, Login, SignUp } from "pages";
-import { Layout, Modal } from "components/Common";
-import { Message } from "components/Common";
-import styles from "App.module.scss";
-import classNames from "classnames";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Categories, Home, Login, SignUp } from 'pages';
+import { Layout, Modal, Message } from 'components/Common';
+import styles from 'App.module.scss';
+import classNames from 'classnames';
 
 function App() {
   return (
@@ -15,7 +13,7 @@ function App() {
         <div
           className={classNames(
             styles.App,
-            `u-backgroundLightest u-padding u-positionRelative u-paddingLarge`
+            'u-backgroundLightest u-padding u-positionRelative u-paddingLarge',
           )}
         >
           <Routes>
