@@ -1,5 +1,5 @@
 import CategoryService from 'services/category.service';
-import { handleAsyncAction } from 'utils/library';
+import { handleAsyncAction } from './utils';
 import { CategoryPayload } from '../../services/category.service';
 import { TypedDispatch } from '../store';
 

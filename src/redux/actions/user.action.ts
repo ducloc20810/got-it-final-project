@@ -1,7 +1,7 @@
 import { TypedDispatch } from 'redux/store';
 import AuthService from 'services/auth.service';
 import UserService from 'services/user.service';
-import { handleAsyncAction } from 'utils/library';
+import { handleAsyncAction } from './utils';
 
 export const UserActions = {
   SET_USER: 'SET_USER',

@@ -1,9 +1,4 @@
-import { AUTH_STORAGE_KEY } from 'constants/storage';
 import lodash from 'lodash';
-import { CategoryActions } from 'redux/actions/category.action';
-import { setMessage } from 'redux/actions/message.action';
-import { UserActions } from 'redux/actions/user.action';
-import { TypedDispatch } from 'redux/store';
 
 export const upperFirstChar = (yourString: string) => {
   let newString = yourString.split('_').join(' ');
@@ -51,57 +46,4 @@ export const snakeCaseObjKeys = (data:any) => {
   }
 
   return data;
-};
-
-export const handleAsyncAction = async (
-  dispatch: TypedDispatch,
-  type: string,
-  promise: () => Promise<Response>,
-) => {
-  try {
-    const res = await promise();
-    let data = await res.json();
-
-    data = camelCaseObjKeys(data);
-    if (res.ok) {
-      const newType = upperFirstChar(type);
-      if (type === UserActions.LOGIN) {
-        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
-      }
-
-      if (
-        type !== UserActions.LOGIN
-        && type !== UserActions.REGISTER
-        && type !== UserActions.FETCH_USER_INFO
-        && type !== CategoryActions.FETCH_CATEGORY_LIST
-      ) {
-        dispatch(
-          setMessage({
-            message: `${newType} successfully`,
-            status: res.status,
-          }),
-        );
-      }
-
-      dispatch({ type: `${type}_SUCCESS`, payload: data });
-      return Promise.resolve(data);
-    }
-
-    // If res is not ok
-    dispatch(
-      setMessage({
-        status: res.status,
-        error: data,
-      }),
-    );
-    return Promise.reject(data.message);
-  }
-  catch (err) {
-    dispatch(
-      setMessage({
-        error: { message: 'Something is wrong' },
-      }),
-    );
-    return Promise.reject(err);
-  }
 };
