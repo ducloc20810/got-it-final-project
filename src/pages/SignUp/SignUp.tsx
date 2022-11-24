@@ -12,7 +12,7 @@ import {
   login,
   getUserInfo,
 } from 'redux/actions/user.action';
-import { EMAIL_PATTERN, NAME_PATTERN } from 'constants/form';
+import { EMAIL_REGEX, NAME_REGEX } from 'constants/form';
 import styles from './SignUp.module.scss';
 
 const SignUp = () => {
@@ -67,7 +67,7 @@ const SignUp = () => {
           {...register('name', {
             required: 'Name is required',
             maxLength: 30,
-            pattern: NAME_PATTERN,
+            pattern: NAME_REGEX,
           })}
         />
         {errors.name?.type === 'pattern' && (
@@ -93,7 +93,7 @@ const SignUp = () => {
           placeholder="Email"
           {...register('email', {
             required: 'Email is required',
-            pattern: EMAIL_PATTERN,
+            pattern: EMAIL_REGEX,
             maxLength: 30,
           })}
         />
