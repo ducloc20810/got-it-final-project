@@ -1,5 +1,5 @@
 import { RootState } from 'redux/store';
-import { modalActions } from 'redux/actions/modal.action';
+import { ModalActions } from 'redux/actions/modal.action';
 import { Modal } from 'types/redux';
 
 type Action = {
@@ -21,37 +21,37 @@ const modalReducer = (
   action: Action,
 ): Modal => {
   switch (action.type) {
-    case modalActions.SET_MODAL:
+    case ModalActions.SET_MODAL:
       return {
         ...state,
         ...action.payload,
       };
 
-    case modalActions.CLOSE_MODAL:
+    case ModalActions.CLOSE_MODAL:
       return {
         ...state,
         isOpen: false,
       };
 
-    case modalActions.OPEN_MODAL:
+    case ModalActions.OPEN_MODAL:
       return {
         ...state,
         isOpen: true,
       };
 
-    case modalActions.LOADING:
+    case ModalActions.LOADING:
       return {
         ...state,
         isLoading: true,
       };
 
-    case modalActions.LOADED:
+    case ModalActions.LOADED:
       return {
         ...state,
         isLoading: true,
       };
 
-    case modalActions.CLEAR_MODAL:
+    case ModalActions.CLEAR_MODAL:
       return {
         isLoading: false,
         isOpen: false,

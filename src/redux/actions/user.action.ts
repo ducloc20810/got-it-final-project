@@ -3,7 +3,7 @@ import AuthService from 'services/auth.service';
 import UserService from 'services/user.service';
 import { handleAsyncAction } from 'utils/library';
 
-export const userActions = {
+export const UserActions = {
   SET_USER: 'SET_USER',
   DELETE_USER: 'DELETE_USER',
   LOGIN: 'LOGIN',
@@ -14,18 +14,18 @@ export const userActions = {
 
 export const register = (name: string, email: string, password: string) =>
   (dispatch: TypedDispatch) =>
-    handleAsyncAction(dispatch, userActions.REGISTER, () =>
+    handleAsyncAction(dispatch, UserActions.REGISTER, () =>
       AuthService.register(name, email, password));
 
 export const login = (email: string, password: string) => (dispatch: TypedDispatch) =>
-  handleAsyncAction(dispatch, userActions.LOGIN, () =>
+  handleAsyncAction(dispatch, UserActions.LOGIN, () =>
     AuthService.login(email, password));
 
 export const logout = () => (dispatch: TypedDispatch) => {
   AuthService.logout();
-  dispatch({ type: userActions.LOGOUT });
+  dispatch({ type: UserActions.LOGOUT });
 };
 
 export const getUserInfo = () => (dispatch: TypedDispatch) =>
-  handleAsyncAction(dispatch, userActions.FETCH_USER_INFO, () =>
+  handleAsyncAction(dispatch, UserActions.FETCH_USER_INFO, () =>
     UserService.getUserInfo());

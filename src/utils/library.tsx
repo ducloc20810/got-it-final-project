@@ -1,7 +1,7 @@
 import lodash from 'lodash';
-import { categoryActions } from 'redux/actions/category.action';
+import { CategoryActions } from 'redux/actions/category.action';
 import { setMessage } from 'redux/actions/message.action';
-import { userActions } from 'redux/actions/user.action';
+import { UserActions } from 'redux/actions/user.action';
 import { TypedDispatch } from 'redux/store';
 
 export const upperFirstChar = (yourString: string) => {
@@ -70,10 +70,10 @@ export const handleAsyncAction = async (
       }
 
       if (
-        type !== userActions.LOGIN
-        && type !== userActions.REGISTER
-        && type !== userActions.FETCH_USER_INFO
-        && type !== categoryActions.FETCH_CATEGORY_LIST
+        type !== UserActions.LOGIN
+        && type !== UserActions.REGISTER
+        && type !== UserActions.FETCH_USER_INFO
+        && type !== CategoryActions.FETCH_CATEGORY_LIST
       ) {
         dispatch(
           setMessage({
