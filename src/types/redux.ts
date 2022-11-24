@@ -21,5 +21,5 @@ export type Modal = {
   title: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
-  closeHandle: Function;
+  closeHandle: ()=>void;
 };
