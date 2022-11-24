@@ -1,7 +1,7 @@
-import helper from "./helper";
+import helper from './helper';
 
-const LOGIN_API_URL: string = `${process.env.REACT_APP_BACK_END_URL}/auth`;
-const REGISTER_API_URL: string = `${process.env.REACT_APP_BACK_END_URL}/users`;
+const LOGIN_API_URL = `${process.env.REACT_APP_BACK_END_URL}/auth`;
+const REGISTER_API_URL = `${process.env.REACT_APP_BACK_END_URL}/users`;
 
 const AuthService = {
   login(email: string, password: string) {
@@ -10,7 +10,7 @@ const AuthService = {
   },
 
   logout() {
-    localStorage.removeItem("auth");
+    localStorage.removeItem('auth');
   },
 
   register(name: string, email: string, password: string) {

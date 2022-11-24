@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { Pagination, Loader } from '@ahaui/react';
 import classNames from 'classnames';
-import { itemsPerPage } from 'utils/variables';
 import { useTypedDispatch } from 'hooks';
 import { generateNumberArray } from 'utils/library';
 import { GenericDataTable } from 'types/genericDataTable';
@@ -36,15 +35,15 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   const componentRef = useRef<HTMLDivElement | null>(null);
 
   const totalPage = useMemo(
-    () => (data?.totalItems ? Math.ceil(data.totalItems / itemsPerPage) : 0),
+    () => (data?.totalItems ? Math.ceil(data.totalItems / ITEMS_PER_PAGE) : 0),
     [data],
   );
 
-  const startOffSet = (currentPage - 1) * itemsPerPage + 1;
+  const startOffSet = (currentPage - 1) * ITEMS_PER_PAGE + 1;
 
-  const lastOffSet = data && currentPage * itemsPerPage > data.totalItems
+  const lastOffSet = data && currentPage * ITEMS_PER_PAGE > data.totalItems
     ? data.totalItems
-    : currentPage * itemsPerPage;
+    : currentPage * ITEMS_PER_PAGE;
 
   const changePage = (page: number) => {
     setCurrentPage(() => page);

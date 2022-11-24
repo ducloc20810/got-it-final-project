@@ -1,18 +1,18 @@
-import { NO_AUTH, AUTH } from "constants/storage";
+import { AUTH_STORAGE } from 'constants/storage';
+import { AUTH, NO_AUTH } from './helper';
 
 export default function generateHeader(type: typeof AUTH | typeof NO_AUTH) {
   let user = null;
-  let localStorageData = localStorage.getItem("auth");
+  const localStorageData = localStorage.getItem(AUTH_STORAGE);
   if (localStorageData) user = JSON.parse(localStorageData);
 
-  if (user && user.access_token && type === "auth") {
+  if (user && user.accessToken && type === AUTH) {
     return new Headers({
-      Authorization: `Bearer ${user.access_token}`,
-      "Content-Type": "application/json",
-    });
-  } else {
-    return new Headers({
-      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.accessToken}`,
+      'Content-Type': 'application/json',
     });
   }
+  return new Headers({
+    'Content-Type': 'application/json',
+  });
 }

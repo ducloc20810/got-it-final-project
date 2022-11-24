@@ -1,4 +1,4 @@
-import { itemsPerPage } from 'utils/variables';
+import { ITEMS_PER_PAGE } from 'constants/pagination';
 import helper from './helper';
 
 const API_URL = `${process.env.REACT_APP_BACK_END_URL}/categories`;
@@ -10,7 +10,7 @@ export type CategoryPayload = {
 };
 
 const CategoryService = {
-  getCategories(offset = 0, limit: number = itemsPerPage) {
+  getCategories(offset = 0, limit: number = ITEMS_PER_PAGE) {
     const url = `${API_URL}?offset=${offset}&limit=${limit}`;
     return helper.get(url);
   },

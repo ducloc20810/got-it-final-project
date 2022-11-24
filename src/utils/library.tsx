@@ -15,9 +15,9 @@ export const upperFirstChar = (yourString: string) => {
 export const generateNumberArray = (length: number) =>
   Array.from({ length: length }, (_, i) => i + 1);
 
-export const camelize = (data: any) => {
+export const toCamelCase = (data: any) => {
   if (lodash.isArray(data)) {
-    const newDataArr: any[] = data.map((item) => camelize(item));
+    const newDataArr: any[] = data.map((item) => toCamelCase(item));
     return newDataArr;
   }
 
@@ -26,7 +26,7 @@ export const camelize = (data: any) => {
     const newData: Record<string, unknown> = {};
     Object.keys(data).forEach((key: string) => {
       const newKey = lodash.camelCase(key);
-      newData[newKey] = camelize(dataCopy[key]);
+      newData[newKey] = toCamelCase(dataCopy[key]);
     });
     return newData;
   }
@@ -34,9 +34,9 @@ export const camelize = (data: any) => {
   return data;
 };
 
-export const snakeLize = (data:any) => {
+export const toSnakeCase = (data:any) => {
   if (lodash.isArray(data)) {
-    const newDataArr: any[] = data.map((item) => camelize(item));
+    const newDataArr: any[] = data.map((item) => toCamelCase(item));
     return newDataArr;
   }
 
@@ -45,7 +45,7 @@ export const snakeLize = (data:any) => {
     const newData: Record<string, unknown> = {};
     Object.keys(data).forEach((key: string) => {
       const newKey = lodash.snakeCase(key);
-      newData[newKey] = camelize(dataCopy[key]);
+      newData[newKey] = toCamelCase(dataCopy[key]);
     });
     return newData;
   }
@@ -62,7 +62,7 @@ export const handleAsyncAction = async (
     const res = await promise();
     let data = await res.json();
 
-    data = camelize(data);
+    data = toCamelCase(data);
     if (res.ok) {
       const newType = upperFirstChar(type);
       if (type === 'LOGIN') {

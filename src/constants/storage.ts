@@ -1,2 +1,1 @@
-export const AUTH = "auth";
-export const NO_AUTH = "noAuth";
+export const AUTH_STORAGE = 'auth';

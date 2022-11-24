@@ -13,7 +13,7 @@ const initialState: Modal = {
   children: null,
   footer: null,
   title: '',
-  closeHandle: () => {},
+  closeHandle: () => null,
 };
 
 const modalReducer = (
@@ -58,7 +58,7 @@ const modalReducer = (
         children: null,
         footer: null,
         title: '',
-        closeHandle: () => {},
+        closeHandle: () => null,
       };
 
     default:

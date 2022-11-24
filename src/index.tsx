@@ -1,20 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import "@ahaui/css/dist/index.min.css";
-import App from "./App";
-import { store } from "redux/store";
-import reportWebVitals from "./reportWebVitals";
-import "./index.scss";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import '@ahaui/css/dist/index.min.css';
+import { store } from 'redux/store';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import './index.scss';
 
-const container = document.getElementById("root")!;
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const container = document.getElementById('root')!;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
-  container
+  container,
 );
 
 // If you want to start measuring performance in your app, pass a function

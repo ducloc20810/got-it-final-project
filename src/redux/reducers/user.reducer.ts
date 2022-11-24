@@ -1,5 +1,5 @@
-import { User } from "types/redux";
-import { RootState } from "redux/store";
+import { User } from 'types/redux';
+import { RootState } from 'redux/store';
 
 type Action = {
   type: string;
@@ -7,52 +7,52 @@ type Action = {
 };
 
 const initialState: User = {
-  name: "",
-  id: "",
+  name: '',
+  id: '',
   isLoggedIn: false,
 };
 
 const userReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case "REGISTER_SUCCESS":
+    case 'REGISTER_SUCCESS':
       return {
         ...state,
         isLoggedIn: false,
       };
 
-    case "REGISTER_FAILURE":
+    case 'REGISTER_FAILURE':
       return {
         ...state,
         isLoggedIn: false,
       };
 
-    case "LOGIN_SUCCESS":
+    case 'LOGIN_SUCCESS':
       return {
         ...state,
         isLoggedIn: true,
       };
 
-    case "LOGIN_FAILURE":
+    case 'LOGIN_FAILURE':
       return {
         ...state,
         isLoggedIn: false,
       };
 
-    case "LOGOUT":
+    case 'LOGOUT':
       return {
-        name: "",
-        id: "",
+        name: '',
+        id: '',
         isLoggedIn: false,
       };
 
-    case "FETCH_USER_INFO_SUCCESS":
+    case 'FETCH_USER_INFO_SUCCESS':
       return {
         ...state,
         isLoggedIn: true,
         ...action.payload,
       };
 
-    case "FETCH_USER_INFO_FAILURE":
+    case 'FETCH_USER_INFO_FAILURE':
       return state;
 
     default:

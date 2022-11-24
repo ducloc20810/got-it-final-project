@@ -1,6 +1,6 @@
-import { RootState } from "redux/store";
-import { Message } from "types/redux";
-import { SET_MESSAGE, CLEAR_MESSAGE } from "redux/actions/message.action";
+import { RootState } from 'redux/store';
+import { Message } from 'types/redux';
+import { SET_MESSAGE, CLEAR_MESSAGE } from 'redux/actions/message.action';
 
 type Action = {
   type: string;
@@ -8,7 +8,7 @@ type Action = {
 };
 
 const initialState: Message = {
-  message: "",
+  message: '',
   error: null,
   status: null,
 };
@@ -22,7 +22,7 @@ const messageReducer = (state = initialState, action: Action) => {
 
     case CLEAR_MESSAGE:
       return {
-        message: "",
+        message: '',
         error: null,
         status: null,
       };

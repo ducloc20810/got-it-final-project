@@ -1,12 +1,12 @@
-import { Modal } from "types/redux";
+import { Modal } from 'types/redux';
 
 export const modalActions = {
-  OPEN_MODAL: "OPEN_MODAL",
-  CLOSE_MODAL: "CLOSE_MODAL",
-  LOADED: "LOADED",
-  LOADING: "LOADING",
-  SET_MODAL: "SET_MODAL",
-  CLEAR_MODAL: "CLEAR_MODAL",
+  OPEN_MODAL: 'OPEN_MODAL',
+  CLOSE_MODAL: 'CLOSE_MODAL',
+  LOADED: 'LOADED',
+  LOADING: 'LOADING',
+  SET_MODAL: 'SET_MODAL',
+  CLEAR_MODAL: 'CLEAR_MODAL',
 };
 
 export const openModal = () => ({

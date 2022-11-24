@@ -1,6 +1,8 @@
-import { AUTH, NO_AUTH } from 'constants/storage';
 import generateHeader from 'services/header.service';
-import { snakeLize } from '../utils/library';
+import { toSnakeCase } from '../utils/library';
+
+export const AUTH = 'auth';
+export const NO_AUTH = 'noAuth';
 
 const helper = {
   get: (url: string) =>
@@ -9,7 +11,7 @@ const helper = {
     }),
 
   post: (url: string, bodyPayload: any) => {
-    const payload = snakeLize(bodyPayload);
+    const payload = toSnakeCase(bodyPayload);
     return fetch(url, {
       method: 'POST',
       headers: generateHeader(NO_AUTH),
@@ -18,7 +20,7 @@ const helper = {
   },
 
   put: (url: string, bodyPayload: any) => {
-    const payload = snakeLize(bodyPayload);
+    const payload = toSnakeCase(bodyPayload);
     return fetch(url, {
       method: 'PUT',
       headers: generateHeader(NO_AUTH),
@@ -40,7 +42,7 @@ const helper = {
     }),
 
   postWithAuthentication: (url: string, bodyPayload: any) => {
-    const payload = snakeLize(bodyPayload);
+    const payload = toSnakeCase(bodyPayload);
     return fetch(url, {
       method: 'POST',
       headers: generateHeader(AUTH),
@@ -49,7 +51,7 @@ const helper = {
   },
 
   putWithAuthentication: (url: string, bodyPayload: any) => {
-    const payload = snakeLize(bodyPayload);
+    const payload = toSnakeCase(bodyPayload);
     return fetch(url, {
       method: 'PUT',
       headers: generateHeader(AUTH),

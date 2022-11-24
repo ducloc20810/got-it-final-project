@@ -53,12 +53,7 @@
     "staging": "env-cmd -f .env.staging npm run build",
     "prod": "env-cmd -f .env.prod npm run build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+
   "browserslist": {
     "production": [
       ">0.2%",

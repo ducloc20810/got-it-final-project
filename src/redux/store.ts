@@ -3,11 +3,11 @@ import {
   combineReducers,
   applyMiddleware,
   AnyAction,
-} from "redux";
-import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
-import messageReducer from "redux/reducers/message.reducer";
-import userReducer from "redux/reducers/user.reducer";
-import modalReducer from "./reducers/modal.reducer";
+} from 'redux';
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import messageReducer from 'redux/reducers/message.reducer';
+import userReducer from 'redux/reducers/user.reducer';
+import modalReducer from './reducers/modal.reducer';
 
 export const reducer = combineReducers({
   user: userReducer,

@@ -10,6 +10,8 @@
   },
   "plugins": ["react-hooks", "@typescript-eslint"],
   "rules": {
+    "default-param-last": "off",
+    "max-len":"off",
     "import/prefer-default-export":"off",
     "implicit-arrow-linebreak":"off",
     "@typescript-eslint/no-explicit-any": "off",
