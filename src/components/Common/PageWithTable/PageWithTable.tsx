@@ -3,7 +3,7 @@ import { Pagination, Loader } from '@ahaui/react';
 import classNames from 'classnames';
 import { useTypedDispatch } from 'hooks';
 import { generateNumberArray } from 'utils/library';
-import { GenericDataTable } from 'types/genericDataTable';
+import { GenericDataTable } from 'types/common';
 import { TypedDispatch } from 'redux/store';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import styles from './PageWithTable.module.scss';
