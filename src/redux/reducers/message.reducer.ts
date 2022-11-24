@@ -1,6 +1,6 @@
 import { RootState } from 'redux/store';
 import { Message } from 'types/redux';
-import { SET_MESSAGE, CLEAR_MESSAGE } from 'redux/actions/message.action';
+import { MessageActions } from 'redux/actions/message.action';
 
 type Action = {
   type: string;
@@ -17,10 +17,10 @@ const messageReducer = (state = initialState, action: Action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_MESSAGE:
+    case MessageActions.SET_MESSAGE:
       return payload;
 
-    case CLEAR_MESSAGE:
+    case MessageActions.CLEAR_MESSAGE:
       return {
         message: '',
         error: null,
