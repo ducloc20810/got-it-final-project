@@ -1,9 +1,9 @@
-import { Provider } from "react-redux";
-import { applyMiddleware, createStore } from "redux";
-import { render } from "@testing-library/react";
-import { reducer } from "redux/store";
-import { BrowserRouter } from "react-router-dom";
-import thunk from "redux-thunk";
+import { Provider } from 'react-redux';
+import { applyMiddleware, legacy_createStore as createStore } from 'redux';
+import { render } from '@testing-library/react';
+import { reducer } from 'redux/store';
+import { BrowserRouter } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
 export function renderWithProviders(
   ui: React.ReactElement,
@@ -12,7 +12,7 @@ export function renderWithProviders(
   store = createStore(reducer, initState, applyMiddleware(thunk)),
   ...renderOptions: any
 ) {
-  function Wrapper({ children }: React.PropsWithChildren<{}>): JSX.Element {
+  function Wrapper({ children }: React.PropsWithChildren): JSX.Element {
     return (
       <Provider store={store}>
         <BrowserRouter>{children}</BrowserRouter>
@@ -30,7 +30,7 @@ export function renderWithReduxProviderOnly(
   store = createStore(reducer, initState),
   ...renderOptions: any
 ) {
-  function Wrapper({ children }: React.PropsWithChildren<{}>): JSX.Element {
+  function Wrapper({ children }: React.PropsWithChildren): JSX.Element {
     return <Provider store={store}>{children}</Provider>;
   }
 
