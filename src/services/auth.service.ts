@@ -1,3 +1,4 @@
+import { AUTH_STORAGE_KEY } from 'constants/storage';
 import helper from './helper';
 
 const LOGIN_API_URL = `${process.env.REACT_APP_BACK_END_URL}/auth`;
@@ -10,7 +11,7 @@ const AuthService = {
   },
 
   logout() {
-    localStorage.removeItem('auth');
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   },
 
   register(name: string, email: string, password: string) {

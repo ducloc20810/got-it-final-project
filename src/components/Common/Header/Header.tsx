@@ -5,6 +5,7 @@ import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { useAppSelector, useTypedDispatch } from 'hooks';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { getUserInfo, logout } from 'redux/actions/user.action';
+import { AUTH_STORAGE_KEY } from 'constants/storage';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -14,7 +15,7 @@ const Header = () => {
   const [isFetch, setIsFetch] = useState(0);
 
   useEffect(() => {
-    if (localStorage.getItem('auth') && !user.id && !user.name && isFetch === 0) {
+    if (localStorage.getItem(AUTH_STORAGE_KEY) && !user.id && !user.name && isFetch === 0) {
       dispatch(getUserInfo())
         .then(() => {
           setIsFetch((prev) => prev + 1);

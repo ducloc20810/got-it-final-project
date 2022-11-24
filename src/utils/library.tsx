@@ -1,3 +1,4 @@
+import { AUTH_STORAGE_KEY } from 'constants/storage';
 import lodash from 'lodash';
 import { CategoryActions } from 'redux/actions/category.action';
 import { setMessage } from 'redux/actions/message.action';
@@ -65,7 +66,7 @@ export const handleAsyncAction = async (
     if (res.ok) {
       const newType = upperFirstChar(type);
       if (type === 'LOGIN') {
-        localStorage.setItem('auth', JSON.stringify(data));
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
       }
 
       if (
