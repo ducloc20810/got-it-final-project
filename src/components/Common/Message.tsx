@@ -9,7 +9,9 @@ const Message = () => {
   const message = useAppSelector(messageSelector);
   const dispatch = useTypedDispatch();
   useEffect(() => {
-    if (!message.status && !message.error && !message.message) return undefined;
+    if (!message.status && !message.error && !message.message) {
+      return undefined;
+    }
 
     // If API return error
     if (message.status && message.error) {
@@ -20,7 +22,6 @@ const Message = () => {
       else {
         toast.error(`${message.status}: ${message.error.message}`);
       }
-      // eslint-disable-next-line brace-style
     }
 
     // If fetch error
