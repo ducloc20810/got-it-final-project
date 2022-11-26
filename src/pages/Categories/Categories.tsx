@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal } from '@ahaui/react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CategoriesTable from 'components/Categories/CategoriesTable';
 import { AuthWarning, PageWithTable } from 'components/Common';
 import { useAppSelector, useTypedDispatch } from 'hooks';
@@ -20,6 +20,7 @@ import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
   const user = useAppSelector(userSelector);
+  const location = useLocation();
   const navigate = useNavigate();
 
   const [data, setData] = useState<CategoriesDataType>({
@@ -80,7 +81,7 @@ const Categories = () => {
               variant="primary"
               width="full"
               onClick={() => {
-                navigate('/login');
+                navigate('/login', { state: { prevPath: location.pathname } });
                 dispatch(clearModal());
               }}
             >

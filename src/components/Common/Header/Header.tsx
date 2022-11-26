@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Header as AhaHeader, Dropdown, Icon } from '@ahaui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { useAppSelector, useTypedDispatch } from 'hooks';
 import { userSelector } from 'redux/reducers/user.reducer';
@@ -13,13 +13,16 @@ const Header = () => {
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const [isFetch, setIsFetch] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     if (localStorage.getItem(AUTH_STORAGE_KEY) && !user.id && !user.name && isFetch === 0) {
       dispatch(getUserInfo())
         .then(() => {
           setIsFetch((prev) => prev + 1);
-          navigate('/');
+          if (location.pathname === '/login' || location.pathname === '/signup') {
+            navigate('/');
+          }
         })
         .catch((e) => {
           setIsFetch((prev) => prev + 1);
@@ -46,11 +49,7 @@ const Header = () => {
             <Dropdown alignRight className="u-marginLeftExtraSmall">
               <Dropdown.Toggle className="u-textLight u-lineHeightNone">
                 <div className="u-flex u-alignItemsCenter">
-                  <Icon
-                    name="contact"
-                    size="medium"
-                    className="u-marginRightTiny"
-                  />
+                  <Icon name="contact" size="medium" className="u-marginRightTiny" />
                   <div>{user.name}</div>
                 </div>
               </Dropdown.Toggle>
@@ -71,12 +70,17 @@ const Header = () => {
 
           {!user.isLoggedIn && (
             <div className="u-flex u-alignItemsCenter">
-              <Link className="hover:u-textPrimary u-textDark" to="/login">
+              <Link
+                className="hover:u-textPrimary u-textDark"
+                to="/login"
+                state={{ prevPath: location.pathname }}
+              >
                 Login
               </Link>
               <Link
                 className="hover:u-textPrimary u-textDark u-marginLeftSmall"
                 to="/signup"
+                state={{ prevPath: location.pathname }}
               >
                 Register
               </Link>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Loader } from '@ahaui/react';
 import { useForm } from 'react-hook-form';
 import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
@@ -22,6 +22,8 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useTypedDispatch();
+  const location = useLocation();
+  const prevPath = location.state?.prevPath || '/';
 
   const handleLoginSubmit = (data: IFormLoginInputs) => {
     if (data.email && data.password) {
@@ -30,8 +32,12 @@ const Login = () => {
       dispatch(login(data.email, data.password))
         .then(() => dispatch(getUserInfo()))
         .then(() => {
-          setIsLoading(false);
-          navigate('/');
+          if (prevPath !== '/login' && prevPath !== '/signup') {
+            navigate(-1);
+          }
+          else {
+            navigate('/');
+          }
         })
         .catch(() => {
           setIsLoading(false);
@@ -46,11 +52,7 @@ const Login = () => {
         'u-backgroundWhite u-paddingVerticalMedium u-paddingHorizontalMedium u-positionAbsolute u-positionCenter u-flex u-flexColumn u-shadowMedium u-roundedMedium',
       )}
     >
-      <Logo
-        width={40}
-        height={40}
-        className="u-marginLeftAuto u-marginRightAuto"
-      />
+      <Logo width={40} height={40} className="u-marginLeftAuto u-marginRightAuto" />
       <h1 className="u-textCenter u-marginTopExtraSmall u-marginBottomMedium u-text800">
         Login to Hello
       </h1>
@@ -65,17 +67,11 @@ const Login = () => {
           })}
         />
 
-        {errors.email?.type === 'required' && (
-          <InlineError>Please enter your email</InlineError>
-        )}
-        {errors.email?.type === 'pattern' && (
-          <InlineError>Email is invalid</InlineError>
-        )}
+        {errors.email?.type === 'required' && <InlineError>Please enter your email</InlineError>}
+        {errors.email?.type === 'pattern' && <InlineError>Email is invalid</InlineError>}
 
         {errors.email?.type === 'maxLength' && (
-          <InlineError>
-            Maximum length of email is 30 characters
-          </InlineError>
+          <InlineError>Maximum length of email is 30 characters</InlineError>
         )}
       </Form.Group>
 
@@ -94,9 +90,7 @@ const Login = () => {
         )}
 
         {errors.password?.type === 'minLength' && (
-          <InlineError>
-            Password should be at least 6 characters
-          </InlineError>
+          <InlineError>Password should be at least 6 characters</InlineError>
         )}
       </Form.Group>
 
