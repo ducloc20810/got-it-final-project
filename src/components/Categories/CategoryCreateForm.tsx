@@ -33,7 +33,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           />
 
           {errors.name?.type === 'required' && (
-            <InlineError>Please enter your name</InlineError>
+            <InlineError>Please enter your category name</InlineError>
           )}
 
           {errors.name?.type === 'maxLength' && (
@@ -49,12 +49,13 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             placeholder="Image Url"
             {...register('imageUrl', {
               maxLength: 200,
+              required: 'Image url is required',
 
             })}
           />
 
           {errors.imageUrl?.type === 'required' && (
-            <InlineError>Please enter your image url</InlineError>
+            <InlineError>Please enter your category image URL</InlineError>
           )}
 
           {errors.imageUrl?.type === 'maxLength' && (
@@ -75,7 +76,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           />
 
           {errors.description?.type === 'required' && (
-            <InlineError>Please enter description</InlineError>
+            <InlineError>Please enter your category description</InlineError>
           )}
 
           {errors.description?.type === 'maxLength' && (

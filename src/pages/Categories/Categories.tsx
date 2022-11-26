@@ -57,7 +57,7 @@ const Categories = () => {
           }));
         }
         dispatch(clearModal());
-      });
+      }).catch(() => null);
     }
   };
 
