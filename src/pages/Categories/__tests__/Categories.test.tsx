@@ -141,6 +141,58 @@ describe('fetch category list data', () => {
 });
 
 describe('create category', () => {
+  describe('open modal', () => {
+    test('user is logged in', async () => {
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: true } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getByRole('button', { name: /create category/i }));
+
+      await waitFor(() => {
+        expect(screen.getByText(/create category form/i)).toBeInTheDocument();
+      });
+    });
+
+    test('user is not logged in', async () => {
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: false } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getByRole('button', { name: /create category/i }));
+
+      await waitFor(() => {
+        expect(screen.getByText(/warning authentication/i)).toBeInTheDocument();
+      });
+    });
+  });
+
   describe('form validation', () => {
     test('submit with empty inputs', async () => {
       renderWithProviders(
