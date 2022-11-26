@@ -32,6 +32,7 @@ const Login = () => {
       dispatch(login(data.email, data.password))
         .then(() => dispatch(getUserInfo()))
         .then(() => {
+          setIsLoading(false);
           if (prevPath !== '/login' && prevPath !== '/signup') {
             navigate(-1);
           }
