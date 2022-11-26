@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@ahaui/react';
+import { Button, Modal } from '@ahaui/react';
 import { useNavigate } from 'react-router-dom';
 import CategoriesTable from 'components/Categories/CategoriesTable';
 import { AuthWarning, PageWithTable } from 'components/Common';
@@ -49,11 +49,13 @@ const Categories = () => {
           imageUrl: formData.imageUrl,
         }),
       ).then((resData) => {
-        setData((prev) => ({
-          ...prev,
-          total_items: prev.totalItems + 1,
-          items: [...prev.items, resData],
-        }));
+        if (data.totalItems < 20) {
+          setData((prev) => ({
+            ...prev,
+            total_items: prev.totalItems + 1,
+            items: [...prev.items, resData],
+          }));
+        }
         dispatch(clearModal());
       });
     }
@@ -72,7 +74,7 @@ const Categories = () => {
         title: 'Warning authentication',
         footer:
         (
-          <>
+          <Modal.Footer>
             <Button variant="secondary" width="full" onClick={() => closeModalHandle()}>Cancel</Button>
             <Button
               variant="primary"
@@ -84,7 +86,7 @@ const Categories = () => {
             >
               Okay
             </Button>
-          </>
+          </Modal.Footer>
         ),
         closeHandle: closeModalHandle,
       }));
