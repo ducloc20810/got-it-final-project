@@ -108,7 +108,7 @@ const Login = () => {
           className="u-backgroundPrimary hover:u-background"
           onClick={handleSubmit(handleLoginSubmit)}
         >
-          <Button.Label>Login</Button.Label>
+          Login
         </Button>
       )}
       {isLoading && <Loader className="u-marginAuto" />}
