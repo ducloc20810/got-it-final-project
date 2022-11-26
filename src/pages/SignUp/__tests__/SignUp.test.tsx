@@ -1,128 +1,135 @@
-import { screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { setupServer } from "msw/node";
-import { rest } from "msw";
-import { faker } from "@faker-js/faker";
-import { renderWithProviders } from "utils/test.utils";
-import SignUp from "pages/SignUp/SignUp";
-import Message from "components/Common/Message";
-import { store } from "redux/store";
-import * as action from "redux/actions/user.action";
+import { screen, waitFor, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { setupServer } from 'msw/node';
+import { rest } from 'msw';
+import { faker } from '@faker-js/faker';
+import { renderWithProviders } from 'utils/test.utils';
+import SignUp from 'pages/SignUp/SignUp';
+import Message from 'components/Common/Message';
+import { store } from 'redux/store';
+import * as action from 'redux/actions/user.action';
 
 const buildSignUpData = () => ({
   email: faker.internet.email(),
   password: faker.internet.password(),
-  name: "Tran Duc Loc",
+  name: 'Tran Duc Loc',
 });
 
-describe("sign up validate", () => {
-  test("sign up without input value", async () => {
+describe('sign up validate', () => {
+  test('sign up without input value', async () => {
     renderWithProviders(<SignUp />, { user: { isLoggedIn: false } });
 
-    await userEvent.click(screen.getByRole("button", { name: /register/i }));
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /register/i }));
+    });
 
     expect(screen.getByText(/please enter your name/i)).toBeInTheDocument();
     expect(screen.getByText(/please enter your email/i)).toBeInTheDocument();
     expect(screen.getByText(/please enter your password/i)).toBeInTheDocument();
   });
 
-  test("sign up with wrong format email and password", async () => {
+  test('sign up with wrong format email and password', async () => {
     renderWithProviders(<SignUp />, { user: { isLoggedIn: false } });
 
     const data = {
-      email: "wrongEmailFormat",
-      password: "123",
-      name: "Trần Đức Lộc",
+      email: 'wrongEmailFormat',
+      password: '123',
+      name: 'Trần Đức Lộc',
     };
 
     await userEvent.type(screen.getByPlaceholderText(/email/i), data.email);
     await userEvent.type(
       screen.getByPlaceholderText(/password/i),
-      data.password
+      data.password,
     );
     await userEvent.type(screen.getByPlaceholderText(/your name/i), data.name);
 
-    await userEvent.click(screen.getByRole("button", { name: /register/i }));
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /register/i }));
+    });
 
     expect(
       screen.getByText(
-        /name should not contain any special characters, numbers and have more than one space between words/i
-      )
+        /name should not contain any special characters, numbers and have more than one space between words/i,
+      ),
     ).toBeInTheDocument();
     expect(screen.getByText(/email is invalid/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/password should be at least 6 characters/i)
+      screen.getByText(/password should be at least 6 characters/i),
     ).toBeInTheDocument();
   });
 
-  test("sign up with email and name longer than 30 characters", async () => {
+  test('sign up with email and name longer than 30 characters', async () => {
     renderWithProviders(<SignUp />, { user: { isLoggedIn: false } });
 
     const data = {
-      email: Array(30).fill("a") + "@gmail.com",
-      password: "123456",
-      name: Array(30).fill("a").toString(),
+      email: `${Array(30).fill('a')}@gmail.com`,
+      password: '123456',
+      name: Array(30).fill('a').toString(),
     };
 
     await userEvent.type(screen.getByPlaceholderText(/your name/i), data.name);
     await userEvent.type(screen.getByPlaceholderText(/email/i), data.email);
     await userEvent.type(
       screen.getByPlaceholderText(/password/i),
-      data.password
+      data.password,
     );
 
-    await userEvent.click(screen.getByRole("button", { name: /register/i }));
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /register/i }));
+    });
 
     expect(
-      screen.getByText(/maximum length of email is 30 characters/i)
+      screen.getByText(/maximum length of email is 30 characters/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/maximum length of name is 30 characters/i)
+      screen.getByText(/maximum length of name is 30 characters/i),
     ).toBeInTheDocument();
   });
 });
 
-describe("sign up with API call", () => {
+describe('sign up with API call', () => {
   const server = setupServer(
     rest.post<{ email: string; password: string; name: string }>(
       `${process.env.REACT_APP_BACK_END_URL}/users`,
       (req, res, ctx) => {
         const { password, email, name } = req.body;
 
-        if (!email)
+        if (!email) {
           return res(
             ctx.status(401),
-            ctx.json({ message: "Email is missing" })
+            ctx.json({ message: 'Email is missing' }),
           );
+        }
 
-        if (!password)
+        if (!password) {
           return res(
             ctx.status(401),
-            ctx.json({ message: "Password is missing" })
+            ctx.json({ message: 'Password is missing' }),
           );
+        }
 
-        if (!name)
-          return res(ctx.status(401), ctx.json({ message: "Name is missing" }));
+        if (!name) {
+          return res(ctx.status(401), ctx.json({ message: 'Name is missing' }));
+        }
         return res(
           ctx.status(200),
           ctx.json({
-            access_token: "123456",
-          })
+            access_token: '123456',
+          }),
         );
-      }
+      },
     ),
 
     rest.get(
       `${process.env.REACT_APP_BACK_END_URL}/users/me`,
-      (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.json({
-            id: "1",
-            name: "Loc",
-          })
-        );
-      }
+      (req, res, ctx) => res(
+        ctx.status(200),
+        ctx.json({
+          id: '1',
+          name: 'Loc',
+        }),
+      ),
     ),
 
     rest.post<{ email: string; password: string }>(
@@ -130,25 +137,27 @@ describe("sign up with API call", () => {
       (req, res, ctx) => {
         const { password, email } = req.body;
 
-        if (!email)
+        if (!email) {
           return res(
             ctx.status(401),
-            ctx.json({ message: "Email is missing" })
+            ctx.json({ message: 'Email is missing' }),
           );
+        }
 
-        if (!password)
+        if (!password) {
           return res(
             ctx.status(401),
-            ctx.json({ message: "Password is missing" })
+            ctx.json({ message: 'Password is missing' }),
           );
+        }
         return res(
           ctx.status(200),
           ctx.json({
-            access_token: "123456",
-          })
+            access_token: '123456',
+          }),
         );
-      }
-    )
+      },
+    ),
   );
 
   beforeAll(() => {
@@ -165,29 +174,31 @@ describe("sign up with API call", () => {
     jest.clearAllMocks();
   });
 
-  test("sign up successfully", async () => {
+  test('sign up successfully', async () => {
     renderWithProviders(
       <>
         <Message />
         <SignUp />
       </>,
       undefined,
-      store
+      store,
     );
-    const signUpSpy = jest.spyOn(action, "register");
-    const loginSpy = jest.spyOn(action, "login");
-    const fetchUserDataSpy = jest.spyOn(action, "getUserInfo");
+    const signUpSpy = jest.spyOn(action, 'register');
+    const loginSpy = jest.spyOn(action, 'login');
+    const fetchUserDataSpy = jest.spyOn(action, 'getUserInfo');
 
     const { name, email, password } = buildSignUpData();
     await userEvent.type(screen.getByPlaceholderText(/your name/i), name);
     await userEvent.type(screen.getByPlaceholderText(/email/i), email);
     await userEvent.type(screen.getByPlaceholderText(/password/i), password);
 
-    await userEvent.click(screen.getByRole("button", { name: /register/i }));
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /register/i }));
+    });
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: /register/i })
+        screen.getByRole('button', { name: /register/i }),
       ).toBeInTheDocument();
     });
 
@@ -198,26 +209,28 @@ describe("sign up with API call", () => {
     expect(fetchUserDataSpy).toBeCalledTimes(1);
 
     const pathName = window.location.pathname;
-    expect(pathName).toBe("/");
+    expect(pathName).toBe('/');
 
     signUpSpy.mockRestore();
     loginSpy.mockRestore();
     fetchUserDataSpy.mockRestore();
   });
 
-  test("sign up with existed email", async () => {
+  test('sign up with existed email', async () => {
     server.use(
       rest.post<{ email: string; password: string; name: string }>(
         `${process.env.REACT_APP_BACK_END_URL}/users`,
         async (req, res, ctx) => {
           const { email } = req.body;
-          if (email === "email@example.com")
+          if (email === 'email@example.com') {
             return res(
               ctx.status(400),
-              ctx.json({ message: "Email has been taken" })
+              ctx.json({ message: 'Email has been taken' }),
             );
-        }
-      )
+          }
+          return res();
+        },
+      ),
     );
 
     renderWithProviders(
@@ -226,13 +239,13 @@ describe("sign up with API call", () => {
         <SignUp />
       </>,
       undefined,
-      store
+      store,
     );
 
     const data = {
-      email: "email@example.com",
-      password: "123456",
-      name: "Loc",
+      email: 'email@example.com',
+      password: '123456',
+      name: 'Loc',
     };
     const { email, password, name } = data;
 
@@ -240,28 +253,28 @@ describe("sign up with API call", () => {
     await userEvent.type(screen.getByPlaceholderText(/password/i), password);
     await userEvent.type(screen.getByPlaceholderText(/your name/i), name);
 
-    await userEvent.click(screen.getByRole("button", { name: /register/i }));
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /register/i }));
+    });
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: /register/i })
+        screen.getByRole('button', { name: /register/i }),
       ).toBeInTheDocument();
     });
 
     await waitFor(() => {
-      expect(screen.getByText("400: Email has been taken")).toBeInTheDocument();
+      expect(screen.getByText('400: Email has been taken')).toBeInTheDocument();
     });
   });
 
-  test("unexpected error", async () => {
-    const errorMessage = "Oh no server error";
+  test('unexpected error', async () => {
+    const errorMessage = 'Oh no server error';
     server.use(
       rest.post<{ email: string; password: string }>(
         `${process.env.REACT_APP_BACK_END_URL}/users`,
-        async (req, res, ctx) => {
-          return res(ctx.status(500), ctx.json({ message: errorMessage }));
-        }
-      )
+        async (req, res, ctx) => res(ctx.status(500), ctx.json({ message: errorMessage })),
+      ),
     );
     renderWithProviders(
       <>
@@ -269,23 +282,25 @@ describe("sign up with API call", () => {
         <SignUp />
       </>,
       undefined,
-      store
+      store,
     );
     const { email, password, name } = buildSignUpData();
     await userEvent.type(screen.getByPlaceholderText(/email/i), email);
     await userEvent.type(screen.getByPlaceholderText(/password/i), password);
     await userEvent.type(screen.getByPlaceholderText(/your name/i), name);
 
-    await userEvent.click(screen.getByRole("button", { name: /register/i }));
+    await act(async () => {
+      await userEvent.click(screen.getByRole('button', { name: /register/i }));
+    });
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: /register/i })
+        screen.getByRole('button', { name: /register/i }),
       ).toBeInTheDocument();
     });
 
     await waitFor(() => {
-      expect(screen.getByText("500: Oh no server error")).toBeInTheDocument();
+      expect(screen.getByText('500: Oh no server error')).toBeInTheDocument();
     });
   });
 });
