@@ -1,23 +1,30 @@
 import { Button, Form } from '@ahaui/react';
-import { InlineError } from 'components/Common';
-import React from 'react';
 import { useForm } from 'react-hook-form';
+import { CategoryPayload } from 'pages/Categories/CategoriesType';
+import { InlineError } from 'components/Common';
 import { IFormCategoryInputs } from 'types/form';
 
 type CreateFormProps = {
   submitHandle: (data: IFormCategoryInputs) => void;
-  closeHandle: ()=>void;
+  closeHandle: () => void;
+  initValue?: CategoryPayload;
 };
 
 const CategoryCreateForm: React.FC<CreateFormProps> = ({
   submitHandle,
   closeHandle,
+  initValue,
 }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormCategoryInputs>({ mode: 'onChange' });
+  } = useForm<IFormCategoryInputs>({ mode: 'onChange',
+    defaultValues: initValue ? {
+      name: initValue.name,
+      description: initValue.description,
+      imageUrl: initValue.imageUrl,
+    } : {} });
 
   return (
     <>
@@ -37,9 +44,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           )}
 
           {errors.name?.type === 'maxLength' && (
-            <InlineError>
-              Maximum length of name is 30 characters
-            </InlineError>
+            <InlineError>Maximum length of name is 30 characters</InlineError>
           )}
         </Form.Group>
 
@@ -50,7 +55,6 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             {...register('imageUrl', {
               maxLength: 200,
               required: 'Image url is required',
-
             })}
           />
 
@@ -59,9 +63,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           )}
 
           {errors.imageUrl?.type === 'maxLength' && (
-            <InlineError>
-              Maximum length of image url is 200 characters
-            </InlineError>
+            <InlineError>Maximum length of image url is 200 characters</InlineError>
           )}
         </Form.Group>
 
@@ -80,9 +82,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           )}
 
           {errors.description?.type === 'maxLength' && (
-            <InlineError>
-              Maximum length of description is 200 characters
-            </InlineError>
+            <InlineError>Maximum length of description is 200 characters</InlineError>
           )}
         </Form.Group>
       </div>
@@ -99,11 +99,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           Close
         </Button>
 
-        <Button
-          width="full"
-          variant="primary"
-          onClick={handleSubmit(submitHandle)}
-        >
+        <Button width="full" variant="primary" onClick={handleSubmit(submitHandle)}>
           Submit
         </Button>
       </div>
