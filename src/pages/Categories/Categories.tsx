@@ -7,7 +7,7 @@ import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
 import { IFormCategoryInputs } from 'types/form';
 import { useAppSelector, useTypedDispatch } from 'hooks';
 import { createCategory, editCategory, fetchCategoryList } from 'redux/actions/category.action';
-import { clearModal, setLoading, setModal } from 'redux/actions/modal.action';
+import { clearModal, closeModal, setLoading, setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
@@ -23,7 +23,8 @@ const Categories = () => {
   const dispatch = useTypedDispatch();
 
   const closeModalHandle = () => {
-    dispatch(clearModal());
+    dispatch(closeModal());
+    setTimeout(() => dispatch(clearModal()), 600);
   };
 
   const handleUserNotLoggedIn = () => {

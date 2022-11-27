@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Modal as AhaModal } from '@ahaui/react';
 import { useAppSelector } from 'hooks';
 import { modalSelector } from 'redux/reducers/modal.reducer';
@@ -8,11 +7,12 @@ import styles from './Modal.module.scss';
 function Modal() {
   const state = useAppSelector(modalSelector);
 
-  return state.isOpen ? (
+  return (
     <div
       className={classNames(
         styles.modalContainer,
         'u-positionLeft u-positionRight u-positionTop u-positionBottom ',
+        state.isOpen ? styles.modalOpen : styles.modalClose,
       )}
     >
       <div
@@ -25,7 +25,6 @@ function Modal() {
       <AhaModal
         size="medium"
         relative
-        className="abcd"
         style={{
           zIndex: '999',
           position: 'fixed',
@@ -59,7 +58,7 @@ function Modal() {
         ) : state.footer}
       </AhaModal>
     </div>
-  ) : null;
+  );
 }
 
 export default Modal;
