@@ -9,11 +9,7 @@ type TableProps = {
   removeHandle: (arg1: number) => void;
 };
 
-const Table: React.FC<TableProps> = ({
-  list,
-  editHandle,
-  removeHandle,
-}) => (
+const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
   <>
     {list && list.length > 0 && (
       <div>
@@ -45,27 +41,29 @@ const Table: React.FC<TableProps> = ({
                     />
                   </td>
                   <td width="30%">
-                    <Link to={`/categories/${category.id}`}>
-                      {category.name}
-                    </Link>
+                    <Link to={`/categories/${category.id}`}>{category.name}</Link>
                   </td>
                   <td width="40%">{category.description}</td>
 
                   <td width="15%">
-                    <div className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer">
-                      <Icon
-                        size="small"
-                        name="edit"
-                        onClick={() => editHandle(category.id)}
-                      />
+                    <div
+                      className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer"
+                      onClick={() => editHandle(category.id)}
+                      onKeyPress={() => null}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <Icon size="small" name="edit" />
                     </div>
 
-                    <div className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer">
-                      <Icon
-                        size="small"
-                        name="trash"
-                        onClick={() => removeHandle(category.id)}
-                      />
+                    <div
+                      className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer"
+                      onClick={() => removeHandle(category.id)}
+                      onKeyPress={() => null}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <Icon size="small" name="trash" />
                     </div>
                   </td>
                 </tr>
