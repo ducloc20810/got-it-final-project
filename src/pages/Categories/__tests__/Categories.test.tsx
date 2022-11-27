@@ -75,10 +75,11 @@ beforeEach(() => {
 describe('fetch category list data', () => {
   test('fetch successfully with data', async () => {
     const fetchCategorySpy = jest.spyOn(action, 'fetchCategoryList');
-    const offset = 0;
+    const pageNumber = 1;
+
     renderWithProviders(<Categories />);
     expect(fetchCategorySpy).toBeCalledTimes(1);
-    expect(fetchCategorySpy).toBeCalledWith(offset);
+    expect(fetchCategorySpy).toBeCalledWith(pageNumber);
 
     await waitFor(() => {
       expect(
@@ -104,10 +105,10 @@ describe('fetch category list data', () => {
     );
 
     const fetchCategorySpy = jest.spyOn(action, 'fetchCategoryList');
-    const offset = 0;
+    const pageNumber = 1;
     renderWithProviders(<Categories />);
     expect(fetchCategorySpy).toBeCalledTimes(1);
-    expect(fetchCategorySpy).toBeCalledWith(offset);
+    expect(fetchCategorySpy).toBeCalledWith(pageNumber);
 
     await waitFor(() => {
       expect(screen.getByText(/no data/i)).toBeInTheDocument();
