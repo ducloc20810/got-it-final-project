@@ -189,7 +189,7 @@ describe('create category', () => {
       await userEvent.click(screen.getByRole('button', { name: /create category/i }));
 
       await waitFor(() => {
-        expect(screen.getByText(/warning authentication/i)).toBeInTheDocument();
+        expect(screen.getByText(/authentication warning/i)).toBeInTheDocument();
       });
     });
   });

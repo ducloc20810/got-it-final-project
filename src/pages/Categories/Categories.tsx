@@ -33,7 +33,7 @@ const Categories = () => {
         children: <AuthWarning action="create category" />,
         isLoading: false,
         isOpen: true,
-        title: 'Warning authentication',
+        title: 'Authentication Warning',
         footer: (
           <Modal.Footer>
             <Button variant="secondary" width="full" onClick={() => closeModalHandle()}>

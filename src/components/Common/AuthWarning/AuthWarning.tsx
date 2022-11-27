@@ -5,7 +5,7 @@ type AuthWarningProps={
 const AuthWarning:React.FC<AuthWarningProps> = ({ action }) => (
   <div>
     <p>
-      You need to logged in to
+      You need to login to
       {' '}
       {action}
     </p>
