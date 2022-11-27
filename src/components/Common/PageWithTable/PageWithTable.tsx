@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { Pagination, Loader } from '@ahaui/react';
+import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTypedDispatch } from 'hooks';
 import { generateNumberArray } from 'utils/library';
@@ -27,12 +28,14 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   CreateButton,
   renderTable,
 }) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useTypedDispatch();
 
   const componentRef = useRef<HTMLDivElement | null>(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const totalPage = useMemo(
     () => (data?.totalItems ? Math.ceil(data.totalItems / ITEMS_PER_PAGE) : 0),
@@ -45,11 +48,23 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
     ? data.totalItems
     : currentPage * ITEMS_PER_PAGE;
 
-  const changePage = (page: number) => {
-    setCurrentPage(() => page);
+  const changeSearchParamsPage = (page: number) => {
+    searchParams.set('page', page.toString());
+    setSearchParams(searchParams);
   };
 
   useEffect(() => {
+    const page = searchParams.get('page');
+    if (page && +page) {
+      setCurrentPage(+page);
+      return;
+    }
+    changeSearchParamsPage(1);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (currentPage === 0) return;
+
     setIsLoading(true);
     dispatch(fetchData(currentPage))
       .then((resData: GenericDataTable) => {
@@ -89,28 +104,39 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
               {data && data.totalItems > 0 && (
                 <div className="u-flex u-justifyContentBetween u-alignItemsCenter u-textNeutral100">
                   <div className="u-text200">
-                    {`Show ${startOffSet} to ${lastOffSet} of ${data.totalItems} entries`}
+                    { data.items.length > 0 && `Show ${startOffSet} to ${lastOffSet} of ${data.totalItems} entries`}
                   </div>
 
                   <Pagination className={classNames(styles.pagination)}>
                     <Pagination.Prev
                       disabled={currentPage === 1}
-                      onClick={() => (currentPage !== 1 ? changePage(currentPage - 1) : '')}
+                      onClick={() => {
+                        if (currentPage > 1) {
+                          changeSearchParamsPage(currentPage - 1);
+                        }
+                      }}
                       className="u-marginBottomNone"
                     />
                     {generateNumberArray(totalPage).map((page) => (
                       <Pagination.Item
                         key={page}
                         active={currentPage === page}
-                        onClick={() => changePage(page)}
+                        onClick={() => {
+                          changeSearchParamsPage(page);
+                        }}
                         className="u-marginBottomNone"
+
                       >
                         {page}
                       </Pagination.Item>
                     ))}
                     <Pagination.Next
                       disabled={currentPage === totalPage}
-                      onClick={() => (currentPage !== totalPage ? changePage(currentPage + 1) : '')}
+                      onClick={() => {
+                        if (currentPage < totalPage) {
+                          changeSearchParamsPage(currentPage + 1);
+                        }
+                      }}
                       className="u-marginBottomNone"
                     />
                   </Pagination>
