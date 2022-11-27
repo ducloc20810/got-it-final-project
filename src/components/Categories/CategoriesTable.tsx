@@ -52,6 +52,7 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
                       onKeyPress={() => null}
                       role="button"
                       tabIndex={0}
+                      aria-label="Edit category"
                     >
                       <Icon size="small" name="edit" />
                     </div>
@@ -62,6 +63,8 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
                       onKeyPress={() => null}
                       role="button"
                       tabIndex={0}
+                      aria-label="Remove category"
+
                     >
                       <Icon size="small" name="trash" />
                     </div>

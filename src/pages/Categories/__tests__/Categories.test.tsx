@@ -56,6 +56,28 @@ const server = setupServer(
       );
     },
   ),
+
+  rest.put<{ name: string; image_url: string; description: string }>(
+    `${process.env.REACT_APP_BACK_END_URL}/categories/:id`,
+    (req, res, ctx) => {
+      const { name, image_url, description } = req.body;
+
+      if (!name) return res(ctx.status(400), ctx.json({ message: 'Name is missing' }));
+      if (!image_url) return res(ctx.status(400), ctx.json({ message: 'Image url is missing' }));
+      if (!description) {
+        return res(ctx.status(400), ctx.json({ message: 'Description is missing' }));
+      }
+
+      return res(
+        ctx.status(201),
+        ctx.json({
+          name,
+          image_url,
+          description,
+        }),
+      );
+    },
+  ),
 );
 
 beforeAll(() => {
@@ -322,6 +344,109 @@ describe('create category', () => {
       await waitFor(() => {
         expect(screen.getByText(/400: not a valid url/i)).toBeInTheDocument();
       });
+    });
+  });
+});
+
+describe('edit category', () => {
+  describe('open modal', () => {
+    test('user is logged in', async () => {
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: true } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: /edit category/i })[0]);
+
+      await waitFor(() => {
+        expect(screen.getByText(/edit category form/i)).toBeInTheDocument();
+      });
+    });
+
+    test('user is not logged in', async () => {
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: false } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: /edit category/i })[0]);
+
+      await waitFor(() => {
+        expect(screen.getByText(/authentication warning/i)).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('call api', () => {
+    test('edit successfully', async () => {
+      // Edit category with id 1
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: true } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: /edit category/i })[0]);
+
+      await waitFor(() => {
+        expect(screen.getByText(/edit category form/i)).toBeInTheDocument();
+      });
+
+      const data = {
+        name: 'edit category 1',
+        imageUrl: TEST_IMAGE_URL,
+        description: 'category description test',
+      };
+
+      await userEvent.type(screen.getByPlaceholderText(/name/i), data.name);
+
+      await userEvent.type(screen.getByPlaceholderText(/image url/i), data.imageUrl);
+
+      await userEvent.type(screen.getByPlaceholderText(/description/i), data.description);
+
+      await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+      await waitFor(() => {
+        expect(screen.getByText(/edit category successfully/i)).toBeInTheDocument();
+      });
+
+      // Check if item is updated on the UI
+      expect(screen.getByRole('cell', { name: /edit category 1/i })).toBeInTheDocument();
     });
   });
 });
