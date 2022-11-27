@@ -11,8 +11,9 @@ export const CategoryActions = {
   EDIT_CATEGORY: 'EDIT_CATEGORY',
 };
 
-export const fetchCategoryList = (offset = 0, limit: number = ITEMS_PER_PAGE) =>
+export const fetchCategoryList = (pageNumber:number, limit: number = ITEMS_PER_PAGE) =>
   (dispatch: TypedDispatch) => {
+    const offset = (pageNumber - 1) * limit;
     const url = `${EndPoints.CATEGORIES}?offset=${offset}&limit=${limit}`;
 
     return handleAsyncAction(dispatch, CategoryActions.FETCH_CATEGORY_LIST, () => helper.get(url));

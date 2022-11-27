@@ -51,7 +51,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
 
   useEffect(() => {
     setIsLoading(true);
-    dispatch(fetchData((currentPage - 1) * ITEMS_PER_PAGE))
+    dispatch(fetchData(currentPage))
       .then((resData: GenericDataTable) => {
         if (componentRef.current) {
           setData(resData);
