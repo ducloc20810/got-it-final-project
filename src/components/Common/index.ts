@@ -6,7 +6,8 @@ import InlineError from 'components/Common/InlineError';
 import PageWithTable from 'components/Common/PageWithTable/PageWithTable';
 import Modal from 'components/Common/Modal/Modal';
 import AuthWarning from 'components/Common/AuthWarning/AuthWarning';
+import DeleteWarning from 'components/Common/DeleteWarning/DeleteWarning';
 
 export {
-  Header, Layout, Sidebar, Message, InlineError, PageWithTable, Modal, AuthWarning,
+  Header, Layout, Sidebar, Message, InlineError, PageWithTable, Modal, AuthWarning, DeleteWarning,
 };

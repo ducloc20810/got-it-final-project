@@ -151,8 +151,60 @@ const Categories = () => {
     );
   };
 
+  const deleteSubmitHandle = (id:number) => {
+    dispatch(removeCategory(id)).then(() => {
+      const page = searchParams.get('page');
+      if (page) {
+        if (data.items.length === 1) {
+          searchParams.set('page', (+page - 1).toString());
+          setSearchParams(searchParams);
+        }
+        else {
+          dispatch(fetchCategoryList(+page)).then((resData) => setData(resData));
+        }
+      }
+    });
+  };
+
+  const removeIconOnClick = (id:number) => {
+    if (!user.isLoggedIn) {
+      handleUserNotLoggedIn();
+      return;
+    }
+
+    const toBeDeleteCategory = data.items.find((category) => category.id === id);
+
+    if (toBeDeleteCategory) {
+      dispatch(setModal({
+        children: <DeleteWarning itemName={toBeDeleteCategory.name} />,
+        isLoading: false,
+        isOpen: true,
+        title: 'Delete Warning',
+        closeHandle: closeModalHandle,
+        footer: (
+          <Modal.Footer>
+            <Button variant="secondary" width="full" onClick={() => closeModalHandle()}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              width="full"
+              onClick={() => {
+                deleteSubmitHandle(id);
+                dispatch(clearModal());
+              }}
+            >
+              Confirm
+            </Button>
+          </Modal.Footer>
+        ),
+
+      }));
+    }
+  };
+
   const renderTable = (list: Array<CategoryType>) => (
-    <CategoriesTable list={list} removeHandle={() => null} editHandle={editIconOnClick} />
+    <CategoriesTable list={list} removeHandle={removeIconOnClick} editHandle={editIconOnClick} />
   );
 
   return (

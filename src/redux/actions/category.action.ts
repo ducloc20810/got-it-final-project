@@ -9,6 +9,7 @@ export const CategoryActions = {
   FETCH_CATEGORY_LIST: 'FETCH_CATEGORY_LIST',
   CREATE_CATEGORY: 'CREATE_CATEGORY',
   EDIT_CATEGORY: 'EDIT_CATEGORY',
+  DELETE_CATEGORY: 'DELETE_CATEGORY',
 };
 
 export const fetchCategoryList = (pageNumber:number, limit: number = ITEMS_PER_PAGE) =>
@@ -31,6 +32,6 @@ export const editCategory = (id: number, payload: CategoryPayload) => (dispatch:
 
 export const removeCategory = (id: number) => (dispatch:TypedDispatch) => {
   const url = `${EndPoints.CATEGORIES}/${id}`;
-  return handleAsyncAction(dispatch, CategoryActions.EDIT_CATEGORY, () =>
+  return handleAsyncAction(dispatch, CategoryActions.DELETE_CATEGORY, () =>
     helper.deleteWithAuthentication(url));
 };
