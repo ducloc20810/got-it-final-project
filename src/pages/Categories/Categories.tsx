@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Button, Modal } from '@ahaui/react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import CategoriesTable from 'components/Categories/CategoriesTable';
-import { AuthWarning, PageWithTable } from 'components/Common';
+import { AuthWarning, DeleteWarning, PageWithTable } from 'components/Common';
 import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
 import { IFormCategoryInputs } from 'types/form';
 import { useAppSelector, useTypedDispatch } from 'hooks';
-import { createCategory, editCategory, fetchCategoryList } from 'redux/actions/category.action';
+import { createCategory, editCategory, fetchCategoryList, removeCategory } from 'redux/actions/category.action';
 import { clearModal, closeModal, setLoading, setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
@@ -14,6 +14,8 @@ import { CategoriesDataType, CategoryType } from './CategoriesType';
 const Categories = () => {
   const user = useAppSelector(userSelector);
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const navigate = useNavigate();
 
   const [data, setData] = useState<CategoriesDataType>({
@@ -68,10 +70,16 @@ const Categories = () => {
         }),
       )
         .then((resData) => {
-          if (data.totalItems < 20) {
+          if (data.items.length === 20) {
+            const page = searchParams.get('page');
+            if (page) {
+              searchParams.set('page', (+page + 1).toString());
+              setSearchParams(searchParams);
+            }
+          }
+          else {
             setData((prev) => ({
-              ...prev,
-              total_items: prev.totalItems + 1,
+              totalItems: prev.totalItems + 1,
               items: [...prev.items, resData],
             }));
           }
