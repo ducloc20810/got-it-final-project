@@ -468,3 +468,98 @@ describe('edit category', () => {
     });
   });
 });
+
+describe('remove category', () => {
+  describe('open modal', () => {
+    test('user is logged in', async () => {
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: true } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: /remove category/i })[0]);
+
+      await waitFor(() => {
+        expect(screen.getByText(/delete warning/i)).toBeInTheDocument();
+      });
+    });
+
+    test('user is not logged in', async () => {
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: false } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: /edit category/i })[0]);
+
+      await waitFor(() => {
+        expect(screen.getByText(/authentication warning/i)).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('call api', () => {
+    test('remove successfully', async () => {
+      // Edit category with id 1
+      renderWithProviders(
+        <>
+          <Modal />
+          <Message />
+          <Categories />
+        </>,
+        { user: { isLoggedIn: true } },
+      );
+
+      await waitFor(() => {
+        expect(
+          screen.getByRole('columnheader', {
+            name: /id/i,
+          }),
+        ).toBeInTheDocument();
+      });
+
+      await userEvent.click(screen.getAllByRole('button', { name: /remove category/i })[0]);
+
+      await waitFor(() => {
+        expect(screen.getByText(/delete warning/i)).toBeInTheDocument();
+      });
+
+      const deleteCategorySpy = jest.spyOn(action, 'removeCategory');
+      await userEvent.click(screen.getByRole('button', { name: /confirm/i }));
+
+      await waitFor(() => {
+        expect(screen.getByText(/delete category successfully/i)).toBeInTheDocument();
+      });
+
+      // Check if item is updated on the UI
+      expect(screen.queryByRole('cell', { name: /category description 1/i })).toBeNull();
+
+      expect(deleteCategorySpy).toBeCalledTimes(1);
+      expect(deleteCategorySpy).toBeCalledWith(1);
+    });
+  });
+});
