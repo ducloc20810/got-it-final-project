@@ -16,18 +16,19 @@ const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (localStorage.getItem(AUTH_STORAGE_KEY) && !user.id && !user.name && isFetch === 0) {
-      dispatch(getUserInfo())
-        .then(() => {
-          setIsFetch((prev) => prev + 1);
-          if (location.pathname === '/login' || location.pathname === '/signup') {
-            navigate('/');
-          }
-        })
-        .catch((e) => {
-          setIsFetch((prev) => prev + 1);
-          throw Error(e);
-        });
+    if (isFetch === 0) {
+      if (localStorage.getItem(AUTH_STORAGE_KEY) && !user.id && !user.name) {
+        dispatch(getUserInfo())
+          .then(() => {
+            if (location.pathname === '/login' || location.pathname === '/signup') {
+              navigate('/');
+            }
+          })
+          .catch((e) => {
+            throw Error(e);
+          });
+      }
+      setIsFetch((prev) => prev + 1);
     }
   }, [dispatch, navigate, user, isFetch]);
 
