@@ -76,6 +76,10 @@ const Categories = () => {
               searchParams.set('page', (+page + 1).toString());
               setSearchParams(searchParams);
             }
+            else {
+              searchParams.set('page', (2).toString());
+              setSearchParams(searchParams);
+            }
           }
           else {
             setData((prev) => ({
@@ -155,13 +159,17 @@ const Categories = () => {
     dispatch(removeCategory(id)).then(() => {
       const page = searchParams.get('page');
       if (page) {
-        if (data.items.length === 1) {
-          searchParams.set('page', (+page - 1).toString());
+        const pageNumber = +page;
+        if (data.items.length === 1 && pageNumber !== 1) {
+          searchParams.set('page', (pageNumber - 1).toString());
           setSearchParams(searchParams);
         }
         else {
-          dispatch(fetchCategoryList(+page)).then((resData) => setData(resData));
+          dispatch(fetchCategoryList(pageNumber)).then((resData) => setData(resData));
         }
+      }
+      else {
+        dispatch(fetchCategoryList(1)).then((resData) => setData(resData));
       }
     });
   };
