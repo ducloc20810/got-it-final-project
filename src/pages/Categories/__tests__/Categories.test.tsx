@@ -78,6 +78,9 @@ const server = setupServer(
       );
     },
   ),
+
+  rest.delete(`${process.env.REACT_APP_BACK_END_URL}/categories/:id`, (req, res, ctx) =>
+    res(ctx.status(200), ctx.json({}))),
 );
 
 beforeAll(() => {
@@ -274,6 +277,8 @@ describe('create category', () => {
         expect(screen.getByText(/create category form/i)).toBeInTheDocument();
       });
 
+      const createCategorySpy = jest.spyOn(action, 'createCategory');
+
       const data = {
         name: 'category test',
         imageUrl: TEST_IMAGE_URL,
@@ -291,6 +296,11 @@ describe('create category', () => {
       await waitFor(() => {
         expect(screen.getByText(/create category successfully/i)).toBeInTheDocument();
       });
+
+      expect(createCategorySpy).toBeCalledTimes(1);
+      expect(createCategorySpy).toBeCalledWith(expect.objectContaining(data));
+
+      createCategorySpy.mockRestore();
     });
 
     test('submit with invalid image URL', async () => {
@@ -413,6 +423,7 @@ describe('edit category', () => {
         { user: { isLoggedIn: true } },
       );
 
+      const editCategoryActionSpy = jest.spyOn(action, 'editCategory');
       await waitFor(() => {
         expect(
           screen.getByRole('columnheader', {
@@ -433,10 +444,12 @@ describe('edit category', () => {
         description: 'category description test',
       };
 
+      await userEvent.clear(screen.getByPlaceholderText(/name/i));
       await userEvent.type(screen.getByPlaceholderText(/name/i), data.name);
 
       await userEvent.type(screen.getByPlaceholderText(/image url/i), data.imageUrl);
 
+      await userEvent.clear(screen.getByPlaceholderText(/description/i));
       await userEvent.type(screen.getByPlaceholderText(/description/i), data.description);
 
       await userEvent.click(screen.getByRole('button', { name: /submit/i }));
@@ -447,6 +460,11 @@ describe('edit category', () => {
 
       // Check if item is updated on the UI
       expect(screen.getByRole('cell', { name: /edit category 1/i })).toBeInTheDocument();
+
+      expect(editCategoryActionSpy).toBeCalledTimes(1);
+      expect(editCategoryActionSpy).toHaveBeenCalledWith(1, expect.objectContaining(data));
+
+      editCategoryActionSpy.mockRestore();
     });
   });
 });
