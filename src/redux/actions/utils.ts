@@ -1,4 +1,3 @@
-import { CategoryActions } from 'redux/actions/category.action';
 import { setMessage } from 'redux/actions/message.action';
 import { UserActions } from 'redux/actions/user.action';
 import { TypedDispatch } from 'redux/store';
@@ -24,8 +23,7 @@ export const handleAsyncAction = async (
       if (
         type !== UserActions.LOGIN
         && type !== UserActions.REGISTER
-        && type !== UserActions.FETCH_USER_INFO
-        && type !== CategoryActions.FETCH_CATEGORY_LIST
+        && !type.includes('FETCH')
       ) {
         dispatch(
           setMessage({
