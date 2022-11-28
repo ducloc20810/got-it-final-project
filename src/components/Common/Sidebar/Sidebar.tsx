@@ -10,6 +10,7 @@ type NavItemsType = Array<{
   icon?: IconType;
   content: string;
   path: string;
+  subPath?: string
 }>;
 
 const navItems: NavItemsType = [
@@ -24,6 +25,7 @@ const navItems: NavItemsType = [
     icon: 'list',
     content: 'Category',
     path: '/categories',
+    subPath: '/items',
   },
 ];
 
@@ -61,7 +63,7 @@ const Sidebar = () => {
               <Icon
                 name={item.icon}
                 className={classNames(
-                  hoverItem === item.id || current === item.path
+                  hoverItem === item.id || current === item.path || (item.subPath && current.includes(item.subPath))
                     ? 'u-textPrimary'
                     : 'u-textWhite',
                   current === item.path ? 'u-cursorDefault' : '',
@@ -70,7 +72,7 @@ const Sidebar = () => {
               />
               <p
                 className={classNames(
-                  hoverItem === item.id || current === item.path
+                  hoverItem === item.id || current === item.path || (item.subPath && current.includes(item.subPath))
                     ? 'u-textPrimary'
                     : 'u-textWhite',
                   current === item.path ? 'u-cursorDefault' : '',
