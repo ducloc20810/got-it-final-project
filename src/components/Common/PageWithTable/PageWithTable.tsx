@@ -16,7 +16,7 @@ type PageWithTableProps = {
   breadcrumb: string;
   fetchData: (offset: number) => (dispatch: TypedDispatch) => Promise<any>;
   CreateButton: React.ReactNode;
-  renderTable: (list: Array<any>) => JSX.Element;
+  renderTable: (list: Array<any>) => JSX.Element|null;
 };
 
 const PageWithTable: React.FC<PageWithTableProps> = ({
@@ -59,12 +59,17 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
       setCurrentPage(+page);
       return;
     }
+
+    if (!page) {
+      setCurrentPage(1);
+      return;
+    }
+
     changeSearchParamsPage(1);
   }, [searchParams]);
 
   useEffect(() => {
     if (currentPage === 0) return;
-
     setIsLoading(true);
     dispatch(fetchData(currentPage))
       .then((resData: GenericDataTable) => {

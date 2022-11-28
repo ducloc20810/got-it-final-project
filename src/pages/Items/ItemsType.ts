@@ -1,15 +1,20 @@
-export type itemsDataType = {
-  total_items: number;
-  items: Array<itemDetailType>;
-};
-
-export type itemDetailType = {
+export type ItemType = {
   id: number;
   description: string;
-  image_url: string;
+  imageUrl: string;
   author: {
     id: number;
     name: string;
   };
-  category_id: number;
+  categoryId: number;
 };
+
+export type ItemsDataType = {
+  totalItems: number;
+  items: Array<ItemType>;
+};
+
+export type ItemPayload = {
+  imageUrl:string,
+  description: string
+}
