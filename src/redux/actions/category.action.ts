@@ -6,10 +6,16 @@ import { handleAsyncAction } from './utils';
 import { TypedDispatch } from '../store';
 
 export const CategoryActions = {
+  FETCH_CATEGORY_DETAIL: 'FETCH_CATEGORY_DETAIL',
   FETCH_CATEGORY_LIST: 'FETCH_CATEGORY_LIST',
   CREATE_CATEGORY: 'CREATE_CATEGORY',
   EDIT_CATEGORY: 'EDIT_CATEGORY',
   DELETE_CATEGORY: 'DELETE_CATEGORY',
+};
+
+export const fetchCategoryDetail = (id:number) => (dispatch: TypedDispatch) => {
+  const url = `${EndPoints.CATEGORIES}/${id}`;
+  return handleAsyncAction(dispatch, CategoryActions.FETCH_CATEGORY_DETAIL, () => helper.get(url));
 };
 
 export const fetchCategoryList = (pageNumber:number, limit: number = ITEMS_PER_PAGE) =>
