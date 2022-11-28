@@ -24,8 +24,8 @@ const Header = () => {
               navigate('/');
             }
           })
-          .catch((e) => {
-            throw Error(e);
+          .catch(() => {
+            dispatch(logout());
           });
       }
       setIsFetch((prev) => prev + 1);
