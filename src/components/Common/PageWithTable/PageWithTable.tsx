@@ -66,7 +66,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
     }
 
     changeSearchParamsPage(1);
-  }, [searchParams]);
+  }, [searchParams, changeSearchParamsPage]);
 
   useEffect(() => {
     if (currentPage === 0) return;

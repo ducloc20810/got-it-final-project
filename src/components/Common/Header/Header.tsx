@@ -30,7 +30,7 @@ const Header = () => {
       }
       setIsFetch((prev) => prev + 1);
     }
-  }, [dispatch, navigate, user, isFetch]);
+  }, [dispatch, navigate, user, isFetch, location.pathname]);
 
   const logoutHandle = () => {
     dispatch(logout());
