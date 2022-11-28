@@ -34,7 +34,7 @@ const Login = () => {
         .then(() => {
           setIsLoading(false);
           if (prevPath !== '/login' && prevPath !== '/signup') {
-            navigate(-1);
+            navigate(prevPath);
           }
           else {
             navigate('/');

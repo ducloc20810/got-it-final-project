@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Loader } from '@ahaui/react';
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
@@ -21,11 +21,11 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormSignUpInputs>({ mode: 'onChange' });
-
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useTypedDispatch();
+  const location = useLocation();
+  const prevPath = location.state?.prevPath || '/';
 
   const handleSignUpSubmit = (data: IFormSignUpInputs) => {
     if (data.email && data.password && data.name) {
@@ -36,7 +36,12 @@ const SignUp = () => {
         .then(() => dispatch(getUserInfo()))
         .then(() => {
           setIsLoading(false);
-          navigate('/');
+          if (prevPath !== '/login' && prevPath !== '/signup') {
+            navigate(prevPath);
+          }
+          else {
+            navigate('/');
+          }
         })
         .catch(() => {
           setIsLoading(false);
