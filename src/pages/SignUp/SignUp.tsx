@@ -27,7 +27,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useTypedDispatch();
 
-  const handleLoginSubmit = (data: IFormSignUpInputs) => {
+  const handleSignUpSubmit = (data: IFormSignUpInputs) => {
     if (data.email && data.password && data.name) {
       setIsLoading(true);
       const { email, name, password } = data;
@@ -145,7 +145,7 @@ const SignUp = () => {
           variant="primary"
           size="large"
           className="u-backgroundPrimary hover:u-background"
-          onClick={handleSubmit(handleLoginSubmit)}
+          onClick={handleSubmit(handleSignUpSubmit)}
         >
           Register
         </Button>
