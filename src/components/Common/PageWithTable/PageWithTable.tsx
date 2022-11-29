@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { Pagination, Loader } from '@ahaui/react';
 import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
@@ -48,10 +48,10 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
     ? data.totalItems
     : currentPage * ITEMS_PER_PAGE;
 
-  const changeSearchParamsPage = (page: number) => {
+  const changeSearchParamsPage = useCallback((page: number) => {
     searchParams.set('page', page.toString());
     setSearchParams(searchParams);
-  };
+  }, [searchParams, setSearchParams]);
 
   useEffect(() => {
     const page = searchParams.get('page');
