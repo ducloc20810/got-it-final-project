@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
-import { Pagination, Loader } from '@ahaui/react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { Loader } from '@ahaui/react';
 import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTypedDispatch } from 'hooks';
-import { generateNumberArray } from 'utils/library';
 import { GenericDataTable } from 'types/common';
 import { TypedDispatch } from 'redux/store';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
+import Pagination from '../Pagination/Pagination';
 import styles from './PageWithTable.module.scss';
 
 type PageWithTableProps = {
@@ -39,11 +39,6 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   const componentRef = useRef<HTMLDivElement | null>(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const totalPage = useMemo(
-    () => (data?.totalItems ? Math.ceil(data.totalItems / ITEMS_PER_PAGE) : 0),
-    [data],
-  );
 
   const startOffSet = (currentPage - 1) * ITEMS_PER_PAGE + 1;
 
@@ -115,39 +110,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
                     { data.items.length > 0 && `Show ${startOffSet} to ${lastOffSet} of ${data.totalItems} entries`}
                   </div>
 
-                  <Pagination className={classNames(styles.pagination)}>
-                    <Pagination.Prev
-                      disabled={currentPage === 1}
-                      onClick={() => {
-                        if (currentPage > 1) {
-                          changeSearchParamsPage(currentPage - 1);
-                        }
-                      }}
-                      className="u-marginBottomNone"
-                    />
-                    {generateNumberArray(totalPage).map((page) => (
-                      <Pagination.Item
-                        key={page}
-                        active={currentPage === page}
-                        onClick={() => {
-                          changeSearchParamsPage(page);
-                        }}
-                        className="u-marginBottomNone"
-
-                      >
-                        {page}
-                      </Pagination.Item>
-                    ))}
-                    <Pagination.Next
-                      disabled={currentPage === totalPage}
-                      onClick={() => {
-                        if (currentPage < totalPage) {
-                          changeSearchParamsPage(currentPage + 1);
-                        }
-                      }}
-                      className="u-marginBottomNone"
-                    />
-                  </Pagination>
+                  <Pagination currentPage={currentPage} pageClick={changeSearchParamsPage} totalItems={data.totalItems} />
                 </div>
               )}
             </>

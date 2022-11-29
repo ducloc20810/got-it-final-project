@@ -3,17 +3,17 @@
 // Definitions by: KyleTV <https://github.com/tinhvqbk>
 // TypeScript Version: 2.8
 
-declare module "@ahaui/react" {
-  import React, { ComponentPropsWithoutRef } from "react";
-  import { TextareaAutosizeProps } from "react-textarea-autosize";
-  import { ReactNodeLike } from "prop-types";
-  import { CalendarProps as ReactCalendarProps } from "react-calendar";
-  import { DatePickerProps as ReactDatePickerProps } from "react-date-picker";
-  import { Settings as SlickSettingsProps } from "react-slick";
-  import { PopperOptions, Placement as PopperPlacement } from "popper.js";
-  import { toast as toastBase, ToastPosition } from "react-toastify";
-  import ReactTagsInput from "react-tagsinput";
-  import { EnterHandler, ExitHandler } from "react-transition-group/Transition";
+declare module '@ahaui/react' {
+  import React, { ComponentPropsWithoutRef } from 'react';
+  import { TextareaAutosizeProps } from 'react-textarea-autosize';
+  import { ReactNodeLike } from 'prop-types';
+  import { CalendarProps as ReactCalendarProps } from 'react-calendar';
+  import { DatePickerProps as ReactDatePickerProps } from 'react-date-picker';
+  import { Settings as SlickSettingsProps } from 'react-slick';
+  import { PopperOptions, Placement as PopperPlacement } from 'popper.js';
+  import { toast as toastBase, ToastPosition } from 'react-toastify';
+  import ReactTagsInput from 'react-tagsinput';
+  import { EnterHandler, ExitHandler } from 'react-transition-group/Transition';
 
   export type RefElement = undefined | HTMLElement;
   export type RefHandler<
@@ -23,7 +23,7 @@ declare module "@ahaui/react" {
   > = {
     implicit: ImplicitRefHandler;
     explicit: ExplicitRefHandler;
-  }[RefElement extends undefined ? "implicit" : "explicit"];
+  }[RefElement extends undefined ? 'implicit' : 'explicit'];
 
   export interface ImageBaseProps
     extends React.ImgHTMLAttributes<HTMLImageElement> {}
@@ -53,162 +53,162 @@ declare module "@ahaui/react" {
   export interface BasicWithAsProps extends BasicProps {
     as?: React.ElementType;
   }
-  export type TriggerType = "click" | "hover" | "focus";
-  export type InputSize = "small" | "medium" | "large";
+  export type TriggerType = 'click' | 'hover' | 'focus';
+  export type InputSize = 'small' | 'medium' | 'large';
   export type IconType =
-    | "rotate"
-    | "gitBranch"
-    | "options"
-    | "apps"
-    | "fastForward"
-    | "mail"
-    | "trash"
-    | "helpCircle"
-    | "helpCircleOutline"
-    | "cloudUpload"
-    | "location"
-    | "send"
-    | "share"
-    | "unlock"
-    | "volumeHigh"
-    | "volumeOff"
-    | "zoomIn"
-    | "zoomOut"
-    | "expand"
-    | "minus"
-    | "plus"
-    | "column"
-    | "data"
-    | "table"
-    | "cart"
-    | "store"
-    | "workflow"
-    | "bill"
-    | "bag"
-    | "funnel"
-    | "playCircle"
-    | "pin"
-    | "card"
-    | "chatExtension"
-    | "chatBubbles"
-    | "bubbles"
-    | "code"
-    | "create"
-    | "earth"
-    | "flag"
-    | "journal"
-    | "levelBeginner"
-    | "levelImmediate"
-    | "levelAdvanced"
-    | "list"
-    | "lock"
-    | "moneyBag"
-    | "multipleSkills"
-    | "power"
-    | "refresh"
-    | "replace"
-    | "search"
-    | "setting"
-    | "speedometer"
-    | "starOutline"
-    | "starHalf"
-    | "star"
-    | "thumbsDown"
-    | "thumbsUp"
-    | "alert"
-    | "informationCircle"
-    | "informationCircleOutline"
-    | "notification"
-    | "warning"
-    | "attach"
-    | "attachSpreadsheet"
-    | "attachImage"
-    | "attachPpt"
-    | "attachTxt"
-    | "attachSql"
-    | "attachUndefined"
-    | "attachCode"
-    | "cloud"
-    | "cloudDownload"
-    | "copy"
-    | "document"
-    | "images"
-    | "videoCam"
-    | "arrowBack"
-    | "arrowDown"
-    | "arrowDropdownCircle"
-    | "arrowDropdown"
-    | "arrowDropleftCircle"
-    | "arrowDropleft"
-    | "arrowDroprightCircle"
-    | "arrowDropright"
-    | "arrowDropupCircle"
-    | "arrowDropup"
-    | "arrowForward"
-    | "arrowRoundBack"
-    | "arrowRoundDown"
-    | "arrowRoundForward"
-    | "arrowRoundUp"
-    | "arrowUp"
-    | "checkmark"
-    | "checkmarkCircle"
-    | "checkmarkCircleOutline"
-    | "close"
-    | "closeCircle"
-    | "closeCircleOutline"
-    | "menu"
-    | "more"
-    | "facebook"
-    | "google"
-    | "instagram"
-    | "linkedin"
-    | "twitter"
-    | "youtube"
-    | "hourglass"
-    | "time"
-    | "timer"
-    | "contact"
-    | "people"
-    | "mic"
-    | "calendar"
-    | "micOff"
-    | "videoCamOff"
-    | "camera"
-    | "airplane"
-    | "screen"
-    | "screenOff"
-    | "map"
-    | "raiseHand"
-    | "editOff"
-    | "edit"
-    | "cursor"
-    | "eraser"
-    | "font"
-    | "colorPalette"
-    | "save"
-    | "flash"
-    | "aim"
-    | "fileTrayFull"
-    | "fileImport"
-    | "fileExport"
-    | "objects"
-    | "reply"
-    | "bot"
-    | "shapes"
-    | "return"
-    | "umbrella"
-    | "game"
-    | "tagCloud"
-    | "one"
-    | "two"
-    | "three"
-    | "four"
-    | "five"
-    | "six"
-    | "seven"
-    | "eight"
-    | "nine"
-    | "ten";
+    | 'rotate'
+    | 'gitBranch'
+    | 'options'
+    | 'apps'
+    | 'fastForward'
+    | 'mail'
+    | 'trash'
+    | 'helpCircle'
+    | 'helpCircleOutline'
+    | 'cloudUpload'
+    | 'location'
+    | 'send'
+    | 'share'
+    | 'unlock'
+    | 'volumeHigh'
+    | 'volumeOff'
+    | 'zoomIn'
+    | 'zoomOut'
+    | 'expand'
+    | 'minus'
+    | 'plus'
+    | 'column'
+    | 'data'
+    | 'table'
+    | 'cart'
+    | 'store'
+    | 'workflow'
+    | 'bill'
+    | 'bag'
+    | 'funnel'
+    | 'playCircle'
+    | 'pin'
+    | 'card'
+    | 'chatExtension'
+    | 'chatBubbles'
+    | 'bubbles'
+    | 'code'
+    | 'create'
+    | 'earth'
+    | 'flag'
+    | 'journal'
+    | 'levelBeginner'
+    | 'levelImmediate'
+    | 'levelAdvanced'
+    | 'list'
+    | 'lock'
+    | 'moneyBag'
+    | 'multipleSkills'
+    | 'power'
+    | 'refresh'
+    | 'replace'
+    | 'search'
+    | 'setting'
+    | 'speedometer'
+    | 'starOutline'
+    | 'starHalf'
+    | 'star'
+    | 'thumbsDown'
+    | 'thumbsUp'
+    | 'alert'
+    | 'informationCircle'
+    | 'informationCircleOutline'
+    | 'notification'
+    | 'warning'
+    | 'attach'
+    | 'attachSpreadsheet'
+    | 'attachImage'
+    | 'attachPpt'
+    | 'attachTxt'
+    | 'attachSql'
+    | 'attachUndefined'
+    | 'attachCode'
+    | 'cloud'
+    | 'cloudDownload'
+    | 'copy'
+    | 'document'
+    | 'images'
+    | 'videoCam'
+    | 'arrowBack'
+    | 'arrowDown'
+    | 'arrowDropdownCircle'
+    | 'arrowDropdown'
+    | 'arrowDropleftCircle'
+    | 'arrowDropleft'
+    | 'arrowDroprightCircle'
+    | 'arrowDropright'
+    | 'arrowDropupCircle'
+    | 'arrowDropup'
+    | 'arrowForward'
+    | 'arrowRoundBack'
+    | 'arrowRoundDown'
+    | 'arrowRoundForward'
+    | 'arrowRoundUp'
+    | 'arrowUp'
+    | 'checkmark'
+    | 'checkmarkCircle'
+    | 'checkmarkCircleOutline'
+    | 'close'
+    | 'closeCircle'
+    | 'closeCircleOutline'
+    | 'menu'
+    | 'more'
+    | 'facebook'
+    | 'google'
+    | 'instagram'
+    | 'linkedin'
+    | 'twitter'
+    | 'youtube'
+    | 'hourglass'
+    | 'time'
+    | 'timer'
+    | 'contact'
+    | 'people'
+    | 'mic'
+    | 'calendar'
+    | 'micOff'
+    | 'videoCamOff'
+    | 'camera'
+    | 'airplane'
+    | 'screen'
+    | 'screenOff'
+    | 'map'
+    | 'raiseHand'
+    | 'editOff'
+    | 'edit'
+    | 'cursor'
+    | 'eraser'
+    | 'font'
+    | 'colorPalette'
+    | 'save'
+    | 'flash'
+    | 'aim'
+    | 'fileTrayFull'
+    | 'fileImport'
+    | 'fileExport'
+    | 'objects'
+    | 'reply'
+    | 'bot'
+    | 'shapes'
+    | 'return'
+    | 'umbrella'
+    | 'game'
+    | 'tagCloud'
+    | 'one'
+    | 'two'
+    | 'three'
+    | 'four'
+    | 'five'
+    | 'six'
+    | 'seven'
+    | 'eight'
+    | 'nine'
+    | 'ten';
   export type FuncType = (...args: any[]) => any;
   export type EventHandler = React.EventHandler<React.SyntheticEvent>;
   export interface OptionType {
@@ -251,13 +251,13 @@ declare module "@ahaui/react" {
     as?: React.ElementType;
     src: string;
     size:
-      | "extraSmall"
-      | "small"
-      | "medium"
-      | "large"
-      | "extraLarge"
-      | "extraLargePlus"
-      | "huge";
+      | 'extraSmall'
+      | 'small'
+      | 'medium'
+      | 'large'
+      | 'extraLarge'
+      | 'extraLargePlus'
+      | 'huge';
     text?: string;
   }
 
@@ -265,13 +265,13 @@ declare module "@ahaui/react" {
     as?: React.ElementType;
     name: string;
     size:
-      | "extraSmall"
-      | "small"
-      | "medium"
-      | "large"
-      | "extraLarge"
-      | "extraLargePlus"
-      | "huge";
+      | 'extraSmall'
+      | 'small'
+      | 'medium'
+      | 'large'
+      | 'extraLarge'
+      | 'extraLargePlus'
+      | 'huge';
     text?: string;
   }
 
@@ -279,19 +279,19 @@ declare module "@ahaui/react" {
 
   export interface BadgeProps extends BasicWithAsProps {
     variant?:
-      | "default"
-      | "white"
-      | "black"
-      | "primary"
-      | "primary_subtle"
-      | "warning"
-      | "warning_subtle"
-      | "positive"
-      | "positive_subtle"
-      | "information"
-      | "information_subtle"
-      | "negative"
-      | "negative_subtle";
+      | 'default'
+      | 'white'
+      | 'black'
+      | 'primary'
+      | 'primary_subtle'
+      | 'warning'
+      | 'warning_subtle'
+      | 'positive'
+      | 'positive_subtle'
+      | 'information'
+      | 'information_subtle'
+      | 'negative'
+      | 'negative_subtle';
     textClassName?: string;
   }
   export const Badge: React.FC<BadgeProps>;
@@ -314,14 +314,14 @@ declare module "@ahaui/react" {
   export interface BubbleChatProps extends BasicProps {
     isTyping?: boolean;
     text?: string | React.ReactNode;
-    type?: "inbound" | "outbound" | "system";
+    type?: 'inbound' | 'outbound' | 'system';
     variant?:
-      | "light"
-      | "primary"
-      | "primaryLight"
-      | "dark"
-      | "transparentDark"
-      | "transparentLight";
+      | 'light'
+      | 'primary'
+      | 'primaryLight'
+      | 'dark'
+      | 'transparentDark'
+      | 'transparentLight';
     avatar?: string | FuncType;
     time?: string | FuncType;
     options?: OptionType[];
@@ -344,20 +344,20 @@ declare module "@ahaui/react" {
   export const ButtonGroup: React.FC<ButtonGroupProps>;
   export interface ButtonProps extends BasicWithAsProps {
     variant?:
-      | "primary"
-      | "primary_outline"
-      | "secondary"
-      | "accent"
-      | "accent_outline"
-      | "positive"
-      | "positive_outline"
-      | "negative"
-      | "negative_outline"
-      | "white"
-      | "white_outline"
-      | "link";
+      | 'primary'
+      | 'primary_outline'
+      | 'secondary'
+      | 'accent'
+      | 'accent_outline'
+      | 'positive'
+      | 'positive_outline'
+      | 'negative'
+      | 'negative_outline'
+      | 'white'
+      | 'white_outline'
+      | 'link';
     size?: InputSize;
-    width?: "auto" | "full" | "min";
+    width?: 'auto' | 'full' | 'min';
     disabled?: boolean;
     nonUppercase?: boolean;
     onlyIcon?: boolean;
@@ -379,7 +379,7 @@ declare module "@ahaui/react" {
   export interface DatePickerProps extends ReactDatePickerProps {
     className?: string;
     noClearIcon?: boolean;
-    size?: Pick<IconProps, "size">;
+    size?: Pick<IconProps, 'size'>;
     version?: 1 | 2;
     calendarClassName?: string | string[];
   }
@@ -388,7 +388,7 @@ declare module "@ahaui/react" {
   export interface DateRangePickerProps {
     className?: string | string[];
     noClearIcon?: boolean;
-    size?: Pick<IconProps, "size">;
+    size?: Pick<IconProps, 'size'>;
     autoFocus?: boolean;
     calendarAriaLabel?: string;
     calendarClassName?: string | string[];
@@ -401,22 +401,22 @@ declare module "@ahaui/react" {
     format?: string;
     isOpen?: boolean;
     locale?: string;
-    maxDate?: Pick<CalendarProps, "maxDate">;
-    minDate?: Pick<CalendarProps, "minDate">;
-    maxDetail?: Pick<CalendarProps, "maxDetail">;
-    minDetail?: Pick<CalendarProps, "minDetail">;
+    maxDate?: Pick<CalendarProps, 'maxDate'>;
+    minDate?: Pick<CalendarProps, 'minDate'>;
+    maxDetail?: Pick<CalendarProps, 'maxDetail'>;
+    minDetail?: Pick<CalendarProps, 'minDetail'>;
     monthAriaLabel?: string;
     monthPlaceholder?: string;
     name?: string;
     nativeInputAriaLabel?: string;
     onCalendarClose?: () => void;
     onCalendarOpen?: () => void;
-    onChange?: Pick<CalendarProps, "onChange">;
+    onChange?: Pick<CalendarProps, 'onChange'>;
     openCalendarOnFocus?: boolean;
     rangeDivider?: string;
     required?: boolean;
     showLeadingZeros?: boolean;
-    value?: Pick<CalendarProps, "value">;
+    value?: Pick<CalendarProps, 'value'>;
     yearAriaLabel?: string;
     yearPlaceholder?: string;
   }
@@ -451,21 +451,21 @@ declare module "@ahaui/react" {
   }
 
   export const ChatBox: React.FC<
-    ChatBoxProps & React.ComponentPropsWithoutRef<"div">
+    ChatBoxProps & React.ComponentPropsWithoutRef<'div'>
   > & {
-    List: React.FC<ChatBoxListProps & React.ComponentPropsWithoutRef<"div">>;
-    Attachment: React.FC<BasicProps & React.ComponentPropsWithoutRef<"div">>;
-    Info: React.FC<BasicProps & React.ComponentPropsWithoutRef<"div">>;
-    Context: React.FC<BasicProps & React.ComponentPropsWithoutRef<"div">>;
-    Notice: React.FC<BasicProps & React.ComponentPropsWithoutRef<"div">>;
+    List: React.FC<ChatBoxListProps & React.ComponentPropsWithoutRef<'div'>>;
+    Attachment: React.FC<BasicProps & React.ComponentPropsWithoutRef<'div'>>;
+    Info: React.FC<BasicProps & React.ComponentPropsWithoutRef<'div'>>;
+    Context: React.FC<BasicProps & React.ComponentPropsWithoutRef<'div'>>;
+    Notice: React.FC<BasicProps & React.ComponentPropsWithoutRef<'div'>>;
   };
 
   export interface CollapseProps extends BasicProps {
     eventKey?: string;
     timeout?: number;
-    dimension?: "height" | "width" | FuncType;
+    dimension?: 'height' | 'width' | FuncType;
     getDimensionValue?: (
-      dimension: Pick<CollapseProps, "dimension">,
+      dimension: Pick<CollapseProps, 'dimension'>,
       elem: React.ReactElement
     ) => number;
   }
@@ -490,14 +490,14 @@ declare module "@ahaui/react" {
 
   export interface CounterProps extends BasicProps {
     variant?:
-      | "primary"
-      | "secondary"
-      | "accent"
-      | "information"
-      | "warning"
-      | "positive"
-      | "negative"
-      | "white";
+      | 'primary'
+      | 'secondary'
+      | 'accent'
+      | 'information'
+      | 'warning'
+      | 'positive'
+      | 'negative'
+      | 'white';
 
     label?: string | FuncType;
     number?: string | FuncType;
@@ -507,10 +507,10 @@ declare module "@ahaui/react" {
 
   export interface DropdownItemProps
     extends BasicProps,
-      React.ComponentPropsWithoutRef<"div"> {}
+      React.ComponentPropsWithoutRef<'div'> {}
 
   export interface DropdownButtonProps extends BasicWithAsProps {
-    caret?: Pick<IconProps, "size">;
+    caret?: Pick<IconProps, 'size'>;
   }
   export interface DropdownContainerProps extends BasicWithAsProps {
     popperConfig?: PopperOptions;
@@ -521,11 +521,11 @@ declare module "@ahaui/react" {
   }
   export interface DropdownToggleProps
     extends BasicProps,
-      React.ComponentPropsWithoutRef<"div"> {
+      React.ComponentPropsWithoutRef<'div'> {
     disabled?: boolean;
   }
   export interface DropdownProps extends BasicWithAsProps {
-    drop?: "up" | "down" | "left" | "right";
+    drop?: 'up' | 'down' | 'left' | 'right';
     flip?: boolean;
     show?: boolean;
     alignRight?: boolean;
@@ -540,8 +540,8 @@ declare module "@ahaui/react" {
   export function useToggle(): [
     {
       ref: () => void;
-      "aria-haspopup": boolean;
-      "aria-expanded": boolean;
+      'aria-haspopup': boolean;
+      'aria-expanded': boolean;
     },
     {
       show: boolean;
@@ -575,13 +575,13 @@ declare module "@ahaui/react" {
 
   export interface FileAttachmentProps extends BasicProps {
     fileType?:
-      | "undefined"
-      | "text"
-      | "image"
-      | "code"
-      | "spreadsheet"
-      | "query"
-      | "powerpoint";
+      | 'undefined'
+      | 'text'
+      | 'image'
+      | 'code'
+      | 'spreadsheet'
+      | 'query'
+      | 'powerpoint';
     fileTypeLabel?: string | FuncType;
     show?: boolean;
     onClose?: () => void;
@@ -593,7 +593,7 @@ declare module "@ahaui/react" {
   export const FileAttachment: React.FC<FileAttachmentProps>;
 
   export interface FormCheckProps extends BasicWithAsProps {
-    type?: "checkbox" | "radio" | "checkbox_button";
+    type?: 'checkbox' | 'radio' | 'checkbox_button';
     id?: string;
     label?: string | FuncType;
     inline?: boolean;
@@ -606,7 +606,7 @@ declare module "@ahaui/react" {
     name?: string;
   }
   export interface FormFeedbackProps extends BasicWithAsProps {
-    type: "valid" | "invalid";
+    type: 'valid' | 'invalid';
     visible?: boolean;
     role?: string;
     name?: string;
@@ -714,23 +714,23 @@ declare module "@ahaui/react" {
     DropContext: React.FC<BasicProps>;
   };
 
-  export interface IconProps extends React.ComponentPropsWithoutRef<"svg"> {
+  export interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
     name?: IconType;
     size?:
-      | "tiny"
-      | "extraSmall"
-      | "small"
-      | "medium"
-      | "large"
-      | "extraLarge"
-      | "extraLargePlus"
-      | "huge";
+      | 'tiny'
+      | 'extraSmall'
+      | 'small'
+      | 'medium'
+      | 'large'
+      | 'extraLarge'
+      | 'extraLargePlus'
+      | 'huge';
     path?: string;
   }
   export const Icon: React.FC<IconProps>;
 
   export interface LoaderProps extends BasicProps {
-    size?: InputSize | "extraSmall";
+    size?: InputSize | 'extraSmall';
     duration?: number;
   }
   export const Loader: React.FC<LoaderProps>;
@@ -741,7 +741,7 @@ declare module "@ahaui/react" {
   export const Logo: React.FC<LogoProps>;
 
   export interface MediaProps extends MediaBaseProps {
-    aspectRatio?: "square" | "classic" | "wide" | "cinema";
+    aspectRatio?: 'square' | 'classic' | 'wide' | 'cinema';
     ref: React.Ref<any>;
     as?: string;
     allow?: string;
@@ -749,8 +749,8 @@ declare module "@ahaui/react" {
   export const Media: React.FC<MediaProps>;
 
   export interface MessageProps extends BasicProps {
-    type?: "form" | "system";
-    variant?: "information" | "positive" | "warning" | "negative";
+    type?: 'form' | 'system';
+    variant?: 'information' | 'positive' | 'warning' | 'negative';
     dismissible?: boolean;
     show?: boolean;
     onClose?: () => void;
@@ -766,7 +766,7 @@ declare module "@ahaui/react" {
     closeButton?: boolean;
   }
   export interface ModalProps extends BasicProps {
-    size?: "small" | "medium" | "large" | "extraLarge";
+    size?: 'small' | 'medium' | 'large' | 'extraLarge';
     relative?: boolean;
     centered?: boolean;
     show?: boolean;
@@ -791,14 +791,14 @@ declare module "@ahaui/react" {
     current?: number;
     currentLabel?: string;
     onChange?: (current: number) => void;
-    direction?: "horizontal" | "vertical";
+    direction?: 'horizontal' | 'vertical';
     variant?:
-      | "primary"
-      | "accent"
-      | "positive"
-      | "warning"
-      | "negative"
-      | "white";
+      | 'primary'
+      | 'accent'
+      | 'positive'
+      | 'warning'
+      | 'negative'
+      | 'white';
   }
   export const MultiSteps: React.FC<MultiStepsProps> & {
     Item: React.FC<MultiStepsItemProps>;
@@ -853,6 +853,7 @@ declare module "@ahaui/react" {
     Item: React.FC<PaginationItemProps>;
     Next: React.FC<PaginationItemProps>;
     Prev: React.FC<PaginationItemProps>;
+    Ellipsis: React.FC<PaginationItemProps>;
   };
 
   export interface ProblemInfoProps extends BasicProps {
@@ -869,7 +870,7 @@ declare module "@ahaui/react" {
   export const ProblemInfo: React.FC<ProblemInfoProps>;
 
   export interface ProgressProps extends BasicWithAsProps {
-    variant?: "primary" | "accent" | "positive" | "warning" | "negative";
+    variant?: 'primary' | 'accent' | 'positive' | 'warning' | 'negative';
     now?: number;
     height?: number;
     label?: ReactNodeLike;
@@ -894,7 +895,7 @@ declare module "@ahaui/react" {
     max?: number;
     precision?: number;
     name?: string;
-    size?: "tiny" | "extraSmall" | "small" | "medium" | "large";
+    size?: 'tiny' | 'extraSmall' | 'small' | 'medium' | 'large';
   }
   export const Rating: React.FC<RatingProps>;
 
@@ -920,20 +921,20 @@ declare module "@ahaui/react" {
   export interface SeparatorProps extends BasicProps {
     label?: string;
     variant?:
-      | "light"
-      | "lighter"
-      | "primary"
-      | "positive"
-      | "negative"
-      | "gray";
-    lineType?: "dashed" | "solid";
+      | 'light'
+      | 'lighter'
+      | 'primary'
+      | 'positive'
+      | 'negative'
+      | 'gray';
+    lineType?: 'dashed' | 'solid';
   }
   export const Separator: React.FC<SeparatorProps>;
 
   export interface SessionTypeProps extends BasicWithAsProps {
     label?: string | FuncType;
     leftLabel?: string;
-    variant?: "default" | "positive" | "accent" | "warning";
+    variant?: 'default' | 'positive' | 'accent' | 'warning';
   }
   export const SessionType: React.FC<SessionTypeProps>;
 
@@ -942,7 +943,7 @@ declare module "@ahaui/react" {
     disabled?: boolean;
     icon?: IconType;
     badge?: string | FuncType;
-    size?: "small" | "medium";
+    size?: 'small' | 'medium';
     separated?: boolean;
     onCloseSubMenu?: () => void;
   }
@@ -953,7 +954,7 @@ declare module "@ahaui/react" {
     autoCollapse?: boolean;
   }
   export interface SidebarMenuProps extends BasicWithAsProps {
-    size?: "small" | "medium";
+    size?: 'small' | 'medium';
     current?: string;
     onSelect?: (eventKey: string) => void;
     autoCollapse?: boolean;
@@ -967,7 +968,7 @@ declare module "@ahaui/react" {
   };
 
   export interface SkeletonProps extends BasicProps {
-    variant?: "circle" | "text";
+    variant?: 'circle' | 'text';
     width?: number | string;
     height?: number | string;
     duration?: number;
@@ -1022,7 +1023,7 @@ declare module "@ahaui/react" {
     Component: React.ComponentType<any>
   ): React.ComponentType<RCSliderBaseProps>;
   export interface SliderProps extends RCSliderBaseProps {
-    variant?: "primary" | "accent" | "positive" | "warning" | "negative";
+    variant?: 'primary' | 'accent' | 'positive' | 'warning' | 'negative';
     vertical?: boolean;
   }
   export const Slider: React.FC<SliderProps> & {
@@ -1043,8 +1044,8 @@ declare module "@ahaui/react" {
     current?: string;
     onSelect?: (eventKey: string) => void;
     fullWidth?: boolean;
-    direction?: "horizontal" | "vertical";
-    visual?: "default" | "filled";
+    direction?: 'horizontal' | 'vertical';
+    visual?: 'default' | 'filled';
   }
   export const Tab: React.FC<TabProps> & {
     Item: React.FC<TabItemProps>;
@@ -1052,36 +1053,36 @@ declare module "@ahaui/react" {
 
   export interface TagProps extends BasicWithAsProps {
     variant?:
-      | "black"
-      | "white"
-      | "primary"
-      | "primary_subtle"
-      | "accent"
-      | "accent_subtle"
-      | "warning"
-      | "warning_subtle"
-      | "positive"
-      | "positive_subtle"
-      | "information"
-      | "information_subtle"
-      | "negative"
-      | "negative_subtle";
+      | 'black'
+      | 'white'
+      | 'primary'
+      | 'primary_subtle'
+      | 'accent'
+      | 'accent_subtle'
+      | 'warning'
+      | 'warning_subtle'
+      | 'positive'
+      | 'positive_subtle'
+      | 'information'
+      | 'information_subtle'
+      | 'negative'
+      | 'negative_subtle';
     textClassName?: string;
   }
   export const Tag: React.FC<TagProps>;
 
   export interface TagInputProps {
     variant?:
-      | "black"
-      | "white"
-      | "primary"
-      | "primary_subtle"
-      | "warning"
-      | "warning_subtle"
-      | "positive"
-      | "positive_subtle"
-      | "negative"
-      | "negative_subtle";
+      | 'black'
+      | 'white'
+      | 'primary'
+      | 'primary_subtle'
+      | 'warning'
+      | 'warning_subtle'
+      | 'positive'
+      | 'positive_subtle'
+      | 'negative'
+      | 'negative_subtle';
     size?: InputSize;
     value: string[];
     onChange: (values: string[]) => void;
@@ -1129,7 +1130,7 @@ declare module "@ahaui/react" {
       style?: React.CSSProperties;
       ref: React.Ref<HTMLDivElement>;
     };
-    variant?: "white" | "black";
+    variant?: 'white' | 'black';
     styleTooltip?: React.CSSProperties;
   }
   export const Tooltip: React.FC<TooltipProps>;
@@ -1184,13 +1185,13 @@ declare module "@ahaui/react" {
 
   class AssetPlugin extends Plugin {
     constructor(param: {
-      prefix: "avatar" | "logo" | "emptyState";
+      prefix: 'avatar' | 'logo' | 'emptyState';
       assets: Record<string, any>;
     });
 
-    type: "asset";
+    type: 'asset';
 
-    prefix: "avatar" | "logo" | "emptyState";
+    prefix: 'avatar' | 'logo' | 'emptyState';
 
     assets: Record<string, any>;
 
@@ -1224,7 +1225,7 @@ declare module "@ahaui/react" {
   export interface SearchBoxProps extends BasicProps, FormInputProps {
     onClickButton?: () => void;
     buttonIcon?: string;
-    sizeControl?: "small" | "medium" | "large";
+    sizeControl?: 'small' | 'medium' | 'large';
     buttonText?: string;
   }
 
