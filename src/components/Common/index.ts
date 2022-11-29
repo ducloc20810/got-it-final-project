@@ -8,7 +8,8 @@ import Modal from 'components/Common/Modal/Modal';
 import AuthWarning from 'components/Common/AuthWarning/AuthWarning';
 import DeleteWarning from 'components/Common/DeleteWarning/DeleteWarning';
 import Pagination from 'components/Common/Pagination/Pagination';
+import SkeletonTable from 'components/Common/SkeletonTable/SkeletonTable';
 
 export {
-  Header, Layout, Sidebar, Message, InlineError, PageWithTable, Modal, AuthWarning, DeleteWarning, Pagination,
+  Header, Layout, Sidebar, Message, InlineError, PageWithTable, Modal, AuthWarning, DeleteWarning, Pagination, SkeletonTable,
 };

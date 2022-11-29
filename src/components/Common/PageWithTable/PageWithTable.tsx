@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { Loader } from '@ahaui/react';
+// import { Loader } from '@ahaui/react';
 import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTypedDispatch } from 'hooks';
@@ -8,6 +8,7 @@ import { TypedDispatch } from 'redux/store';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import Pagination from '../Pagination/Pagination';
 import styles from './PageWithTable.module.scss';
+import SkeletonTable from '../SkeletonTable/SkeletonTable';
 
 type PageWithTableProps = {
   data: GenericDataTable;
@@ -74,6 +75,10 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
         if (componentRef.current) {
           setData(resData);
           setIsLoading(false);
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
         }
       })
       .catch(() => {
@@ -117,9 +122,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
           )}
 
           {isLoading && (
-            <div id="loader">
-              <Loader size="medium" />
-            </div>
+            <SkeletonTable />
           )}
         </div>
       </div>
