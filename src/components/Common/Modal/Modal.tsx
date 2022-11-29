@@ -46,16 +46,36 @@ function Modal() {
         <AhaModal.Body className="u-paddingNone">
           <div className="u-textCenter">{state.children}</div>
         </AhaModal.Body>
-        {state.footer === undefined ? (
-          <AhaModal.Footer>
-            <Button variant="secondary" width="full">
-              Cancel
-            </Button>
-            <Button variant="primary" width="full">
-              Ok, Got It!
-            </Button>
-          </AhaModal.Footer>
-        ) : state.footer}
+
+        {state.footer === undefined && state.footerContent === undefined && (
+        <AhaModal.Footer>
+          <Button variant="secondary" width="full">
+            Cancel
+          </Button>
+          <Button variant="primary" width="full" disabled={state.isLoading}>
+            {state.isLoading ? 'Loading...' : 'Ok, Got It!'}
+          </Button>
+        </AhaModal.Footer>
+        )}
+
+        {state.footer === undefined && state.footerContent && (
+        <AhaModal.Footer>
+          <Button variant="secondary" width="full" onClick={state.footerContent.closeButtonHandle}>
+            {state.footerContent.closeButtonContent}
+          </Button>
+          <Button
+            variant="primary"
+            width="full"
+            disabled={state.isLoading}
+            onClick={state.footerContent.submitButtonHandle}
+          >
+            {state.isLoading ? 'Loading...' : state.footerContent.submitButtonContent}
+          </Button>
+        </AhaModal.Footer>
+        )}
+
+        {state.footer !== undefined && !state.footerContent && (state.footer)}
+
       </AhaModal>
     </div>
   );

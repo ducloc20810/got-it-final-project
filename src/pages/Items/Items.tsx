@@ -17,7 +17,7 @@ const Items = () => {
   });
 
   const [category, setCategory] = useState<CategoryType>();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useTypedDispatch();
   const { categoryId } = useParams();
 
@@ -50,6 +50,8 @@ const Items = () => {
         tableTitle="Item list"
         fetchData={fetchData}
         CreateButton={<Button onClick={() => null}>Create item</Button>}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
       />
       )}
     </div>

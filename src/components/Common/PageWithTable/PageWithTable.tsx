@@ -17,6 +17,8 @@ type PageWithTableProps = {
   fetchData: (offset: number) => (dispatch: TypedDispatch) => Promise<any>;
   CreateButton: React.ReactNode;
   renderTable: (list: Array<any>) => JSX.Element|null;
+  isLoading: boolean
+  setIsLoading:(value:boolean)=>void
 };
 
 const PageWithTable: React.FC<PageWithTableProps> = ({
@@ -27,9 +29,10 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   fetchData,
   CreateButton,
   renderTable,
+  isLoading,
+  setIsLoading,
 }) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const dispatch = useTypedDispatch();
 
@@ -81,7 +84,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
       .catch(() => {
         if (componentRef.current) setIsLoading(false);
       });
-  }, [dispatch, currentPage, fetchData, setData]);
+  }, [dispatch, currentPage, fetchData, setData, setIsLoading]);
 
   return (
     <div className={classNames(styles.page)} ref={componentRef}>

@@ -17,11 +17,11 @@ export const closeModal = () => ({
   type: ModalActions.CLOSE_MODAL,
 });
 
-export const hideLoading = () => ({
+export const offLoading = () => ({
   type: ModalActions.LOADED,
 });
 
-export const setLoading = () => ({
+export const onLoading = () => ({
   type: ModalActions.LOADING,
 });
 

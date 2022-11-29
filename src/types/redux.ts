@@ -20,6 +20,12 @@ export type Modal = {
   isOpen: boolean;
   title: string;
   children: React.ReactNode;
-  footer?: React.ReactNode;
+  footer? :React.ReactNode,
+  footerContent?: {
+    closeButtonContent: string,
+    submitButtonContent: string,
+    closeButtonHandle: ()=>void;
+    submitButtonHandle: ()=>void
+  }
   closeHandle: ()=>void;
 };

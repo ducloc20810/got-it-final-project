@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { CategoryPayload } from 'pages/Categories/CategoriesType';
 import { InlineError } from 'components/Common';
 import { IFormCategoryInputs } from 'types/form';
+import { useSelector } from 'react-redux';
+import { modalSelector } from 'redux/reducers/modal.reducer';
 
 type CreateFormProps = {
   submitHandle: (data: IFormCategoryInputs) => void;
@@ -26,6 +28,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
       imageUrl: initValue.imageUrl,
     } : {} });
 
+  const { isLoading } = useSelector(modalSelector);
   return (
     <>
       <div className="u-paddingMedium">
@@ -99,8 +102,8 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           Close
         </Button>
 
-        <Button width="full" variant="primary" onClick={handleSubmit(submitHandle)}>
-          Submit
+        <Button width="full" variant="primary" onClick={handleSubmit(submitHandle)} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Submit'}
         </Button>
       </div>
     </>

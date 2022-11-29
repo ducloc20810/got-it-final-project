@@ -11,7 +11,6 @@ const initialState: Modal = {
   isLoading: false,
   isOpen: false,
   children: null,
-  footer: null,
   title: '',
   closeHandle: () => null,
 };
@@ -48,7 +47,7 @@ const modalReducer = (
     case ModalActions.LOADED:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
       };
 
     case ModalActions.CLEAR_MODAL:
@@ -56,7 +55,6 @@ const modalReducer = (
         isLoading: false,
         isOpen: false,
         children: null,
-        footer: null,
         title: '',
         closeHandle: () => null,
       };
