@@ -9,6 +9,7 @@ import { useAppSelector, useTypedDispatch } from 'hooks';
 import { createCategory, editCategory, fetchCategoryList, removeCategory } from 'redux/actions/category.action';
 import { clearModal, closeModal, setLoading, setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
+import { ITEMS_PER_PAGE } from 'constants/pagination';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
@@ -70,26 +71,39 @@ const Categories = () => {
         }),
       )
         .then((resData) => {
-          if (data.items.length === 20) {
-            const page = searchParams.get('page');
-            if (page) {
-              searchParams.set('page', (+page + 1).toString());
-              setSearchParams(searchParams);
-            }
-            else {
-              searchParams.set('page', (2).toString());
-              setSearchParams(searchParams);
-            }
-          }
-          else {
+          closeModalHandle();
+
+          const remainItemNumber = data.totalItems % ITEMS_PER_PAGE;
+          const totalPage = Math.floor(data.totalItems / ITEMS_PER_PAGE);
+          const lastPage = remainItemNumber ? totalPage + 1 : totalPage;
+
+          const page = searchParams.get('page');
+          const pageNumber = page && +page ? +page : 1;
+
+          if ((remainItemNumber && pageNumber === lastPage)) {
             setData((prev) => ({
               totalItems: prev.totalItems + 1,
               items: [...prev.items, resData],
             }));
+            return;
           }
-          closeModalHandle();
-        })
-        .catch(() => null);
+
+          if (remainItemNumber && pageNumber !== lastPage) {
+            searchParams.set('page', (lastPage).toString());
+            setSearchParams(searchParams);
+            return;
+          }
+          if (!remainItemNumber && lastPage === 0) {
+            setData((prev) => ({
+              totalItems: prev.totalItems + 1,
+              items: [...prev.items, resData],
+            }));
+            return;
+          }
+
+          searchParams.set('page', (lastPage + 1).toString());
+          setSearchParams(searchParams);
+        });
     }
   };
 
