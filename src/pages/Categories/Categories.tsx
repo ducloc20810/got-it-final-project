@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal } from '@ahaui/react';
+import lodash from 'lodash';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import CategoriesTable from 'components/Categories/CategoriesTable';
 import { AuthWarning, DeleteWarning, PageWithTable } from 'components/Common';
@@ -131,6 +132,20 @@ const Categories = () => {
   };
 
   const submitEditHandle = (id: number, formData: IFormCategoryInputs) => {
+    const currentCategory = data.items.find((category) => category.id === id);
+
+    if (!currentCategory) return;
+
+    const currentCategoryData = {
+      name: currentCategory.name,
+      imageUrl: currentCategory.imageUrl,
+      description: currentCategory.description,
+    };
+    if (lodash.isEqual(currentCategoryData, formData)) {
+      closeModalHandle();
+      return;
+    }
+
     dispatch(editCategory(id, formData)).then((category) => {
       setData((prev) => {
         const index = prev.items.findIndex((item) => item.id === id);
