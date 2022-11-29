@@ -4,12 +4,12 @@ type AuthWarningProps={
 
 const AuthWarning:React.FC<AuthWarningProps> = ({ action }) => (
   <div>
-    <p>
+    <span className="u-text400 u-block">
       You need to login to
       {' '}
       {action}
-    </p>
-    <p className="u-text400">Do you want to login now?</p>
+    </span>
+    <span className="u-text400 u-block u-marginVerticalSmall">Do you want to login now?</span>
   </div>
 );
 
