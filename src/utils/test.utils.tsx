@@ -10,9 +10,12 @@ export function renderWithProviders(
   initState = {},
   // Automatically create a store instance if no store was passed in
   store = createStore(reducer, initState, applyMiddleware(thunk)),
+  route = '/',
   ...renderOptions: any
 ) {
   function Wrapper({ children }: React.PropsWithChildren): JSX.Element {
+    window.history.pushState({}, 'Test page', route);
+
     return (
       <Provider store={store}>
         <BrowserRouter>{children}</BrowserRouter>
