@@ -1,30 +1,30 @@
 import { useState } from 'react';
-import { Button, Modal } from '@ahaui/react';
+import { Button } from '@ahaui/react';
 import lodash from 'lodash';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import CategoriesTable from 'components/Categories/CategoriesTable';
-import { AuthWarning, DeleteWarning, PageWithTable } from 'components/Common';
+import { DeleteWarning, PageWithTable } from 'components/Common';
 import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
 import { IFormCategoryInputs } from 'types/form';
-import { useAppSelector, useTypedDispatch } from 'hooks';
+import { useAuthWarning, useCloseModal, useAppSelector, useTypedDispatch } from 'hooks';
 import {
   createCategory,
   editCategory,
   fetchCategoryList,
   removeCategory,
 } from 'redux/actions/category.action';
-import { clearModal, closeModal, offLoading, onLoading, setModal } from 'redux/actions/modal.action';
+import { offLoading, onLoading, setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
+
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
+  const closeModalHandle = useCloseModal();
   const user = useAppSelector(userSelector);
-  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const navigate = useNavigate();
+  const handleUserNotLoggedIn = useAuthWarning('create category');
 
   const [data, setData] = useState<CategoriesDataType>({
     totalItems: 0,
@@ -32,40 +32,6 @@ const Categories = () => {
   });
 
   const dispatch = useTypedDispatch();
-
-  const closeModalHandle = () => {
-    dispatch(closeModal());
-    setTimeout(() => dispatch(clearModal()), 600);
-  };
-
-  const handleUserNotLoggedIn = () => {
-    dispatch(
-      setModal({
-        children: <AuthWarning action="create category" />,
-        isLoading: false,
-        isOpen: true,
-        title: 'Authentication Warning',
-        footer: (
-          <Modal.Footer>
-            <Button variant="secondary" width="full" onClick={() => closeModalHandle()}>
-              Cancel
-            </Button>
-            <Button
-              variant="primary"
-              width="full"
-              onClick={() => {
-                navigate('/login', { state: { prevPath: location.pathname } });
-                dispatch(clearModal());
-              }}
-            >
-              Okay
-            </Button>
-          </Modal.Footer>
-        ),
-        closeHandle: closeModalHandle,
-      }),
-    );
-  };
 
   const submitCreateFormModalHandle = (formData: IFormCategoryInputs) => {
     if (formData.name && formData.description && formData.imageUrl) {
