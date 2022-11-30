@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable camelcase */
-import { screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/lib/node';
 import { rest } from 'msw';
@@ -256,6 +256,8 @@ describe('create category', () => {
 
   describe('call api', () => {
     test('create successfully', async () => {
+      const createCategorySpy = jest.spyOn(action, 'createCategory');
+
       renderWithProviders(
         <>
           <Modal />
@@ -279,8 +281,6 @@ describe('create category', () => {
         expect(screen.getByText(/create category form/i)).toBeInTheDocument();
       });
 
-      const createCategorySpy = jest.spyOn(action, 'createCategory');
-
       const data = {
         name: 'category test',
         imageUrl: TEST_IMAGE_URL,
@@ -293,7 +293,9 @@ describe('create category', () => {
 
       await userEvent.type(screen.getByPlaceholderText(/description/i), data.description);
 
-      await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+      await act(async () => {
+        await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+      });
 
       await waitFor(() => {
         expect(screen.getByText(/create category successfully/i)).toBeInTheDocument();
@@ -416,6 +418,7 @@ describe('edit category', () => {
   describe('call api', () => {
     test('edit successfully', async () => {
       // Edit category with id 1
+      const editCategoryActionSpy = jest.spyOn(action, 'editCategory');
       renderWithProviders(
         <>
           <Modal />
@@ -425,7 +428,6 @@ describe('edit category', () => {
         { user: { isLoggedIn: true } },
       );
 
-      const editCategoryActionSpy = jest.spyOn(action, 'editCategory');
       await waitFor(() => {
         expect(
           screen.getByRole('columnheader', {
@@ -527,6 +529,7 @@ describe('remove category', () => {
   describe('call api', () => {
     test('remove successfully', async () => {
       // Edit category with id 1
+      const deleteCategorySpy = jest.spyOn(action, 'removeCategory');
       renderWithProviders(
         <>
           <Modal />
@@ -550,7 +553,6 @@ describe('remove category', () => {
         expect(screen.getByText(/delete warning/i)).toBeInTheDocument();
       });
 
-      const deleteCategorySpy = jest.spyOn(action, 'removeCategory');
       await userEvent.click(screen.getByRole('button', { name: /confirm/i }));
 
       await waitFor(() => {
