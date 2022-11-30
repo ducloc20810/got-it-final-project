@@ -1,4 +1,4 @@
-import { Button } from '@ahaui/react';
+import { Button, Skeleton } from '@ahaui/react';
 import { PageWithTable } from 'components/Common';
 import ItemsTable from 'components/Items/ItemsTable';
 import { useTypedDispatch } from 'hooks';
@@ -16,7 +16,12 @@ const Items = () => {
     items: [],
   });
 
-  const [category, setCategory] = useState<CategoryType>();
+  const [category, setCategory] = useState<CategoryType>({
+    name: '',
+    id: NaN,
+    description: '',
+    imageUrl: '',
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useTypedDispatch();
   const { categoryId } = useParams();
@@ -41,19 +46,18 @@ const Items = () => {
 
   return (
     <div>
-      {category && (
       <PageWithTable
         data={data}
         setData={setData}
         renderTable={renderTable}
-        breadcrumb={`Manage Category > ${category.name} > Item`}
+        breadcrumb={!isLoading ? `Manage Category > ${category.name} > Item` : <Skeleton width="400px" height="30px" />}
         tableTitle="Item list"
         fetchData={fetchData}
         CreateButton={<Button onClick={() => null}>Create item</Button>}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      )}
+
     </div>
   );
 };

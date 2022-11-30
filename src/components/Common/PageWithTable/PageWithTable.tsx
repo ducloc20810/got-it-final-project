@@ -14,7 +14,7 @@ type PageWithTableProps = {
   data: GenericDataTable;
   setData: (data: GenericDataTable) => void;
   tableTitle: string;
-  breadcrumb: string;
+  breadcrumb: string | JSX.Element;
   fetchData: (offset: number) => (dispatch: TypedDispatch) => Promise<any>;
   CreateButton: React.ReactNode;
   renderTable: (list: Array<any>) => JSX.Element|null;
@@ -68,17 +68,21 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   }, [searchParams, changeSearchParamsPage]);
 
   useEffect(() => {
-    if (currentPage === 0) return;
+    if (currentPage === 0) {
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     setIsLoading(true);
+
     dispatch(fetchData(currentPage))
       .then((resData: GenericDataTable) => {
         if (componentRef.current) {
           setData(resData);
           setIsLoading(false);
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
         }
       })
       .catch(() => {

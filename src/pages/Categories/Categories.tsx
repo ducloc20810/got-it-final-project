@@ -241,7 +241,7 @@ const Categories = () => {
           closeHandle: closeModalHandle,
           footerContent: {
             closeButtonContent: 'Cancel',
-            submitButtonContent: 'Submit',
+            submitButtonContent: 'Confirm',
             closeButtonHandle: () => closeModalHandle(),
             submitButtonHandle: () => {
               deleteSubmitHandle(id);
