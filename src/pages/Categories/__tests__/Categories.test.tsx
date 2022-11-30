@@ -83,6 +83,8 @@ const server = setupServer(
     res(ctx.status(200), ctx.json({}))),
 );
 
+window.scrollTo = jest.fn();
+
 beforeAll(() => {
   server.listen();
 });
