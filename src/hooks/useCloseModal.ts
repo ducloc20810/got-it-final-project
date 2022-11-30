@@ -5,7 +5,7 @@ const useCloseModal = () => {
   const dispatch = useTypedDispatch();
   const closeModalHandle = () => {
     dispatch(closeModal());
-    setTimeout(() => dispatch(clearModal()), 600);
+    setTimeout(() => dispatch(clearModal()), 400);
   };
 
   return closeModalHandle;
