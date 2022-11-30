@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Skeleton } from '@ahaui/react';
-import { PageWithTable } from 'components/Common';
 import ItemsTable from 'components/Items/ItemsTable';
-import { useAppSelector, useAuthWarning, useCloseModal, useCreate, useTypedDispatch } from 'hooks';
+import { PageWithTable } from 'components/Common';
 import { CategoryType } from 'pages/Categories/CategoriesType';
+import { ModalList } from 'constants/modal';
+import { useAppSelector, useAuthWarning, useCloseModal, useCreate, useTypedDispatch } from 'hooks';
 import { fetchCategoryDetail } from 'redux/actions/category.action';
 import { createItem, fetchItemList } from 'redux/actions/item.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { setModal } from 'redux/actions/modal.action';
-import ItemCreateForm from 'components/Items/ItemCreateForm';
 import { ItemsDataType, ItemType } from './ItemsType';
 
 const Items = () => {
@@ -26,7 +26,7 @@ const Items = () => {
     description: '',
     imageUrl: '',
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
   const { categoryId = -1 } = useParams();
   const closeModalHandle = useCloseModal();
@@ -39,9 +39,13 @@ const Items = () => {
     dispatch(fetchCategoryDetail(categoryIdNum)).then((resData) => setCategory(resData));
   }, [categoryId, dispatch]);
 
-  const fetchData = useCallback((pageNumber:number) => fetchItemList(categoryId, pageNumber), [categoryId]);
+  const fetchData = useCallback(
+    (pageNumber: number) => fetchItemList(categoryId, pageNumber),
+    [categoryId],
+  );
 
-  const submitCreateItemHandle = useCreate(data, setData, (formData) => createItem(+categoryId, formData));
+  const submitCreateItemHandle = useCreate(data, setData, (formData) =>
+    createItem(+categoryId, formData));
 
   const createItemOnClick = () => {
     if (!user.isLoggedIn) {
@@ -51,24 +55,29 @@ const Items = () => {
 
     dispatch(
       setModal({
-        children: (
-          <ItemCreateForm
-            submitHandle={submitCreateItemHandle}
-            closeHandle={closeModalHandle}
-          />
-        ),
+        component: ModalList.CREATE_ITEM,
+        componentProps: {
+          submitHandle: submitCreateItemHandle,
+          closeHandle: closeModalHandle,
+        },
         isLoading: false,
         isOpen: true,
         title: 'Create item form',
         closeHandle: closeModalHandle,
-        footer: null,
       }),
     );
   };
 
-  const renderTable = (list:Array<ItemType>) => {
+  const renderTable = (list: Array<ItemType>) => {
     if (categoryId) {
-      return <ItemsTable categoryId={categoryId} list={list} removeHandle={() => null} editHandle={() => null} />;
+      return (
+        <ItemsTable
+          categoryId={categoryId}
+          list={list}
+          removeHandle={() => null}
+          editHandle={() => null}
+        />
+      );
     }
     return null;
   };
@@ -79,14 +88,19 @@ const Items = () => {
         data={data}
         setData={setData}
         renderTable={renderTable}
-        breadcrumb={!isLoading ? `Manage Category > ${category.name} > Item` : <Skeleton width="400px" height="30px" />}
+        breadcrumb={
+          !isLoading ? (
+            `Manage Category > ${category.name} > Item`
+          ) : (
+            <Skeleton width="400px" height="30px" />
+          )
+        }
         tableTitle="Item list"
         fetchData={fetchData}
         CreateButton={<Button onClick={createItemOnClick}>Create item</Button>}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-
     </div>
   );
 };

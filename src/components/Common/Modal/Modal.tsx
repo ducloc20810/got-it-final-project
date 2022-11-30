@@ -1,11 +1,13 @@
 import { Button, Modal as AhaModal } from '@ahaui/react';
+import classNames from 'classnames';
+import { ModalLookUp } from 'constants/modal';
 import { useAppSelector } from 'hooks';
 import { modalSelector } from 'redux/reducers/modal.reducer';
-import classNames from 'classnames';
 import styles from './Modal.module.scss';
 
 function Modal() {
   const state = useAppSelector(modalSelector);
+  const ModalContent = state.component ? ModalLookUp[state.component] : null;
 
   return (
     <div
@@ -15,12 +17,7 @@ function Modal() {
         state.isOpen ? styles.modalOpen : styles.modalClose,
       )}
     >
-      <div
-        className={classNames(
-          styles.modalLayout,
-          'u-positionFixed u-widthFull u-heightFull',
-        )}
-      />
+      <div className={classNames(styles.modalLayout, 'u-positionFixed u-widthFull u-heightFull')} />
 
       <AhaModal
         size="medium"
@@ -44,9 +41,11 @@ function Modal() {
           <AhaModal.Title>{state.title}</AhaModal.Title>
         </AhaModal.Header>
         <AhaModal.Body className="u-paddingNone">
-          <div className="u-textCenter">{state.children}</div>
+          <div className="u-textCenter">
+            {ModalContent ? <ModalContent {...state.componentProps} /> : null}
+          </div>
         </AhaModal.Body>
-
+        {/*
         {state.footer === undefined && state.footerContent === undefined && (
         <AhaModal.Footer>
           <Button variant="secondary" width="full">
@@ -56,26 +55,29 @@ function Modal() {
             {state.isLoading ? 'Loading...' : 'Ok, Got It!'}
           </Button>
         </AhaModal.Footer>
+        )} */}
+
+        {state.footerContent && (
+          <AhaModal.Footer>
+            <Button
+              variant="secondary"
+              width="full"
+              onClick={state.footerContent.closeButtonHandle}
+            >
+              {state.footerContent.closeButtonContent}
+            </Button>
+            <Button
+              variant="primary"
+              width="full"
+              disabled={state.isLoading}
+              onClick={state.footerContent.submitButtonHandle}
+            >
+              {state.isLoading ? 'Loading...' : state.footerContent.submitButtonContent}
+            </Button>
+          </AhaModal.Footer>
         )}
 
-        {state.footer === undefined && state.footerContent && (
-        <AhaModal.Footer>
-          <Button variant="secondary" width="full" onClick={state.footerContent.closeButtonHandle}>
-            {state.footerContent.closeButtonContent}
-          </Button>
-          <Button
-            variant="primary"
-            width="full"
-            disabled={state.isLoading}
-            onClick={state.footerContent.submitButtonHandle}
-          >
-            {state.isLoading ? 'Loading...' : state.footerContent.submitButtonContent}
-          </Button>
-        </AhaModal.Footer>
-        )}
-
-        {state.footer !== undefined && !state.footerContent && (state.footer)}
-
+        {/* {state.footer !== undefined && !state.footerContent && (state.footer)} */}
       </AhaModal>
     </div>
   );

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Button } from '@ahaui/react';
-import lodash from 'lodash';
 import { useSearchParams } from 'react-router-dom';
+import lodash from 'lodash';
+import { PageWithTable } from 'components/Common';
 import CategoriesTable from 'components/Categories/CategoriesTable';
-import { DeleteWarning, PageWithTable } from 'components/Common';
-import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
-import { IFormCategoryInputs } from 'types/form';
+import { ModalList } from 'constants/modal';
 import { useAuthWarning, useCloseModal, useAppSelector, useTypedDispatch, useCreate } from 'hooks';
 import {
   createCategory,
@@ -15,14 +14,14 @@ import {
 } from 'redux/actions/category.action';
 import { offLoading, onLoading, setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
-
+import { IFormCategoryInputs } from 'types/form';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
   const closeModalHandle = useCloseModal();
   const user = useAppSelector(userSelector);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const handleUserNotLoggedIn = useAuthWarning('create category');
   const [data, setData] = useState<CategoriesDataType>({
     totalItems: 0,
@@ -39,17 +38,12 @@ const Categories = () => {
 
     dispatch(
       setModal({
-        children: (
-          <CategoryCreateForm
-            submitHandle={submitCreateFormModalHandle}
-            closeHandle={closeModalHandle}
-          />
-        ),
+        component: ModalList.CREATE_CATEGORY,
+        componentProps: { submitHandle: submitCreateFormModalHandle, closeHandle: closeModalHandle },
         isLoading: false,
         isOpen: true,
         title: 'Create category form',
         closeHandle: closeModalHandle,
-        footer: null,
       }),
     );
   };
@@ -95,18 +89,17 @@ const Categories = () => {
     const index = data.items.findIndex((item) => item.id === id);
     dispatch(
       setModal({
-        children: (
-          <CategoryCreateForm
-            submitHandle={(formData: IFormCategoryInputs) => submitEditHandle(id, formData)}
-            closeHandle={closeModalHandle}
-            initValue={data.items[index]}
-          />
-        ),
+        component: ModalList.EDIT_CATEGORY,
+        componentProps: {
+          submitHandle: (formData: IFormCategoryInputs) => submitEditHandle(id, formData),
+          closeHandle: closeModalHandle,
+          initValue: data.items[index],
+        },
         isLoading: false,
         isOpen: true,
         title: 'Edit category form',
         closeHandle: closeModalHandle,
-        footer: null,
+
       }),
     );
   };
@@ -154,7 +147,8 @@ const Categories = () => {
     if (toBeDeleteCategory) {
       dispatch(
         setModal({
-          children: <DeleteWarning itemName={toBeDeleteCategory.name} />,
+          component: ModalList.DELETE_WARNING,
+          componentProps: { itemName: toBeDeleteCategory.name },
           isLoading: false,
           isOpen: true,
           title: 'Delete Warning',

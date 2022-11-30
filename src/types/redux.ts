@@ -1,5 +1,3 @@
-import React from 'react';
-
 export type User = {
   name?: string;
   id?: string;
@@ -19,13 +17,13 @@ export type Modal = {
   isLoading: boolean;
   isOpen: boolean;
   title: string;
-  children: React.ReactNode;
-  footer? :React.ReactNode,
+  component: string;
+  componentProps: Record<string, unknown>;
   footerContent?: {
-    closeButtonContent: string,
-    submitButtonContent: string,
-    closeButtonHandle: ()=>void;
-    submitButtonHandle: ()=>void
-  }
-  closeHandle: ()=>void;
+    closeButtonContent: string;
+    submitButtonContent: string;
+    closeButtonHandle: () => void;
+    submitButtonHandle: () => void;
+  };
+  closeHandle: () => void;
 };
