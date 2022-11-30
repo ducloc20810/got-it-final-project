@@ -6,7 +6,7 @@ import CategoriesTable from 'components/Categories/CategoriesTable';
 import { DeleteWarning, PageWithTable } from 'components/Common';
 import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
 import { IFormCategoryInputs } from 'types/form';
-import { useAuthWarning, useCloseModal, useAppSelector, useTypedDispatch } from 'hooks';
+import { useAuthWarning, useCloseModal, useAppSelector, useTypedDispatch, useCreate } from 'hooks';
 import {
   createCategory,
   editCategory,
@@ -15,7 +15,6 @@ import {
 } from 'redux/actions/category.action';
 import { offLoading, onLoading, setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
-import { ITEMS_PER_PAGE } from 'constants/pagination';
 
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
@@ -25,57 +24,12 @@ const Categories = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleUserNotLoggedIn = useAuthWarning('create category');
-
   const [data, setData] = useState<CategoriesDataType>({
     totalItems: 0,
     items: [],
   });
-
   const dispatch = useTypedDispatch();
-
-  const submitCreateFormModalHandle = (formData: IFormCategoryInputs) => {
-    if (formData.name && formData.description && formData.imageUrl) {
-      dispatch(onLoading());
-
-      dispatch(
-        createCategory({
-          name: formData.name,
-          description: formData.description,
-          imageUrl: formData.imageUrl,
-        }),
-      ).then((resData) => {
-        const remainItemNumber = data.totalItems % ITEMS_PER_PAGE;
-        const totalPage = Math.floor(data.totalItems / ITEMS_PER_PAGE);
-        const lastPage = remainItemNumber ? totalPage + 1 : totalPage;
-
-        const page = searchParams.get('page');
-        const pageNumber = page && +page ? +page : 1;
-
-        if (remainItemNumber && pageNumber === lastPage) {
-          setData((prev) => ({
-            totalItems: prev.totalItems + 1,
-            items: [...prev.items, resData],
-          }));
-        }
-        else if (remainItemNumber && pageNumber !== lastPage) {
-          searchParams.set('page', lastPage.toString());
-          setSearchParams(searchParams);
-        }
-        else if (!remainItemNumber && lastPage === 0) {
-          setData((prev) => ({
-            totalItems: prev.totalItems + 1,
-            items: [...prev.items, resData],
-          }));
-        }
-        else {
-          searchParams.set('page', (lastPage + 1).toString());
-          setSearchParams(searchParams);
-        }
-        dispatch(offLoading());
-        closeModalHandle();
-      }).catch(() => dispatch(offLoading()));
-    }
-  };
+  const submitCreateFormModalHandle = useCreate(data, setData, createCategory);
 
   const createCategoryOnClick = () => {
     if (!user.isLoggedIn) {
