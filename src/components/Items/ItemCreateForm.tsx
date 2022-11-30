@@ -1,18 +1,18 @@
 import { Button, Form } from '@ahaui/react';
 import { useForm } from 'react-hook-form';
-import { CategoryPayload } from 'pages/Categories/CategoriesType';
 import { InlineError } from 'components/Common';
-import { IFormCategoryInputs } from 'types/form';
+import { IFormItemInputs } from 'types/form';
 import { modalSelector } from 'redux/reducers/modal.reducer';
+import { ItemPayload } from 'pages/Items/ItemsType';
 import { useAppSelector } from 'hooks';
 
 type CreateFormProps = {
-  submitHandle: (data: IFormCategoryInputs) => void;
+  submitHandle: (data: IFormItemInputs) => void;
   closeHandle: () => void;
-  initValue?: CategoryPayload;
+  initValue?: ItemPayload;
 };
 
-const CategoryCreateForm: React.FC<CreateFormProps> = ({
+const ItemCreateForm: React.FC<CreateFormProps> = ({
   submitHandle,
   closeHandle,
   initValue,
@@ -21,9 +21,8 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormCategoryInputs>({ mode: 'onChange',
+  } = useForm<IFormItemInputs>({ mode: 'onChange',
     defaultValues: initValue ? {
-      name: initValue.name,
       description: initValue.description,
       imageUrl: initValue.imageUrl,
     } : {} });
@@ -35,25 +34,6 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
         <Form.Group sizeControl="large">
           <Form.Input
             type="text"
-            placeholder="Name"
-            {...register('name', {
-              required: 'name is required',
-              maxLength: 30,
-            })}
-          />
-
-          {errors.name?.type === 'required' && (
-            <InlineError>Please enter your category name</InlineError>
-          )}
-
-          {errors.name?.type === 'maxLength' && (
-            <InlineError>Maximum length of name is 30 characters</InlineError>
-          )}
-        </Form.Group>
-
-        <Form.Group sizeControl="large">
-          <Form.Input
-            type="text"
             placeholder="Image Url"
             {...register('imageUrl', {
               maxLength: 200,
@@ -62,7 +42,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           />
 
           {errors.imageUrl?.type === 'required' && (
-            <InlineError>Please enter your category image URL</InlineError>
+            <InlineError>Please enter your item image URL</InlineError>
           )}
 
           {errors.imageUrl?.type === 'maxLength' && (
@@ -81,7 +61,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           />
 
           {errors.description?.type === 'required' && (
-            <InlineError>Please enter your category description</InlineError>
+            <InlineError>Please enter your item description</InlineError>
           )}
 
           {errors.description?.type === 'maxLength' && (
@@ -110,4 +90,4 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
   );
 };
 
-export default CategoryCreateForm;
+export default ItemCreateForm;

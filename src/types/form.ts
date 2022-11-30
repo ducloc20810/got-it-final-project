@@ -14,3 +14,8 @@ export interface IFormCategoryInputs {
   description: string;
   imageUrl: string;
 }
+
+export interface IFormItemInputs {
+  description: string;
+  imageUrl: string;
+}
