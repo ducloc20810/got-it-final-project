@@ -91,7 +91,7 @@ const Items = () => {
         },
         isLoading: false,
         isOpen: true,
-        title: 'Edit category form',
+        title: 'Edit item form',
         closeHandle: closeModalHandle,
 
       }),
