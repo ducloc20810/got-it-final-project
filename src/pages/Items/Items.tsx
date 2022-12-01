@@ -7,9 +7,12 @@ import { CategoryType } from 'pages/Categories/CategoriesType';
 import { ModalList } from 'constants/modal';
 import { useAppSelector, useAuthWarning, useCloseModal, useCreate, useTypedDispatch } from 'hooks';
 import { fetchCategoryDetail } from 'redux/actions/category.action';
-import { createItem, fetchItemList } from 'redux/actions/item.action';
+import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { setModal } from 'redux/actions/modal.action';
+import useEdit from 'hooks/useEdit';
+import { IFormItemInputs } from 'types/form';
+import useDelete from 'hooks/useDelete';
 import { ItemsDataType, ItemType } from './ItemsType';
 
 const Items = () => {
@@ -44,8 +47,12 @@ const Items = () => {
     [categoryId],
   );
 
-  const submitCreateItemHandle = useCreate(data, setData, (formData) =>
+  const submitCreateHandle = useCreate(data, setData, (formData) =>
     createItem(+categoryId, formData));
+
+  const submitEditHandle = useEdit(data, setData, (id, formData) => editItem(+categoryId, id, formData));
+
+  const submitDeleteHandle = useDelete(data, setData, setIsLoading, (id) => removeItem(+categoryId, id), (pageNumber) => fetchItemList(categoryId, pageNumber));
 
   const createItemOnClick = () => {
     if (!user.isLoggedIn) {
@@ -57,7 +64,7 @@ const Items = () => {
       setModal({
         component: ModalList.CREATE_ITEM,
         componentProps: {
-          submitHandle: submitCreateItemHandle,
+          submitHandle: submitCreateHandle,
           closeHandle: closeModalHandle,
         },
         isLoading: false,
@@ -68,14 +75,68 @@ const Items = () => {
     );
   };
 
+  const editIconOnClick = (id: number) => {
+    if (!user.isLoggedIn) {
+      handleUserNotLoggedIn();
+      return;
+    }
+    const index = data.items.findIndex((item) => item.id === id);
+    dispatch(
+      setModal({
+        component: ModalList.EDIT_ITEM,
+        componentProps: {
+          submitHandle: (formData: IFormItemInputs) => submitEditHandle(id, formData),
+          closeHandle: closeModalHandle,
+          initValue: data.items[index],
+        },
+        isLoading: false,
+        isOpen: true,
+        title: 'Edit category form',
+        closeHandle: closeModalHandle,
+
+      }),
+    );
+  };
+
+  const removeIconOnClick = (id: number) => {
+    if (!user.isLoggedIn) {
+      handleUserNotLoggedIn();
+      return;
+    }
+
+    const toBeDeleteItem = data.items.find((item) => item.id === id);
+
+    if (toBeDeleteItem) {
+      dispatch(
+        setModal({
+          component: ModalList.DELETE_WARNING,
+          componentProps: { itemName: `item ${toBeDeleteItem.id}` },
+          isLoading: false,
+          isOpen: true,
+          title: 'Delete Warning',
+          closeHandle: closeModalHandle,
+          footerContent: {
+            closeButtonContent: 'Cancel',
+            submitButtonContent: 'Confirm',
+            closeButtonHandle: () => closeModalHandle(),
+            submitButtonHandle: () => {
+              submitDeleteHandle(id);
+            },
+          },
+
+        }),
+      );
+    }
+  };
+
   const renderTable = (list: Array<ItemType>) => {
     if (categoryId) {
       return (
         <ItemsTable
           categoryId={categoryId}
           list={list}
-          removeHandle={() => null}
-          editHandle={() => null}
+          removeHandle={removeIconOnClick}
+          editHandle={editIconOnClick}
         />
       );
     }

@@ -35,7 +35,7 @@ const useEdit = (
           const index = prev.items.findIndex((item) => item.id === id);
           if (index > -1) {
             const newArray = [...prev.items];
-            newArray[index] = { id: id, ...resData };
+            newArray[index] = { ...newArray[index], ...resData };
             return { ...prev, items: newArray };
           }
           return prev;
