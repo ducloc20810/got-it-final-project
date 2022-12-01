@@ -7,17 +7,17 @@ import { TypedDispatch } from 'redux/store';
 
 const useCreate = (
   data: GenericDataTable,
-  setData: (param: (prev:GenericDataTable)=>GenericDataTable | GenericDataTable) => void,
-  dispatchCreateFunction: (...params: any) => (dispatch: TypedDispatch) => Promise<GenericDataTable>,
+  setData: (param:((prev:GenericDataTable)=>GenericDataTable) | GenericDataTable) => void,
+  dispatchAction: (...params:any[]) => (dispatch: TypedDispatch) => Promise<GenericDataTable>,
 ) => {
   const dispatch = useTypedDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const closeModalHandle = useCloseModal();
 
-  const handleSubmit = (formData: any) => {
+  const handleSubmit = (formData: unknown) => {
     dispatch(onLoading());
 
-    dispatch(dispatchCreateFunction(formData))
+    dispatch(dispatchAction(formData))
       .then((resData: GenericDataTable) => {
         const remainItemNumber = data.totalItems % ITEMS_PER_PAGE;
         const totalPage = Math.floor(data.totalItems / ITEMS_PER_PAGE);
