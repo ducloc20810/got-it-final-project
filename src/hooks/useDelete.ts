@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useTypedDispatch } from 'hooks';
 import { TypedDispatch } from 'redux/store';
 import { GenericDataTable } from 'types/common';
+import { useEffect, useRef } from 'react';
 import { offLoading, onLoading } from '../redux/actions/modal.action';
 import useCloseModal from './useCloseModal';
 
@@ -15,6 +16,15 @@ const useDelete = (
   const closeModalHandle = useCloseModal();
   const dispatch = useTypedDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const isCancel = useRef(false);
+
+  useEffect(
+    () => () => {
+      isCancel.current = true;
+    },
+    [],
+  );
 
   const handleSubmit = async (id: number) => {
     try {
@@ -32,15 +42,19 @@ const useDelete = (
         else {
           setIsLoading(true);
           const resData = await dispatch(dispatchFetchAction(pageNumber));
-          setData(resData);
-          setIsLoading(false);
+          if (!isCancel.current) {
+            setData(resData);
+            setIsLoading(false);
+          }
         }
       }
       else {
         setIsLoading(true);
         const resData = await dispatch(dispatchFetchAction(1));
-        setData(resData);
-        setIsLoading(false);
+        if (!isCancel.current) {
+          setData(resData);
+          setIsLoading(false);
+        }
       }
       dispatch(offLoading());
     }
