@@ -76,7 +76,9 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
       top: 0,
       behavior: 'smooth',
     });
-    setIsLoading(true);
+    if (componentRef.current) {
+      setIsLoading(true);
+    }
 
     dispatch(fetchData(currentPage))
       .then((resData: GenericDataTable) => {
@@ -86,7 +88,9 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
         }
       })
       .catch(() => {
-        if (componentRef.current) setIsLoading(false);
+        if (componentRef.current) {
+          setIsLoading(false);
+        }
       });
   }, [dispatch, currentPage, fetchData, setData, setIsLoading]);
 
