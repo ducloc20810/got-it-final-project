@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Skeleton } from '@ahaui/react';
 import ItemsTable from 'components/Items/ItemsTable';
 import { PageWithTable } from 'components/Common';
 import { CategoryType } from 'pages/Categories/CategoriesType';
 import { ModalList } from 'constants/modal';
-import { useAppSelector, useAuthWarning, useCloseModal, useCreate, useTypedDispatch } from 'hooks';
+import { useAppSelector, useAuthWarning, useCloseModal, useCreate, useFetch, useTypedDispatch } from 'hooks';
 import { fetchCategoryDetail } from 'redux/actions/category.action';
 import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item.action';
 import { userSelector } from 'redux/reducers/user.reducer';
@@ -23,27 +23,18 @@ const Items = () => {
     items: [],
   });
 
-  const [category, setCategory] = useState<CategoryType>({
-    name: '',
-    id: NaN,
-    description: '',
-    imageUrl: '',
-  });
+  const { categoryId = -1 } = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
-  const { categoryId = -1 } = useParams();
   const closeModalHandle = useCloseModal();
   const handleUserNotLoggedIn = useAuthWarning('create item');
 
-  useEffect(() => {
-    if (!categoryId) return;
+  const fetchCategory = useCallback(() => fetchCategoryDetail(+categoryId), [categoryId]);
 
-    const categoryIdNum = +categoryId;
-    dispatch(fetchCategoryDetail(categoryIdNum)).then((resData) => setCategory(resData));
-  }, [categoryId, dispatch]);
+  const { data: category, isLoading: categoryLoading }:{data:CategoryType, isLoading:boolean} = useFetch(fetchCategory);
 
   const fetchData = useCallback(
-    (pageNumber: number) => fetchItemList(categoryId, pageNumber),
+    (pageNumber: number) => fetchItemList(+categoryId, pageNumber),
     [categoryId],
   );
 
@@ -52,7 +43,7 @@ const Items = () => {
 
   const submitEditHandle = useEdit(data, setData, (id, formData) => editItem(+categoryId, id, formData));
 
-  const submitDeleteHandle = useDelete(data, setData, setIsLoading, (id) => removeItem(+categoryId, id), (pageNumber) => fetchItemList(categoryId, pageNumber));
+  const submitDeleteHandle = useDelete(data, setData, setIsLoading, (id) => removeItem(+categoryId, id), (pageNumber) => fetchItemList(+categoryId, pageNumber));
 
   const createItemOnClick = () => {
     if (!user.isLoggedIn) {
@@ -150,8 +141,8 @@ const Items = () => {
         setData={setData}
         renderTable={renderTable}
         breadcrumb={
-          !isLoading ? (
-            `Manage Category > ${category.name} > Item`
+          !categoryLoading ? (
+            `Manage Category > ${category?.name}`
           ) : (
             <Skeleton width="400px" height="30px" />
           )
