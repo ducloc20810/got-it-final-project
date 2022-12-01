@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Button } from '@ahaui/react';
-import { useSearchParams } from 'react-router-dom';
-import lodash from 'lodash';
 import { PageWithTable } from 'components/Common';
 import CategoriesTable from 'components/Categories/CategoriesTable';
 import { ModalList } from 'constants/modal';
@@ -12,15 +10,16 @@ import {
   fetchCategoryList,
   removeCategory,
 } from 'redux/actions/category.action';
-import { offLoading, onLoading, setModal } from 'redux/actions/modal.action';
+import { setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { IFormCategoryInputs } from 'types/form';
+import useEdit from 'hooks/useEdit';
+import useDelete from 'hooks/useDelete';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
   const closeModalHandle = useCloseModal();
   const user = useAppSelector(userSelector);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const handleUserNotLoggedIn = useAuthWarning('create category');
   const [data, setData] = useState<CategoriesDataType>({
@@ -28,7 +27,9 @@ const Categories = () => {
     items: [],
   });
   const dispatch = useTypedDispatch();
-  const submitCreateFormModalHandle = useCreate(data, setData, createCategory);
+  const submitCreateHandle = useCreate(data, setData, createCategory);
+  const submitEditHandle = useEdit(data, setData, editCategory);
+  const deleteSubmitHandle = useDelete(data, setData, setIsLoading, removeCategory, fetchCategoryList);
 
   const createCategoryOnClick = () => {
     if (!user.isLoggedIn) {
@@ -39,46 +40,13 @@ const Categories = () => {
     dispatch(
       setModal({
         component: ModalList.CREATE_CATEGORY,
-        componentProps: { submitHandle: submitCreateFormModalHandle, closeHandle: closeModalHandle },
+        componentProps: { submitHandle: submitCreateHandle, closeHandle: closeModalHandle },
         isLoading: false,
         isOpen: true,
         title: 'Create category form',
         closeHandle: closeModalHandle,
       }),
     );
-  };
-
-  const submitEditHandle = (id: number, formData: IFormCategoryInputs) => {
-    const currentCategory = data.items.find((category) => category.id === id);
-
-    if (!currentCategory) return;
-
-    const currentCategoryData = {
-      name: currentCategory.name,
-      imageUrl: currentCategory.imageUrl,
-      description: currentCategory.description,
-    };
-    if (lodash.isEqual(currentCategoryData, formData)) {
-      closeModalHandle();
-      return;
-    }
-
-    dispatch(onLoading());
-    dispatch(editCategory(id, formData))
-      .then((category) => {
-        setData((prev) => {
-          const index = prev.items.findIndex((item) => item.id === id);
-          if (index > -1) {
-            const newArray = [...prev.items];
-            newArray[index] = { id: id, ...category };
-            return { ...prev, items: newArray };
-          }
-          return prev;
-        });
-        dispatch(offLoading());
-        closeModalHandle();
-      })
-      .catch(() => dispatch(offLoading()));
   };
 
   const editIconOnClick = (id: number) => {
@@ -102,38 +70,6 @@ const Categories = () => {
 
       }),
     );
-  };
-
-  const deleteSubmitHandle = async (id: number) => {
-    try {
-      dispatch(onLoading());
-      await dispatch(removeCategory(id));
-      closeModalHandle();
-
-      const page = searchParams.get('page');
-      if (page) {
-        const pageNumber = +page;
-        if (data.items.length === 1 && pageNumber !== 1) {
-          searchParams.set('page', (pageNumber - 1).toString());
-          setSearchParams(searchParams);
-        }
-        else {
-          setIsLoading(true);
-          const resData = await dispatch(fetchCategoryList(pageNumber));
-          setData(resData);
-          setIsLoading(false);
-        }
-      }
-      else {
-        setIsLoading(true);
-        const resData = await dispatch(fetchCategoryList(1));
-        setData(resData);
-      }
-      dispatch(offLoading());
-    }
-    catch {
-      dispatch(offLoading());
-    }
   };
 
   const removeIconOnClick = (id: number) => {
