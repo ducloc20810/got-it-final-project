@@ -564,6 +564,8 @@ describe('remove category', () => {
 
       expect(deleteCategorySpy).toBeCalledTimes(1);
       expect(deleteCategorySpy).toBeCalledWith(1);
+
+      deleteCategorySpy.mockRestore();
     });
   });
 });
