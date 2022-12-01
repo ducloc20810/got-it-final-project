@@ -132,7 +132,7 @@ describe('fetch item list data', () => {
       `/categories/${categoryId}/items`,
     );
     expect(fetchItemSpy).toBeCalledTimes(1);
-    expect(fetchItemSpy).toBeCalledWith(categoryId, pageNumber);
+    expect(fetchItemSpy).toBeCalledWith(+categoryId, pageNumber);
 
     await waitFor(() => {
       expect(
@@ -172,7 +172,7 @@ describe('fetch item list data', () => {
       `/categories/${categoryId}/items`,
     );
     expect(fetchItemSpy).toBeCalledTimes(1);
-    expect(fetchItemSpy).toBeCalledWith(categoryId, pageNumber);
+    expect(fetchItemSpy).toBeCalledWith(+categoryId, pageNumber);
 
     await waitFor(() => {
       expect(screen.getByText(/no data/i)).toBeInTheDocument();
