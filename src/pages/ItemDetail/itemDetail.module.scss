@@ -1,0 +1,18 @@
+.page {
+  .pageContent {
+    border: 1px solid #dbdbdb;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap: 4rem;
+    justify-content: space-between;
+    img{
+      object-fit: cover;
+    }
+    header {
+      border-bottom: 1px solid #dbdbdb;
+    }
+    span{
+      font-weight: 100;
+    }
+  }
+}

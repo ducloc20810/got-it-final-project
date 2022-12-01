@@ -4,5 +4,6 @@ import useCloseModal from './useCloseModal';
 import useCreate from './useCreate';
 import usePagination from './usePagination';
 import useTypedDispatch from './useTypedDispatch';
+import useFetch from './useFetch';
 
-export { useAppSelector, useTypedDispatch, usePagination, useCloseModal, useAuthWarning, useCreate };
+export { useAppSelector, useTypedDispatch, usePagination, useCloseModal, useAuthWarning, useCreate, useFetch };
