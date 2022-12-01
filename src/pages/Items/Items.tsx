@@ -142,7 +142,7 @@ const Items = () => {
         renderTable={renderTable}
         breadcrumb={
           !categoryLoading ? (
-            `Manage Category > ${category?.name}`
+            `Manage Category > ${category ? category.name : 'undefined'}`
           ) : (
             <Skeleton width="400px" height="30px" />
           )

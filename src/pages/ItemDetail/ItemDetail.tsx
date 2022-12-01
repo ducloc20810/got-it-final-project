@@ -21,12 +21,12 @@ const ItemDetail = () => {
     <div className={classNames(styles.page)}>
       <div className="u-marginBottomSmall">
         <h1 className="u-text600 u-marginNone ">
-          {!categoryLoading && !itemLoading && (
+          {!categoryLoading && !itemLoading && category && item && (
             <>
               Category
               {' '}
               {'> '}
-              {category?.name ? (
+              {category.name ? (
                 <Link to={`/categories/${category.id}/items`} className="hover:u-textPrimary">
                   {category.name}
                 </Link>
@@ -49,9 +49,9 @@ const ItemDetail = () => {
           <>
             <img src={item?.imageUrl || imageAlt} alt="imageContent" width="100%" height="auto" />
             <div className="u-flex u-flexColumn u-alignItemsCenter">
-              <h1 className="u-text800 u-fontMedium u-marginBottomTiny">{item?.id ? `Item ${item.id}` : 'Item'}</h1>
-              <span className="u-text300 u-marginNone u-textNeutral100">{item?.author.name || 'Author'}</span>
-              <p className="u-text400 u-marginTopSmall u-fontRegular">{item?.description || 'Description'}</p>
+              <h1 className="u-text800 u-fontMedium u-marginBottomTiny">{item ? `Item ${item.id}` : 'Item'}</h1>
+              <span className="u-text300 u-marginNone u-textNeutral100">{item ? item.author.name : 'Author'}</span>
+              <p className="u-text400 u-marginTopSmall u-fontRegular">{item ? item.description : 'Description'}</p>
             </div>
           </>
         ) : (
