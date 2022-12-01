@@ -29,7 +29,7 @@ const Categories = () => {
   const dispatch = useTypedDispatch();
   const submitCreateHandle = useCreate(data, setData, createCategory);
   const submitEditHandle = useEdit(data, setData, editCategory);
-  const deleteSubmitHandle = useDelete(data, setData, setIsLoading, removeCategory, fetchCategoryList);
+  const submitDeleteHandle = useDelete(data, setData, setIsLoading, removeCategory, fetchCategoryList);
 
   const createCategoryOnClick = () => {
     if (!user.isLoggedIn) {
@@ -94,7 +94,7 @@ const Categories = () => {
             submitButtonContent: 'Confirm',
             closeButtonHandle: () => closeModalHandle(),
             submitButtonHandle: () => {
-              deleteSubmitHandle(id);
+              submitDeleteHandle(id);
             },
           },
 
