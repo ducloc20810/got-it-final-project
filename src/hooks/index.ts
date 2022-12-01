@@ -1,8 +1,8 @@
-import useCloseModal from 'hooks/useCloseModal';
-import useAppSelector from 'hooks/useAppSelector';
-import useTypedDispatch from 'hooks/useTypedDispatch';
-import usePagination from 'hooks/usePagination';
-import useAuthWarning from 'hooks/useAuthWarning';
+import useAppSelector from './useAppSelector';
+import useAuthWarning from './useAuthWarning';
+import useCloseModal from './useCloseModal';
 import useCreate from './useCreate';
+import usePagination from './usePagination';
+import useTypedDispatch from './useTypedDispatch';
 
 export { useAppSelector, useTypedDispatch, usePagination, useCloseModal, useAuthWarning, useCreate };

@@ -1,8 +1,8 @@
 import { Button, Modal as AhaModal } from '@ahaui/react';
 import classNames from 'classnames';
-import { ModalLookUp } from 'constants/modal';
 import { useAppSelector } from 'hooks';
 import { modalSelector } from 'redux/reducers/modal.reducer';
+import { ModalLookUp } from 'constants/modal';
 import styles from './Modal.module.scss';
 
 function Modal() {

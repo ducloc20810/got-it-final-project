@@ -1,15 +1,15 @@
-import Header from 'components/Common/Header/Header';
-import Layout from 'components/Common/Layout/Layout';
-import Sidebar from 'components/Common/Sidebar/Sidebar';
-import Message from 'components/Common/Message';
-import InlineError from 'components/Common/InlineError';
-import PageWithTable from 'components/Common/PageWithTable/PageWithTable';
-import Modal from 'components/Common/Modal/Modal';
-import AuthWarning from 'components/Common/AuthWarning/AuthWarning';
-import DeleteWarning from 'components/Common/DeleteWarning/DeleteWarning';
-import Pagination from 'components/Common/Pagination/Pagination';
-import SkeletonTable from 'components/Common/SkeletonTable/SkeletonTable';
+import Header from './Header/Header';
+import Layout from './Layout/Layout';
+import Sidebar from './Sidebar/Sidebar';
+import Message from './Message';
+import InlineError from './InlineError';
+import PageWithTable from './PageWithTable/PageWithTable';
+import AuthWarning from './AuthWarning/AuthWarning';
+import DeleteWarning from './DeleteWarning/DeleteWarning';
+import Pagination from './Pagination/Pagination';
+import SkeletonTable from './SkeletonTable/SkeletonTable';
+import Modal from './Modal/Modal';
 
 export {
-  Header, Layout, Sidebar, Message, InlineError, PageWithTable, Modal, AuthWarning, DeleteWarning, Pagination, SkeletonTable,
+  Header, Layout, Sidebar, Message, InlineError, PageWithTable, AuthWarning, DeleteWarning, Pagination, SkeletonTable, Modal,
 };

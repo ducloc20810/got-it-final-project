@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Categories, Home, Items, Login, SignUp } from 'pages';
-import { Layout, Modal, Message } from 'components/Common';
-import styles from 'App.module.scss';
 import classNames from 'classnames';
+import { Modal, Layout, Message } from 'components/Common';
+import { Categories, Home, Items, Login, SignUp } from 'pages';
+import styles from 'App.module.scss';
 
 function App() {
   return (

@@ -1,6 +1,7 @@
 import ItemCreateForm from 'components/Items/ItemCreateForm';
 import CategoryCreateForm from 'components/Categories/CategoryCreateForm';
-import { AuthWarning, DeleteWarning } from 'components/Common';
+import DeleteWarning from 'components/Common/DeleteWarning/DeleteWarning';
+import AuthWarning from 'components/Common/AuthWarning/AuthWarning';
 
 export const ModalList = {
   CREATE_CATEGORY: 'createCategory',
