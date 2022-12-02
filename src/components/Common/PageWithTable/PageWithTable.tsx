@@ -41,7 +41,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
 }) => {
   const { hash } = useLocation();
   const [isHandleHash, setIsHandleHash] = useState<boolean>(false);
-  const [isFetch, setIsFetch] = useState<boolean>(false);
+  const firstUpdate = useRef(false);
 
   const [currentPage, setCurrentPage] = useState<number>(0);
 
@@ -64,9 +64,10 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
 
   useEffect(() => {
     const hashValue = queryString.parse(hash);
-    if (!isFetch) {
+    if (!firstUpdate.current) {
       return;
     }
+
     if (isHandleHash) {
       return;
     }
@@ -97,7 +98,7 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
         break;
     }
     setIsHandleHash(true);
-  }, [hash, isFetch, isHandleHash, createButtonClick, editIconClick, removeIconClick]);
+  }, [hash, isHandleHash, createButtonClick, editIconClick, removeIconClick]);
 
   useEffect(() => {
     const page = searchParams.get('page');
@@ -132,20 +133,20 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
         if (componentRef.current) {
           setData(resData);
           setIsLoading(false);
-          if (!isFetch) {
-            setIsFetch(true);
+          if (!firstUpdate.current) {
+            firstUpdate.current = true;
           }
         }
       })
       .catch(() => {
         if (componentRef.current) {
           setIsLoading(false);
-          if (!isFetch) {
-            setIsFetch(true);
+          if (!firstUpdate.current) {
+            firstUpdate.current = true;
           }
         }
       });
-  }, [dispatch, currentPage, fetchData, setData, setIsLoading, isFetch, setIsFetch]);
+  }, [dispatch, currentPage, fetchData, setData, setIsLoading]);
 
   return (
     <div className={classNames(styles.page)} ref={componentRef}>
