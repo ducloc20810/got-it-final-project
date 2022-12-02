@@ -17,17 +17,15 @@ import { ItemsDataType, ItemType } from './ItemsType';
 
 const Items = () => {
   const user = useAppSelector(userSelector);
-
   const [data, setData] = useState<ItemsDataType>({
     totalItems: 0,
     items: [],
   });
-
-  const { categoryId = -1 } = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { categoryId = -1 } = useParams();
   const dispatch = useTypedDispatch();
   const closeModalHandle = useCloseModal();
-  const handleUserNotLoggedIn = useAuthWarning('create item');
+  const handleUserNotLoggedIn = useAuthWarning();
 
   const fetchCategory = useCallback(() => fetchCategoryDetail(+categoryId), [categoryId]);
 
@@ -47,7 +45,7 @@ const Items = () => {
 
   const createItemOnClick = () => {
     if (!user.isLoggedIn) {
-      handleUserNotLoggedIn();
+      handleUserNotLoggedIn('create item', 'create');
       return;
     }
 
@@ -62,13 +60,14 @@ const Items = () => {
         isOpen: true,
         title: 'Create item form',
         closeHandle: closeModalHandle,
+        footerContent: undefined,
       }),
     );
   };
 
   const editIconOnClick = (id: number) => {
     if (!user.isLoggedIn) {
-      handleUserNotLoggedIn();
+      handleUserNotLoggedIn('edit item', 'edit', id);
       return;
     }
     const index = data.items.findIndex((item) => item.id === id);
@@ -84,14 +83,14 @@ const Items = () => {
         isOpen: true,
         title: 'Edit item form',
         closeHandle: closeModalHandle,
-
+        footerContent: undefined,
       }),
     );
   };
 
   const removeIconOnClick = (id: number) => {
     if (!user.isLoggedIn) {
-      handleUserNotLoggedIn();
+      handleUserNotLoggedIn('delete item', 'delete', id);
       return;
     }
 
@@ -152,6 +151,9 @@ const Items = () => {
         CreateButton={<Button onClick={createItemOnClick}>Create item</Button>}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        createButtonClick={createItemOnClick}
+        editIconClick={editIconOnClick}
+        removeIconClick={removeIconOnClick}
       />
     </div>
   );

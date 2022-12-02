@@ -14,6 +14,7 @@
     "env-cmd": "^10.1.0",
     "lodash": "^4.17.21",
     "lodash.once": "^4.1.1",
+    "query-string": "^7.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.39.4",
@@ -53,7 +54,6 @@
     "staging": "env-cmd -f .env.staging npm run build",
     "prod": "env-cmd -f .env.prod npm run build"
   },
-
   "browserslist": {
     "production": [
       ">0.2%",

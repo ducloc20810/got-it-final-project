@@ -18,22 +18,22 @@ import useDelete from 'hooks/useDelete';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
-  const closeModalHandle = useCloseModal();
   const user = useAppSelector(userSelector);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const handleUserNotLoggedIn = useAuthWarning('create category');
   const [data, setData] = useState<CategoriesDataType>({
     totalItems: 0,
     items: [],
   });
   const dispatch = useTypedDispatch();
+  const handleUserNotLoggedIn = useAuthWarning();
   const submitCreateHandle = useCreate(data, setData, createCategory);
   const submitEditHandle = useEdit(data, setData, editCategory);
   const submitDeleteHandle = useDelete(data, setData, setIsLoading, removeCategory, fetchCategoryList);
+  const closeModalHandle = useCloseModal();
 
   const createCategoryOnClick = () => {
     if (!user.isLoggedIn) {
-      handleUserNotLoggedIn();
+      handleUserNotLoggedIn('create category', 'create');
       return;
     }
 
@@ -44,6 +44,7 @@ const Categories = () => {
         isLoading: false,
         isOpen: true,
         title: 'Create category form',
+        footerContent: undefined,
         closeHandle: closeModalHandle,
       }),
     );
@@ -51,7 +52,7 @@ const Categories = () => {
 
   const editIconOnClick = (id: number) => {
     if (!user.isLoggedIn) {
-      handleUserNotLoggedIn();
+      handleUserNotLoggedIn('edit category', 'edit', id);
       return;
     }
     const index = data.items.findIndex((item) => item.id === id);
@@ -61,6 +62,7 @@ const Categories = () => {
         componentProps: {
           submitHandle: (formData: IFormCategoryInputs) => submitEditHandle(id, formData),
           closeHandle: closeModalHandle,
+          footerContent: undefined,
           initValue: data.items[index],
         },
         isLoading: false,
@@ -74,7 +76,7 @@ const Categories = () => {
 
   const removeIconOnClick = (id: number) => {
     if (!user.isLoggedIn) {
-      handleUserNotLoggedIn();
+      handleUserNotLoggedIn('delete category', 'delete', id);
       return;
     }
 
@@ -119,6 +121,9 @@ const Categories = () => {
         tableTitle="Category List"
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        createButtonClick={createCategoryOnClick}
+        editIconClick={editIconOnClick}
+        removeIconClick={removeIconOnClick}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-// import { Loader } from '@ahaui/react';
-import { useSearchParams } from 'react-router-dom';
+import queryString from 'query-string';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { useTypedDispatch } from 'hooks';
 import { GenericDataTable } from 'types/common';
@@ -20,6 +20,9 @@ type PageWithTableProps = {
   renderTable: (list: Array<any>) => JSX.Element|null;
   isLoading: boolean
   setIsLoading:(value:boolean)=>void
+  createButtonClick: ()=>void
+  editIconClick: (id:number)=>void
+  removeIconClick:(id:number)=>void
 };
 
 const PageWithTable: React.FC<PageWithTableProps> = ({
@@ -32,7 +35,14 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   renderTable,
   isLoading,
   setIsLoading,
+  createButtonClick,
+  editIconClick,
+  removeIconClick,
 }) => {
+  const { hash } = useLocation();
+  const [isHandleHash, setIsHandleHash] = useState<boolean>(false);
+  const [isFetch, setIsFetch] = useState<boolean>(false);
+
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const dispatch = useTypedDispatch();
@@ -51,6 +61,43 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
     searchParams.set('page', page.toString());
     setSearchParams(searchParams);
   }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    const hashValue = queryString.parse(hash);
+    if (!isFetch) {
+      return;
+    }
+    if (isHandleHash) {
+      return;
+    }
+
+    const { action, id } = hashValue;
+
+    if (!action && !id) {
+      return;
+    }
+
+    switch (action) {
+      case 'create':
+        createButtonClick();
+        break;
+
+      case 'edit':
+        if (id) {
+          editIconClick(+id);
+        }
+        break;
+
+      case 'delete':
+        if (id) {
+          removeIconClick(+id);
+        }
+        break;
+      default:
+        break;
+    }
+    setIsHandleHash(true);
+  }, [hash, isFetch, isHandleHash, createButtonClick, editIconClick, removeIconClick]);
 
   useEffect(() => {
     const page = searchParams.get('page');
@@ -85,14 +132,20 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
         if (componentRef.current) {
           setData(resData);
           setIsLoading(false);
+          if (!isFetch) {
+            setIsFetch(true);
+          }
         }
       })
       .catch(() => {
         if (componentRef.current) {
           setIsLoading(false);
+          if (!isFetch) {
+            setIsFetch(true);
+          }
         }
       });
-  }, [dispatch, currentPage, fetchData, setData, setIsLoading]);
+  }, [dispatch, currentPage, fetchData, setData, setIsLoading, isFetch, setIsFetch]);
 
   return (
     <div className={classNames(styles.page)} ref={componentRef}>

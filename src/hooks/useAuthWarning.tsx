@@ -3,13 +3,27 @@ import { useCloseModal, useTypedDispatch } from 'hooks';
 import { ModalList } from 'constants/modal';
 import { clearModal, setModal } from 'redux/actions/modal.action';
 
-const useAuthWarning = (action: string) => {
+const useAuthWarning = () => {
   const dispatch = useTypedDispatch();
   const closeModalHandle = useCloseModal();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const showAuthWarning = () => {
+  const showAuthWarning = (
+    action: string,
+    actionType?: 'edit' | 'create' | 'delete',
+    id?: number | string,
+  ) => {
+    const pathName = location.pathname;
+    let hashString = '';
+    const queryString = location.search;
+    if (actionType && id) {
+      hashString = `#action=${actionType}&id=${id}`;
+    }
+    if (actionType && !id) {
+      hashString = `#action=${actionType}`;
+    }
+
     dispatch(
       setModal({
         component: ModalList.AUTH_WARNING,
@@ -21,7 +35,9 @@ const useAuthWarning = (action: string) => {
           closeButtonContent: 'Cancel',
           submitButtonContent: 'Okay',
           submitButtonHandle: () => {
-            navigate('/login', { state: { prevPath: location.pathname } });
+            navigate('/login', {
+              state: { prevPath: `${pathName}${queryString}${hashString}` },
+            });
             dispatch(clearModal());
           },
           closeButtonHandle: closeModalHandle,
