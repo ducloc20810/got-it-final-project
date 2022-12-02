@@ -13,7 +13,7 @@ const useEdit = (
   const closeModalHandle = useCloseModal();
   const dispatch = useTypedDispatch();
 
-  const handleSubmit = (id: number, formData: any) => {
+  const handleSubmit = (id: number, formData: {[key:string]:string}) => {
     const editItem = data.items.find((item) => item.id === id);
 
     if (!editItem) {
@@ -21,7 +21,12 @@ const useEdit = (
     }
 
     const currentData = { ...editItem };
-    delete currentData.id;
+
+    Object.keys(currentData).forEach((key) => {
+      if (!Object.hasOwnProperty.call(formData, key)) {
+        delete currentData[key];
+      }
+    });
 
     if (isEqual(currentData, formData)) {
       closeModalHandle();

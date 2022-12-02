@@ -1,21 +1,21 @@
-export interface IFormSignUpInputs {
+export type IFormSignUpInputs = {
   email: string;
   password: string;
   name: string;
-}
+};
 
-export interface IFormLoginInputs {
+export type IFormLoginInputs = {
   email: string;
   password: string;
-}
+};
 
-export interface IFormCategoryInputs {
+export type IFormCategoryInputs = {
   name: string;
   description: string;
   imageUrl: string;
-}
+};
 
-export interface IFormItemInputs {
+export type IFormItemInputs = {
   description: string;
   imageUrl: string;
-}
+};
