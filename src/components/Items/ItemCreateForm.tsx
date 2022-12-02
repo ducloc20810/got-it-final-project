@@ -1,5 +1,6 @@
 import { Button, Form } from '@ahaui/react';
 import { useForm } from 'react-hook-form';
+import isURL from 'validator/lib/isURL';
 import { InlineError } from 'components/Common';
 import { IFormItemInputs } from 'types/form';
 import { modalSelector } from 'redux/reducers/modal.reducer';
@@ -38,11 +39,16 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({
             {...register('imageUrl', {
               maxLength: 200,
               required: 'Image url is required',
+              validate: isURL,
             })}
           />
 
           {errors.imageUrl?.type === 'required' && (
             <InlineError>Please enter your item image URL</InlineError>
+          )}
+
+          {errors.imageUrl?.type === 'validate' && (
+          <InlineError>Please enter a valid URL</InlineError>
           )}
 
           {errors.imageUrl?.type === 'maxLength' && (

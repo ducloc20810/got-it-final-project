@@ -1,3 +1,4 @@
+import isURL from 'validator/lib/isURL';
 import { Button, Form } from '@ahaui/react';
 import { useForm } from 'react-hook-form';
 import { CategoryPayload } from 'pages/Categories/CategoriesType';
@@ -58,11 +59,16 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             {...register('imageUrl', {
               maxLength: 200,
               required: 'Image url is required',
+              validate: isURL,
             })}
           />
 
           {errors.imageUrl?.type === 'required' && (
             <InlineError>Please enter your category image URL</InlineError>
+          )}
+
+          {errors.imageUrl?.type === 'validate' && (
+          <InlineError>Please enter a valid URL</InlineError>
           )}
 
           {errors.imageUrl?.type === 'maxLength' && (
