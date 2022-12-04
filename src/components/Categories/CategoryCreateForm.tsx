@@ -95,7 +95,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           )}
         </Form.Group>
       </div>
-      <div className="u-backgroundLightest u-paddingMedium u-flex u-alignItemsCenter u-justifyContentEnd">
+      <div className="u-backgroundLightest u-paddingMedium u-flex u-alignItemsCenter u-justifyContentEnd u-roundedLarge">
         <Button
           className="u-marginRightSmall"
           variant="secondary"
