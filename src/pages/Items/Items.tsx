@@ -5,7 +5,15 @@ import ItemsTable from 'components/Items/ItemsTable';
 import { PageWithTable } from 'components/Common';
 import { CategoryType } from 'pages/Categories/CategoriesType';
 import { ModalList } from 'constants/modal';
-import { useAppSelector, useAuthWarning, useCloseModal, useCreate, useFetch, useTypedDispatch } from 'hooks';
+import {
+  useAppSelector,
+  useAuthorWarning,
+  useAuthWarning,
+  useCloseModal,
+  useCreate,
+  useFetch,
+  useTypedDispatch,
+} from 'hooks';
 import { fetchCategoryDetail } from 'redux/actions/category.action';
 import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item.action';
 import { userSelector } from 'redux/reducers/user.reducer';
@@ -26,10 +34,11 @@ const Items = () => {
   const dispatch = useTypedDispatch();
   const closeModalHandle = useCloseModal();
   const handleUserNotLoggedIn = useAuthWarning();
+  const handleUserIsNotAuthor = useAuthorWarning();
 
   const fetchCategory = useCallback(() => fetchCategoryDetail(+categoryId), [categoryId]);
 
-  const { data: category, isLoading: categoryLoading }:{data:CategoryType, isLoading:boolean} = useFetch(fetchCategory);
+  const { data: category, isLoading: categoryLoading }: { data: CategoryType; isLoading: boolean } = useFetch(fetchCategory);
 
   const fetchData = useCallback(
     (pageNumber: number) => fetchItemList(+categoryId, pageNumber),
@@ -39,9 +48,16 @@ const Items = () => {
   const submitCreateHandle = useCreate(data, setData, (formData) =>
     createItem(+categoryId, formData));
 
-  const submitEditHandle = useEdit(data, setData, (id, formData) => editItem(+categoryId, id, formData));
+  const submitEditHandle = useEdit(data, setData, (id, formData) =>
+    editItem(+categoryId, id, formData));
 
-  const submitDeleteHandle = useDelete(data, setData, setIsLoading, (id) => removeItem(+categoryId, id), (pageNumber) => fetchItemList(+categoryId, pageNumber));
+  const submitDeleteHandle = useDelete(
+    data,
+    setData,
+    setIsLoading,
+    (id) => removeItem(+categoryId, id),
+    (pageNumber) => fetchItemList(+categoryId, pageNumber),
+  );
 
   const createItemOnClick = () => {
     if (!user.isLoggedIn) {
@@ -70,22 +86,31 @@ const Items = () => {
       handleUserNotLoggedIn('edit item', 'edit', id);
       return;
     }
-    const index = data.items.findIndex((item) => item.id === id);
-    dispatch(
-      setModal({
-        component: ModalList.EDIT_ITEM,
-        componentProps: {
-          submitHandle: (formData: IFormItemInputs) => submitEditHandle(id, formData),
+
+    const toBeEditItem = data.items.find((item) => item.id === id);
+
+    if (toBeEditItem) {
+      if (user.id && Number(user.id) !== toBeEditItem.author.id) {
+        handleUserIsNotAuthor(`item ${toBeEditItem.id}`);
+        return;
+      }
+
+      dispatch(
+        setModal({
+          component: ModalList.EDIT_ITEM,
+          componentProps: {
+            submitHandle: (formData: IFormItemInputs) => submitEditHandle(id, formData),
+            closeHandle: closeModalHandle,
+            initValue: toBeEditItem,
+          },
+          isLoading: false,
+          isOpen: true,
+          title: 'Edit item form',
           closeHandle: closeModalHandle,
-          initValue: data.items[index],
-        },
-        isLoading: false,
-        isOpen: true,
-        title: 'Edit item form',
-        closeHandle: closeModalHandle,
-        footerContent: undefined,
-      }),
-    );
+          footerContent: undefined,
+        }),
+      );
+    }
   };
 
   const removeIconOnClick = (id: number) => {
@@ -97,6 +122,12 @@ const Items = () => {
     const toBeDeleteItem = data.items.find((item) => item.id === id);
 
     if (toBeDeleteItem) {
+      if (toBeDeleteItem) {
+        if (user.id && Number(user.id) !== toBeDeleteItem.author.id) {
+          handleUserIsNotAuthor(`item ${toBeDeleteItem.id}`);
+          return;
+        }
+      }
       dispatch(
         setModal({
           component: ModalList.DELETE_WARNING,
@@ -113,7 +144,6 @@ const Items = () => {
               submitDeleteHandle(id);
             },
           },
-
         }),
       );
     }
