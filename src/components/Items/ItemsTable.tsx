@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ItemType } from 'pages/Items/ItemsType';
 
 type TableProps = {
-  categoryId: number|string;
+  categoryId: number | string;
   list: Array<ItemType> | undefined;
   editHandle: (arg1: number) => void;
   removeHandle: (arg1: number) => void;
@@ -22,7 +22,6 @@ const Table: React.FC<TableProps> = ({ categoryId, list, editHandle, removeHandl
             <tr>
               <th>Id</th>
               <th>Image</th>
-              <th>Name</th>
               <th>Author</th>
               <th>Description</th>
               <th>Actions</th>
@@ -32,7 +31,9 @@ const Table: React.FC<TableProps> = ({ categoryId, list, editHandle, removeHandl
             {list
               && list.map((item) => (
                 <tr key={item.id}>
-                  <td>{item.id}</td>
+                  <td width="5%">
+                    <Link to={`/categories/${categoryId}/items/${item.id}`}>{item.id}</Link>
+                  </td>
                   <td width="10%">
                     <img
                       width="100%"
@@ -42,16 +43,10 @@ const Table: React.FC<TableProps> = ({ categoryId, list, editHandle, removeHandl
                       alt=""
                     />
                   </td>
-                  <td width="20%">
-                    <Link to={`/categories/${categoryId}/items/${item.id}`}>{`Item ${item.id}`}</Link>
-                  </td>
+                  <td width="100px">{item.author.name}</td>
+                  <td>{item.description}</td>
 
-                  <td width="20%">
-                    {item.author.name}
-                  </td>
-                  <td width="40%">{item.description}</td>
-
-                  <td width="15%">
+                  <td style={{ whiteSpace: 'nowrap' }} width="100px">
                     <div
                       className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer"
                       onClick={() => editHandle(item.id)}
@@ -70,7 +65,6 @@ const Table: React.FC<TableProps> = ({ categoryId, list, editHandle, removeHandl
                       role="button"
                       tabIndex={0}
                       aria-label="Remove item"
-
                     >
                       <Icon size="small" name="trash" />
                     </div>

@@ -30,8 +30,8 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
             {list
               && list.map((category) => (
                 <tr key={category.id}>
-                  <td>{category.id}</td>
-                  <td width="10%">
+                  <td width="20px">{category.id}</td>
+                  <td width="100px">
                     <img
                       width="100%"
                       height="auto"
@@ -40,12 +40,12 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
                       alt=""
                     />
                   </td>
-                  <td width="30%">
+                  <td width="200px">
                     <Link to={`/categories/${category.id}/items`}>{category.name}</Link>
                   </td>
-                  <td width="40%">{category.description}</td>
+                  <td>{category.description}</td>
 
-                  <td width="15%">
+                  <td style={{ whiteSpace: 'nowrap' }} width="100px">
                     <div
                       className="u-inlineBlock u-paddingExtraSmall u-roundedCircle hover:u-backgroundLightest hover:u-textPrimary u-cursorPointer"
                       onClick={() => editHandle(category.id)}
