@@ -78,7 +78,7 @@ const SignUp = () => {
         {errors.name?.type === 'pattern' && (
           <InlineError>
             Name should not contain any special characters, numbers
-            and have more than one space between words
+            or have more than one space between words
           </InlineError>
         )}
 
