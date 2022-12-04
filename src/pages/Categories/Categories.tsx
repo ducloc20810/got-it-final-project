@@ -31,6 +31,10 @@ const Categories = () => {
   const submitDeleteHandle = useDelete(data, setData, setIsLoading, removeCategory, fetchCategoryList);
   const closeModalHandle = useCloseModal();
 
+  // const handleUserIsNotOwner = () => {
+  //   dispatch();
+  // };
+
   const createCategoryOnClick = () => {
     if (!user.isLoggedIn) {
       handleUserNotLoggedIn('create category', 'create');
@@ -55,23 +59,26 @@ const Categories = () => {
       handleUserNotLoggedIn('edit category', 'edit', id);
       return;
     }
-    const index = data.items.findIndex((item) => item.id === id);
-    dispatch(
-      setModal({
-        component: ModalList.EDIT_CATEGORY,
-        componentProps: {
-          submitHandle: (formData: IFormCategoryInputs) => submitEditHandle(id, formData),
-          closeHandle: closeModalHandle,
-          footerContent: undefined,
-          initValue: data.items[index],
-        },
-        isLoading: false,
-        isOpen: true,
-        title: 'Edit category form',
-        closeHandle: closeModalHandle,
 
-      }),
-    );
+    const toBeEditItem = data.items.find((item) => item.id === id);
+    if (toBeEditItem) {
+      dispatch(
+        setModal({
+          component: ModalList.EDIT_CATEGORY,
+          componentProps: {
+            submitHandle: (formData: IFormCategoryInputs) => submitEditHandle(id, formData),
+            closeHandle: closeModalHandle,
+            footerContent: undefined,
+            initValue: toBeEditItem,
+          },
+          isLoading: false,
+          isOpen: true,
+          title: 'Edit category form',
+          closeHandle: closeModalHandle,
+
+        }),
+      );
+    }
   };
 
   const removeIconOnClick = (id: number) => {
