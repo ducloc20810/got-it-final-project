@@ -50,7 +50,7 @@ describe('sign up validate', () => {
 
     expect(
       screen.getByText(
-        /name should not contain any special characters, numbers and have more than one space between words/i,
+        /name should not contain any special characters, numbers or have more than one space between words/i,
       ),
     ).toBeInTheDocument();
     expect(screen.getByText(/email is invalid/i)).toBeInTheDocument();

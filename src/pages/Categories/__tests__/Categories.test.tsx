@@ -306,59 +306,6 @@ describe('create category', () => {
 
       createCategorySpy.mockRestore();
     });
-
-    test('submit with invalid image URL', async () => {
-      server.use(
-        rest.post(`${process.env.REACT_APP_BACK_END_URL}/categories`, async (_, res, ctx) =>
-          res(
-            ctx.status(400),
-            ctx.json({
-              message: 'Not a valid URL',
-            }),
-          )),
-      );
-
-      renderWithProviders(
-        <>
-          <Modal />
-          <Message />
-          <Categories />
-        </>,
-        { user: { isLoggedIn: true } },
-      );
-
-      await waitFor(() => {
-        expect(
-          screen.getByRole('columnheader', {
-            name: /id/i,
-          }),
-        ).toBeInTheDocument();
-      });
-
-      await userEvent.click(screen.getByRole('button', { name: /create category/i }));
-
-      await waitFor(() => {
-        expect(screen.getByText(/create category form/i)).toBeInTheDocument();
-      });
-
-      const data = {
-        name: 'category test',
-        imageUrl: 'abc',
-        description: 'category description test',
-      };
-
-      await userEvent.type(screen.getByPlaceholderText(/name/i), data.name);
-
-      await userEvent.type(screen.getByPlaceholderText(/image url/i), data.imageUrl);
-
-      await userEvent.type(screen.getByPlaceholderText(/description/i), data.description);
-
-      await userEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-      await waitFor(() => {
-        expect(screen.getByText(/400: not a valid url/i)).toBeInTheDocument();
-      });
-    });
   });
 });
 
