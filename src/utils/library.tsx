@@ -50,3 +50,5 @@ export const snakeCaseObjKeys = (data:any) => {
 
   return data;
 };
+
+export const isEmpty = (str:string) => !!str.trim();

@@ -6,13 +6,13 @@ type InlineErrorProps = {
 };
 
 const InlineError: React.FC<InlineErrorProps> = ({ children }) => (
-  <span className="u-textNegative u-flex u-alignItemsStart u-text200 u-marginTopTiny">
+  <span className="u-textNegative u-flex u-alignItemsStart u-text200 u-marginTopTiny u-justifyContentStart">
     <FaExclamationCircle
       fontSize={14}
       className="u-marginRightExtraSmall u-marginTopExtraTiny"
     />
+    <span className="u-textLeft">{children}</span>
 
-    {children}
   </span>
 );
 
