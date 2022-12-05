@@ -33,7 +33,7 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
 
   const { isLoading } = useAppSelector(modalSelector);
   return (
-    <>
+    <Form>
       <div className="u-paddingMedium">
         <Form.Group sizeControl="large">
           <Form.Input
@@ -89,6 +89,7 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
             closeHandle();
           }}
           width="full"
+          type="button"
         >
           Close
         </Button>
@@ -98,11 +99,12 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
           variant="primary"
           onClick={handleSubmit(submitHandle)}
           disabled={isLoading || !isObjectEmpty(errors)}
+          type="submit"
         >
           {isLoading ? 'Loading...' : 'Submit'}
         </Button>
       </div>
-    </>
+    </Form>
   );
 };
 

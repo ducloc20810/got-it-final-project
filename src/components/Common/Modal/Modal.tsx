@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { Button, Modal as AhaModal } from '@ahaui/react';
 import classNames from 'classnames';
 import { modalSelector } from 'redux/reducers/modal.reducer';
@@ -8,6 +9,28 @@ import styles from './Modal.module.scss';
 function Modal() {
   const state = useAppSelector(modalSelector);
   const ModalContent = state.component ? ModalLookUp[state.component] : null;
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        state.closeHandle();
+        return;
+      }
+
+      if (submitButtonRef.current && event.key === 'Enter') {
+        submitButtonRef.current.click();
+      }
+    };
+
+    if (state.isOpen) {
+      window.addEventListener('keyup', handleKeyPress);
+    }
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyPress);
+    };
+  }, [state]);
 
   return (
     <div
@@ -45,17 +68,6 @@ function Modal() {
             {ModalContent ? <ModalContent {...state.componentProps} /> : null}
           </div>
         </AhaModal.Body>
-        {/*
-        {state.footer === undefined && state.footerContent === undefined && (
-        <AhaModal.Footer>
-          <Button variant="secondary" width="full">
-            Cancel
-          </Button>
-          <Button variant="primary" width="full" disabled={state.isLoading}>
-            {state.isLoading ? 'Loading...' : 'Ok, Got It!'}
-          </Button>
-        </AhaModal.Footer>
-        )} */}
 
         {state.footerContent && (
           <AhaModal.Footer>
@@ -63,6 +75,7 @@ function Modal() {
               variant="secondary"
               width="full"
               onClick={state.footerContent.closeButtonHandle}
+
             >
               {state.footerContent.closeButtonContent}
             </Button>
@@ -71,13 +84,13 @@ function Modal() {
               width="full"
               disabled={state.isLoading}
               onClick={state.footerContent.submitButtonHandle}
+              ref={submitButtonRef}
             >
               {state.isLoading ? 'Loading...' : state.footerContent.submitButtonContent}
             </Button>
           </AhaModal.Footer>
         )}
 
-        {/* {state.footer !== undefined && !state.footerContent && (state.footer)} */}
       </AhaModal>
     </div>
   );
