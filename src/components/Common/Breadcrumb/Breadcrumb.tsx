@@ -24,6 +24,7 @@ const Breadcrumb = () => {
   return (
     <div className={classNames(
       styles.breadcrumbList,
+      breadcrumb.length === 1 && styles.breadcrumbListWithOneItem,
     )}
     >
       <AhaBreadcrumb>
