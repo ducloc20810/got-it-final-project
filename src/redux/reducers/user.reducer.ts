@@ -1,5 +1,5 @@
-import { User } from 'types/redux';
 import { RootState } from 'redux/store';
+import { User } from 'types/redux';
 
 type Action = {
   type: string;

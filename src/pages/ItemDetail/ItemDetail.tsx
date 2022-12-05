@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { Skeleton } from '@ahaui/react';
-import { useAppSelector, useFetch, useTypedDispatch } from 'hooks';
-import { ItemType } from 'pages/Items/ItemsType';
 import { fetchItemDetail } from 'redux/actions/item.action';
-import { Breadcrumb } from 'components/Common';
 import { breadcrumbSelector } from 'redux/reducers/breadcrumb.reducer';
 import { fetchCategoryDetail } from 'redux/actions/category.action';
 import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { useAppSelector, useFetch, useTypedDispatch } from 'hooks';
+import { ItemType } from 'pages/Items/ItemsType';
+import { Breadcrumb } from 'components/Common';
 import styles from './itemDetail.module.scss';
 
 const imageAlt = 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png';

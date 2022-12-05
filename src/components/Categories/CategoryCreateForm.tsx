@@ -1,12 +1,12 @@
 import isObjectEmpty from 'lodash/isEmpty';
 import isURL from 'validator/lib/isURL';
-import { Button, Form } from '@ahaui/react';
 import { useForm } from 'react-hook-form';
-import { IFormCategoryInputs } from 'types/form';
+import { Button, Form } from '@ahaui/react';
 import { modalSelector } from 'redux/reducers/modal.reducer';
 import { useAppSelector } from 'hooks';
 import { isEmpty } from 'utils/library';
 import { TABLE_ITEM_NAME_REGEX } from 'constants/validation';
+import { IFormCategoryInputs } from 'types/form';
 import { InlineError } from 'components/Common';
 import { CategoryPayload } from 'pages/Categories/CategoriesType';
 

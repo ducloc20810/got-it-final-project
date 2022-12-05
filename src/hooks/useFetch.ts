@@ -1,6 +1,6 @@
-import { useTypedDispatch } from 'hooks';
 import { useEffect, useRef, useState } from 'react';
 import { TypedDispatch } from 'redux/store';
+import { useTypedDispatch } from 'hooks';
 
 const useFetch = (dispatchAction: (...params:any[]) => (dispatch: TypedDispatch) => Promise<any>) => {
   const [data, setData] = useState<any>();

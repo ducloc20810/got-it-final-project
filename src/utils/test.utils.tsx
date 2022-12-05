@@ -1,9 +1,9 @@
 import { Provider } from 'react-redux';
 import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import { render } from '@testing-library/react';
-import { reducer } from 'redux/store';
 import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
+import { reducer } from 'redux/store';
 
 export function renderWithProviders(
   ui: React.ReactElement,

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Header as AhaHeader, Dropdown, Icon } from '@ahaui/react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import { useAppSelector, useTypedDispatch } from 'hooks';
+import { AUTH_STORAGE_KEY } from 'constants/storage';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { getUserInfo, logout } from 'redux/actions/user.action';
-import { AUTH_STORAGE_KEY } from 'constants/storage';
+import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import styles from './Header.module.scss';
 
 const Header = () => {

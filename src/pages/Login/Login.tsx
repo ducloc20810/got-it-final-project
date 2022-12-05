@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Form, Button, Loader } from '@ahaui/react';
-import { useForm } from 'react-hook-form';
-import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
-import { useTypedDispatch } from 'hooks';
-import { getUserInfo, login } from 'redux/actions/user.action';
-import { InlineError } from 'components/Common';
-import { IFormLoginInputs } from 'types/form';
 import classNames from 'classnames';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Form, Button, Loader } from '@ahaui/react';
+import { getUserInfo, login } from 'redux/actions/user.action';
+import { IFormLoginInputs } from 'types/form';
 import { EMAIL_REGEX } from 'constants/validation';
+import { useTypedDispatch } from 'hooks';
+import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
+import { InlineError } from 'components/Common';
 import styles from './Login.module.scss';
 
 const Login = () => {
@@ -32,7 +32,6 @@ const Login = () => {
       dispatch(login(data.email, data.password))
         .then(() => dispatch(getUserInfo()))
         .then(() => {
-          setIsLoading(false);
           if (prevPath !== '/login' && prevPath !== '/signup') {
             navigate(prevPath);
           }

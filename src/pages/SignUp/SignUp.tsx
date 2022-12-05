@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Loader } from '@ahaui/react';
-import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
-import { InlineError } from 'components/Common';
-import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
+import classNames from 'classnames';
 import { useTypedDispatch } from 'hooks';
 import { IFormSignUpInputs } from 'types/form';
+import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
+import { InlineError } from 'components/Common';
 import {
   register as myRegister,
   login,

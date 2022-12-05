@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SidebarMenu, Icon, IconType } from '@ahaui/react';
-
 import classNames from 'classnames';
+import { SidebarMenu, Icon, IconType } from '@ahaui/react';
 import styles from './Sidebar.module.scss';
 
 type NavItemsType = Array<{

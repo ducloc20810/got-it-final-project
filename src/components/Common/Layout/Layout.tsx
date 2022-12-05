@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header, Sidebar } from 'components/Common';
 import classNames from 'classnames';
+import { Header, Sidebar } from 'components/Common';
 import styles from './Layout.module.scss';
 
 type LayoutProps = {

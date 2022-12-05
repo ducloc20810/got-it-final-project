@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@ahaui/react';
-import { PageWithTable } from 'components/Common';
-import CategoriesTable from 'components/Categories/CategoriesTable';
-import { ModalList } from 'constants/modal';
 import { useAuthWarning, useCloseModal, useAppSelector, useTypedDispatch, useCreate } from 'hooks';
 import {
   createCategory,
@@ -12,10 +9,13 @@ import {
 } from 'redux/actions/category.action';
 import { setModal } from 'redux/actions/modal.action';
 import { userSelector } from 'redux/reducers/user.reducer';
+import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { ModalList } from 'constants/modal';
 import { IFormCategoryInputs } from 'types/form';
 import useEdit from 'hooks/useEdit';
 import useDelete from 'hooks/useDelete';
-import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { PageWithTable } from 'components/Common';
+import CategoriesTable from 'components/Categories/CategoriesTable';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {

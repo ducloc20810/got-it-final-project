@@ -1,9 +1,9 @@
 import React from 'react';
-import { Icon } from '@ahaui/react';
 import { Link } from 'react-router-dom';
-import { CategoryType } from 'pages/Categories/CategoriesType';
-import { useTypedDispatch } from 'hooks';
+import { Icon } from '@ahaui/react';
 import { addBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { useTypedDispatch } from 'hooks';
+import { CategoryType } from 'pages/Categories/CategoriesType';
 
 type TableProps = {
   list: Array<CategoryType> | undefined;

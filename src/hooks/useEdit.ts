@@ -1,7 +1,7 @@
-import { useTypedDispatch } from 'hooks';
 import isEqual from 'lodash/isEqual';
 import { TypedDispatch } from 'redux/store';
 import { GenericDataTable } from 'types/common';
+import { useTypedDispatch } from 'hooks';
 import { offLoading, onLoading } from '../redux/actions/modal.action';
 import useCloseModal from './useCloseModal';
 

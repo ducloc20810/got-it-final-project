@@ -1,7 +1,7 @@
-import { Button } from '@ahaui/react';
-import classNames from 'classnames';
-import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { Button } from '@ahaui/react';
+import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
 import styles from './Home.module.scss';
 
 const Home = () => (

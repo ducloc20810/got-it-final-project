@@ -1,8 +1,7 @@
-import { Pagination as AhaPagination } from '@ahaui/react';
 import classNames from 'classnames';
+import { Pagination as AhaPagination } from '@ahaui/react';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import { usePagination } from 'hooks';
-import React from 'react';
 import { ReactComponent as Ellipsis } from 'assets/images/triple-dots-icon.svg';
 import styles from './Pagination.module.scss';
 

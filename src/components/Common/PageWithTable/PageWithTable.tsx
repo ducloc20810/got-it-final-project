@@ -7,9 +7,9 @@ import { GenericDataTable } from 'types/common';
 import { TypedDispatch } from 'redux/store';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import Pagination from '../Pagination/Pagination';
-import styles from './PageWithTable.module.scss';
 import SkeletonTable from '../SkeletonTable/SkeletonTable';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
+import styles from './PageWithTable.module.scss';
 
 type PageWithTableProps = {
   data: GenericDataTable;

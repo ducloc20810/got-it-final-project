@@ -1,8 +1,8 @@
+import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useTypedDispatch } from 'hooks';
 import { TypedDispatch } from 'redux/store';
 import { GenericDataTable } from 'types/common';
-import { useEffect, useRef } from 'react';
+import { useTypedDispatch } from 'hooks';
 import { offLoading, onLoading } from '../redux/actions/modal.action';
 import useCloseModal from './useCloseModal';
 

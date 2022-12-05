@@ -184,7 +184,10 @@ describe('login with API call', () => {
       undefined,
       store,
     );
-    const { email, password } = buildLoginData();
+    const { email, password } = {
+      email: 'email1@example.com',
+      password: 'password',
+    };
     await userEvent.type(screen.getByPlaceholderText(/email/i), email);
     await userEvent.type(screen.getByPlaceholderText(/password/i), password);
 
