@@ -18,15 +18,11 @@ const Home = () => (
       </h3>
     </div>
 
-    <h1 className="u-textCenter u-marginBottomNone u-marginTopMedium ">
-      A category management system that allow you to share category
-      and item list
+    <h1 className="u-textCenter u-marginMedium u-fontRegular u-text800">
+      A category management system that allow you to share category and item list
     </h1>
 
-    <Link
-      to="/categories"
-      className="u-textWhite hover:u-textWhite u-marginTopAuto"
-    >
+    <Link to="/categories" className="u-textWhite hover:u-textWhite u-marginTopAuto">
       <Button size="large">GET STARTED</Button>
     </Link>
   </div>
