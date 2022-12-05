@@ -66,15 +66,16 @@ describe('fetch item list data', () => {
       undefined,
       `/categories/${categoryId}/items/${itemId}`,
     );
-    expect(fetchItemSpy).toBeCalledTimes(1);
-    expect(fetchItemSpy).toBeCalledWith(+categoryId, +itemId);
-    expect(fetchCategorySpy).toBeCalledTimes(1);
-    expect(fetchCategorySpy).toBeCalledWith(+categoryId);
 
     await waitFor(() => {
       expect(screen.getByText(/item 1 description/i)).toBeInTheDocument();
       expect(screen.getByText(/loc/i)).toBeInTheDocument();
     });
+
+    expect(fetchItemSpy).toBeCalledTimes(1);
+    expect(fetchItemSpy).toBeCalledWith(+categoryId, +itemId);
+    expect(fetchCategorySpy).toBeCalledTimes(1);
+    expect(fetchCategorySpy).toBeCalledWith(+categoryId);
 
     fetchItemSpy.mockRestore();
     fetchCategorySpy.mockRestore();
@@ -105,15 +106,14 @@ describe('fetch item list data', () => {
       `/categories/${categoryId}/items/${itemId}`,
     );
 
-    expect(fetchItemSpy).toBeCalledTimes(1);
-    expect(fetchItemSpy).toBeCalledWith(+categoryId, +itemId);
-    expect(fetchCategorySpy).toBeCalledTimes(1);
-    expect(fetchCategorySpy).toBeCalledWith(+categoryId);
-
     await waitFor(() => {
       expect(screen.getByText(/author/i)).toBeInTheDocument();
       expect(screen.getByText(/description/i)).toBeInTheDocument();
     });
+
+    expect(fetchItemSpy).toBeCalledTimes(1);
+    expect(fetchItemSpy).toBeCalledWith(+categoryId, +itemId);
+    expect(fetchCategorySpy).toBeCalledTimes(0);
 
     fetchItemSpy.mockRestore();
     fetchCategorySpy.mockRestore();
