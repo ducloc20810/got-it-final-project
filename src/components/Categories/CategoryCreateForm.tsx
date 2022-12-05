@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import isURL from 'validator/lib/isURL';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from '@ahaui/react';
@@ -24,6 +25,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
+    setFocus,
   } = useForm<IFormCategoryInputs>({
     mode: 'onChange',
     defaultValues: initValue
@@ -35,6 +37,23 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
       : {},
   });
   const { isLoading } = useAppSelector(modalSelector);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Focus for react hook form input
+    // setFocus('name');
+
+    // Focus for example input
+    if (inputRef.current) {
+      inputRef.current.focus();
+      console.log(inputRef.current);
+
+      // Success;
+      // setTimeout(() => {
+      //   inputRef.current?.focus();
+      // }, 100);
+    }
+  }, [setFocus]);
 
   return (
     <Form>
@@ -60,6 +79,9 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
 
           {errors.name && <InlineError>{errors.name.message}</InlineError>}
         </Form.Group>
+
+        {/* Example input */}
+        <input type="text" ref={inputRef} />
 
         <Form.Group sizeControl="large">
           <Form.Input
