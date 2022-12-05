@@ -1,4 +1,3 @@
-import isObjectEmpty from 'lodash/isEmpty';
 import isURL from 'validator/lib/isURL';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from '@ahaui/react';
@@ -24,7 +23,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
   } = useForm<IFormCategoryInputs>({
     mode: 'onChange',
     defaultValues: initValue
@@ -124,7 +123,7 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
           width="full"
           variant="primary"
           onClick={handleSubmit(submitHandle)}
-          disabled={isLoading || !isObjectEmpty(errors)}
+          disabled={isLoading || !isValid || !isDirty}
           type="submit"
         >
           {isLoading ? 'Loading...' : 'Submit'}
