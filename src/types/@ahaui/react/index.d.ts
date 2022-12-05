@@ -300,6 +300,7 @@ declare module '@ahaui/react' {
     noHref?: boolean;
     title?: string;
     target?: string;
+    onClick?: () => void;
   }
 
   export interface BreadcrumbProps extends BasicProps {

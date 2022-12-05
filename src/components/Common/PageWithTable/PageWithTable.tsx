@@ -9,12 +9,12 @@ import { ITEMS_PER_PAGE } from 'constants/pagination';
 import Pagination from '../Pagination/Pagination';
 import styles from './PageWithTable.module.scss';
 import SkeletonTable from '../SkeletonTable/SkeletonTable';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 
 type PageWithTableProps = {
   data: GenericDataTable;
   setData: (data: GenericDataTable) => void;
   tableTitle: string;
-  breadcrumb: string | JSX.Element;
   fetchData: (offset: number) => (dispatch: TypedDispatch) => Promise<any>;
   CreateButton: React.ReactNode;
   renderTable: (list: Array<any>) => JSX.Element|null;
@@ -29,7 +29,6 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   data,
   setData,
   tableTitle,
-  breadcrumb,
   fetchData,
   CreateButton,
   renderTable,
@@ -151,7 +150,9 @@ const PageWithTable: React.FC<PageWithTableProps> = ({
   return (
     <div className={classNames(styles.page)} ref={componentRef}>
       <div className="u-flex u-justifyContentBetween u-alignItemsCenter u-marginBottomSmall">
-        <h1 className="u-text600 u-marginNone">{breadcrumb}</h1>
+        <h1 className="u-text600 u-marginNone">
+          <Breadcrumb />
+        </h1>
         {CreateButton}
       </div>
 

@@ -7,12 +7,14 @@ import {
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import messageReducer from 'redux/reducers/message.reducer';
 import userReducer from 'redux/reducers/user.reducer';
+import breadcrumbReducer from './reducers/breadcrumb.reducer';
 import modalReducer from './reducers/modal.reducer';
 
 export const reducer = combineReducers({
   user: userReducer,
   message: messageReducer,
   modal: modalReducer,
+  breadcrumb: breadcrumbReducer,
 });
 export const store = createStore(reducer, applyMiddleware(thunk));
 

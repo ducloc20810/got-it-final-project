@@ -1,9 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Skeleton } from '@ahaui/react';
+import { Button } from '@ahaui/react';
 import ItemsTable from 'components/Items/ItemsTable';
 import { PageWithTable } from 'components/Common';
-import { CategoryType } from 'pages/Categories/CategoriesType';
 import { ModalList } from 'constants/modal';
 import {
   useAppSelector,
@@ -11,20 +10,23 @@ import {
   useAuthWarning,
   useCloseModal,
   useCreate,
-  useFetch,
   useTypedDispatch,
 } from 'hooks';
-import { fetchCategoryDetail } from 'redux/actions/category.action';
+
 import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item.action';
 import { userSelector } from 'redux/reducers/user.reducer';
 import { setModal } from 'redux/actions/modal.action';
 import useEdit from 'hooks/useEdit';
 import { IFormItemInputs } from 'types/form';
 import useDelete from 'hooks/useDelete';
+import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { breadcrumbSelector } from 'redux/reducers/breadcrumb.reducer';
+import { fetchCategoryDetail } from 'redux/actions/category.action';
 import { ItemsDataType, ItemType } from './ItemsType';
 
 const Items = () => {
   const user = useAppSelector(userSelector);
+  const breadcrumb = useAppSelector(breadcrumbSelector);
   const [data, setData] = useState<ItemsDataType>({
     totalItems: 0,
     items: [],
@@ -35,10 +37,6 @@ const Items = () => {
   const closeModalHandle = useCloseModal();
   const handleUserNotLoggedIn = useAuthWarning();
   const handleUserIsNotAuthor = useAuthorWarning();
-
-  const fetchCategory = useCallback(() => fetchCategoryDetail(+categoryId), [categoryId]);
-
-  const { data: category, isLoading: categoryLoading }: { data: CategoryType; isLoading: boolean } = useFetch(fetchCategory);
 
   const fetchData = useCallback(
     (pageNumber: number) => fetchItemList(+categoryId, pageNumber),
@@ -163,19 +161,39 @@ const Items = () => {
     return null;
   };
 
+  useEffect(() => {
+    if (breadcrumb.length === 0) {
+      dispatch(fetchCategoryDetail(+categoryId)).then((category) => {
+        const newBreadcrumb = [
+          {
+            title: 'Manage Category',
+            href: '/categories',
+          },
+          {
+            title: category.name,
+            href: `/categories/${category.id}/items`,
+          },
+
+        ];
+
+        dispatch(setBreadcrumb(newBreadcrumb));
+      });
+    }
+  }, [breadcrumb.length, categoryId, dispatch]);
+
   return (
     <div>
       <PageWithTable
         data={data}
         setData={setData}
         renderTable={renderTable}
-        breadcrumb={
-          !categoryLoading ? (
-            `Manage Category > ${category ? category.name : 'undefined'}`
-          ) : (
-            <Skeleton width="400px" height="30px" />
-          )
-        }
+        // breadcrumb={
+        //   !categoryLoading ? (
+        //     `Manage Category > ${category ? category.name : 'undefined'}`
+        //   ) : (
+        //     <Skeleton width="400px" height="30px" />
+        //   )
+        // }
         tableTitle="Item list"
         fetchData={fetchData}
         CreateButton={<Button onClick={createItemOnClick}>Create item</Button>}

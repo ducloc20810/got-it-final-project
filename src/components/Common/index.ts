@@ -10,7 +10,8 @@ import DeleteWarning from './DeleteWarning/DeleteWarning';
 import Pagination from './Pagination/Pagination';
 import SkeletonTable from './SkeletonTable/SkeletonTable';
 import Modal from './Modal/Modal';
+import Breadcrumb from './Breadcrumb/Breadcrumb';
 
 export {
-  Header, Layout, Sidebar, Message, InlineError, PageWithTable, AuthWarning, DeleteWarning, Pagination, SkeletonTable, Modal, AuthorWarning,
+  Header, Layout, Sidebar, Message, InlineError, PageWithTable, AuthWarning, DeleteWarning, Pagination, SkeletonTable, Modal, AuthorWarning, Breadcrumb,
 };

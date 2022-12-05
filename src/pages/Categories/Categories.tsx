@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@ahaui/react';
 import { PageWithTable } from 'components/Common';
 import CategoriesTable from 'components/Categories/CategoriesTable';
@@ -15,6 +15,7 @@ import { userSelector } from 'redux/reducers/user.reducer';
 import { IFormCategoryInputs } from 'types/form';
 import useEdit from 'hooks/useEdit';
 import useDelete from 'hooks/useDelete';
+import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
 import { CategoriesDataType, CategoryType } from './CategoriesType';
 
 const Categories = () => {
@@ -31,9 +32,16 @@ const Categories = () => {
   const submitDeleteHandle = useDelete(data, setData, setIsLoading, removeCategory, fetchCategoryList);
   const closeModalHandle = useCloseModal();
 
-  // const handleUserIsNotOwner = () => {
-  //   dispatch();
-  // };
+  useEffect(() => {
+    const newBreadcrumb = [
+      {
+        title: 'Manage Categories',
+        href: '/categories',
+      },
+    ];
+
+    dispatch(setBreadcrumb(newBreadcrumb));
+  }, [dispatch]);
 
   const createCategoryOnClick = () => {
     if (!user.isLoggedIn) {
@@ -122,7 +130,6 @@ const Categories = () => {
         data={data}
         setData={setData}
         renderTable={renderTable}
-        breadcrumb="Manage Category"
         fetchData={fetchCategoryList}
         CreateButton={<Button onClick={createCategoryOnClick}>Create category</Button>}
         tableTitle="Category List"

@@ -2,6 +2,8 @@ import React from 'react';
 import { Icon } from '@ahaui/react';
 import { Link } from 'react-router-dom';
 import { CategoryType } from 'pages/Categories/CategoriesType';
+import { useTypedDispatch } from 'hooks';
+import { addBreadcrumb } from 'redux/actions/breadcrumb.action';
 
 type TableProps = {
   list: Array<CategoryType> | undefined;
@@ -9,25 +11,28 @@ type TableProps = {
   removeHandle: (arg1: number) => void;
 };
 
-const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
-  <>
-    {list && list.length > 0 && (
-      <div>
-        <table
-          width="100%"
-          className="Table Table--stickyHeader Table--bordered  u-backgroundWhite u-textDark u-text200"
-        >
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {list
+const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => {
+  const dispatch = useTypedDispatch();
+
+  return (
+    <>
+      {list && list.length > 0 && (
+        <div>
+          <table
+            width="100%"
+            className="Table Table--stickyHeader Table--bordered  u-backgroundWhite u-textDark u-text200"
+          >
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {list
               && list.map((category) => (
                 <tr key={category.id}>
                   <td width="20px">{category.id}</td>
@@ -41,7 +46,21 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
                     />
                   </td>
                   <td width="200px">
-                    <Link to={`/categories/${category.id}/items`}>{category.name}</Link>
+                    <Link
+                      to={`/categories/${category.id}/items`}
+                      onClick={() => {
+                        dispatch(
+                          addBreadcrumb([
+                            {
+                              title: category.name,
+                              href: `/categories/${category.id}/items`,
+                            },
+                          ]),
+                        );
+                      }}
+                    >
+                      {category.name}
+                    </Link>
                   </td>
                   <td>{category.description}</td>
 
@@ -64,20 +83,20 @@ const Table: React.FC<TableProps> = ({ list, editHandle, removeHandle }) => (
                       role="button"
                       tabIndex={0}
                       aria-label="Remove category"
-
                     >
                       <Icon size="small" name="trash" />
                     </div>
                   </td>
                 </tr>
               ))}
-          </tbody>
-        </table>
-      </div>
-    )}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-    {((list && list.length === 0) || !list) && <div>No data</div>}
-  </>
-);
+      {((list && list.length === 0) || !list) && <div>No data</div>}
+    </>
+  );
+};
 
 export default Table;

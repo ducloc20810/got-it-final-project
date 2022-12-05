@@ -1,0 +1,20 @@
+@import '../../../index.scss';
+.breadcrumbList {
+  li {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.56;
+    a {
+      text-decoration: none;
+      color: #000;
+      &:hover {
+        color: $primary-color;
+      }
+    }
+    &:last-child {
+      span {
+        color: $primary-color;
+      }
+    }
+  }
+}

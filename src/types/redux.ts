@@ -27,3 +27,9 @@ export type Modal = {
   };
   closeHandle: () => void;
 };
+
+export type BreadcrumbItem = {
+  title: string;
+  href: string;
+}
+export type Breadcrumb = Array<BreadcrumbItem>
