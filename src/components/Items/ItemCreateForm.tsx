@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import isURL from 'validator/lib/isURL';
 import { Button, Form } from '@ahaui/react';
@@ -20,6 +21,7 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid },
+    setFocus,
   } = useForm<IFormItemInputs>({
     mode: 'onChange',
     defaultValues: initValue
@@ -31,6 +33,13 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
   });
 
   const { isLoading } = useAppSelector(modalSelector);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFocus('imageUrl');
+    }, 100);
+  }, [setFocus]);
+
   return (
     <Form>
       <div className="u-paddingMedium">
@@ -41,13 +50,13 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
             {...register('imageUrl', {
               maxLength: {
                 value: 200,
-                message: 'Maximum length of image URL is 200 characters.',
+                message: 'Maximum length of image URL is 200 characters',
               },
 
               validate: {
                 isEmpty: (value: string) =>
-                  isEmpty(value) || 'Please enter your item image URL.',
-                isURL: (value: string) => isURL(value) || 'Please enter a valid URL.',
+                  isEmpty(value) || 'Please enter your item image URL',
+                isURL: (value: string) => isURL(value) || 'Please enter a valid URL',
               },
             })}
           />
@@ -62,16 +71,16 @@ const ItemCreateForm: React.FC<CreateFormProps> = ({ submitHandle, closeHandle, 
             {...register('description', {
               maxLength: {
                 value: 200,
-                message: 'Maximum length of description is 200 characters.',
+                message: 'Maximum length of description is 200 characters',
               },
               validate: {
                 isEmpty: (value: string) =>
-                  isEmpty(value) || 'Please enter your item description.',
+                  isEmpty(value) || 'Please enter your item description',
               },
 
               pattern: {
                 value: TABLE_ITEM_NAME_REGEX,
-                message: 'Website only supports English.',
+                message: 'Website only supports English',
               },
             })}
           />

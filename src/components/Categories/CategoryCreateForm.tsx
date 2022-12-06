@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import isURL from 'validator/lib/isURL';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from '@ahaui/react';
@@ -37,22 +37,11 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
       : {},
   });
   const { isLoading } = useAppSelector(modalSelector);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Focus for react hook form input
-    // setFocus('name');
-
-    // Focus for example input
-    if (inputRef.current) {
-      inputRef.current.focus();
-      console.log(inputRef.current);
-
-      // Success;
-      // setTimeout(() => {
-      //   inputRef.current?.focus();
-      // }, 100);
-    }
+    setTimeout(() => {
+      setFocus('name');
+    }, 100);
   }, [setFocus]);
 
   return (
@@ -65,10 +54,10 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             {...register('name', {
               maxLength: {
                 value: 30,
-                message: 'Maximum length of name is 30 character.',
+                message: 'Maximum length of name is 30 character',
               },
               validate: {
-                isEmpty: (value: string) => isEmpty(value) || 'Please enter your category name.',
+                isEmpty: (value: string) => isEmpty(value) || 'Please enter your category name',
               },
               pattern: {
                 value: TABLE_ITEM_NAME_REGEX,
@@ -81,7 +70,6 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
         </Form.Group>
 
         {/* Example input */}
-        <input type="text" ref={inputRef} />
 
         <Form.Group sizeControl="large">
           <Form.Input
@@ -90,13 +78,13 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             {...register('imageUrl', {
               maxLength: {
                 value: 200,
-                message: 'Maximum length of image URL is 200 characters.',
+                message: 'Maximum length of image URL is 200 characters',
               },
 
               validate: {
                 isEmpty: (value: string) =>
-                  isEmpty(value) || 'Please enter your category image URL.',
-                isURL: (value: string) => isURL(value) || 'Please enter a valid URL.',
+                  isEmpty(value) || 'Please enter your category image URL',
+                isURL: (value: string) => isURL(value) || 'Please enter a valid URL',
               },
             })}
           />
@@ -110,16 +98,16 @@ const CategoryCreateForm: React.FC<CreateFormProps> = ({
             {...register('description', {
               maxLength: {
                 value: 200,
-                message: 'Maximum length of description is 200 characters.',
+                message: 'Maximum length of description is 200 characters',
               },
               validate: {
                 isEmpty: (value: string) =>
-                  isEmpty(value) || 'Please enter your category description.',
+                  isEmpty(value) || 'Please enter your category description',
               },
 
               pattern: {
                 value: TABLE_ITEM_NAME_REGEX,
-                message: 'Website only supports English.',
+                message: 'Website only supports English',
               },
             })}
           />
