@@ -138,6 +138,9 @@ const SignUp = () => {
       <Link
         to="/login"
         className="u-marginLeftAuto u-marginBottomSmall u-textPrimary hover:u-textPrimary hover:u-textUnderline"
+        state={
+          { prevPath }
+        }
       >
         I already have an account
       </Link>

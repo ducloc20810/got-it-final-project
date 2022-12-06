@@ -107,6 +107,9 @@ const Login = () => {
       <Link
         to="/signup"
         className="u-marginLeftAuto u-marginBottomSmall u-textPrimary hover:u-textPrimary hover:u-textUnderline"
+        state={
+          { prevPath }
+        }
       >
         Create account
       </Link>
