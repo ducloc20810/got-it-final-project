@@ -16,6 +16,10 @@ This is a category management project that allows people to share category and i
 - [x] Anonymous user will be redirected to login page if they try to create, edit or delete category/item. After user login, auto reopens the modal.
 - [x] Apply skeleton while loading.
 
+# Demo
+
+[![](https://img.youtube.com/vi/Js2QM8Pv-hg/0.jpg)](https://www.youtube.com/watch?v=Js2QM8Pv-hg)
+
 # Installation
 
 
