@@ -1,18 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Loader } from '@ahaui/react';
 import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
-import { useTypedDispatch } from 'hooks';
-import { IFormSignUpInputs } from 'types/form';
-import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
-import { InlineError } from 'components/Common';
 import {
   register as myRegister,
   login,
   getUserInfo,
 } from 'redux/actions/user.action';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/validation';
+import { isEmpty } from 'utils/library';
+import { IFormSignUpInputs } from 'types/form';
+import { useTypedDispatch } from 'hooks';
+import { InlineError } from 'components/Common';
+import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
 import styles from './SignUp.module.scss';
 
 const SignUp = () => {
@@ -20,6 +21,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setFocus,
   } = useForm<IFormSignUpInputs>({ mode: 'onChange' });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -49,6 +51,10 @@ const SignUp = () => {
     }
   };
 
+  useEffect(() => {
+    setFocus('name');
+  }, [setFocus]);
+
   return (
     <Form
       className={classNames(
@@ -70,26 +76,21 @@ const SignUp = () => {
           type="text"
           placeholder="Your name"
           {...register('name', {
-            required: 'Name is required',
-            maxLength: 30,
-            pattern: NAME_REGEX,
+            validate: {
+              isEmpty: (value: string) =>
+                isEmpty(value) || 'Please enter your name',
+            },
+            maxLength: {
+              value: 30,
+              message: 'Maximum length of name is 30 characters',
+            },
+            pattern: {
+              value: NAME_REGEX,
+              message: 'Name should not contain any special characters, numbers or have more than one space between words',
+            },
           })}
         />
-        {errors.name?.type === 'pattern' && (
-          <InlineError>
-            Name should not contain any special characters, numbers
-            or have more than one space between words
-          </InlineError>
-        )}
-
-        {errors.name?.type === 'required' && (
-          <InlineError>Please enter your name</InlineError>
-        )}
-        {errors.name?.type === 'maxLength' && (
-          <InlineError>
-            Maximum length of name is 30 characters
-          </InlineError>
-        )}
+        {errors.name && <InlineError>{errors.name.message}</InlineError>}
       </Form.Group>
 
       <Form.Group sizeControl="large">
@@ -97,24 +98,22 @@ const SignUp = () => {
           type="text"
           placeholder="Email"
           {...register('email', {
-            required: 'Email is required',
-            pattern: EMAIL_REGEX,
-            maxLength: 30,
+            pattern: {
+              value: EMAIL_REGEX,
+              message: 'Email is invalid',
+            },
+            maxLength: {
+              value: 30,
+              message: 'Maximum length of email is 30 characters',
+            },
+            validate: {
+              isEmpty: (value: string) =>
+                isEmpty(value) || 'Please enter your email',
+            },
           })}
         />
+        {errors.email && <InlineError>{errors.email.message}</InlineError>}
 
-        {errors.email?.type === 'required' && (
-          <InlineError>Please enter your email</InlineError>
-        )}
-        {errors.email?.type === 'pattern' && (
-          <InlineError>Email is invalid</InlineError>
-        )}
-
-        {errors.email?.type === 'maxLength' && (
-          <InlineError>
-            Maximum length of email is 30 characters
-          </InlineError>
-        )}
       </Form.Group>
 
       <Form.Group sizeControl="large">
@@ -122,20 +121,18 @@ const SignUp = () => {
           type="password"
           placeholder="Password"
           {...register('password', {
-            required: 'Password is required',
-            minLength: 6,
+            validate: {
+              isEmpty: (value: string) =>
+                isEmpty(value) || 'Please enter your password',
+            },
+            minLength: {
+              value: 6,
+              message: 'Password should be at least 6 characters',
+            },
           })}
         />
 
-        {errors.password?.type === 'required' && (
-          <InlineError>Please enter your password</InlineError>
-        )}
-
-        {errors.password?.type === 'minLength' && (
-          <InlineError>
-            Password should be at least 6 characters
-          </InlineError>
-        )}
+        {errors.password && <InlineError>{errors.password.message}</InlineError>}
       </Form.Group>
 
       <Link
@@ -151,6 +148,7 @@ const SignUp = () => {
           size="large"
           className="u-backgroundPrimary hover:u-background"
           onClick={handleSubmit(handleSignUpSubmit)}
+          type="submit"
         >
           Register
         </Button>

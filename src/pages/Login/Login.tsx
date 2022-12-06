@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ import { getUserInfo, login } from 'redux/actions/user.action';
 import { IFormLoginInputs } from 'types/form';
 import { EMAIL_REGEX } from 'constants/validation';
 import { useTypedDispatch } from 'hooks';
+import { isEmpty } from 'utils/library';
 import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
 import { InlineError } from 'components/Common';
 import styles from './Login.module.scss';
@@ -16,6 +17,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setFocus,
   } = useForm<IFormLoginInputs>({ mode: 'onChange' });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +47,10 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    setFocus('email');
+  }, [setFocus]);
+
   return (
     <Form
       className={classNames(
@@ -61,18 +67,22 @@ const Login = () => {
           type="text"
           placeholder="Email"
           {...register('email', {
-            required: 'Email is required',
-            pattern: EMAIL_REGEX,
-            maxLength: 30,
+            pattern: {
+              value: EMAIL_REGEX,
+              message: 'Email is invalid',
+            },
+            maxLength: {
+              value: 30,
+              message: 'Maximum length of email is 30 characters',
+            },
+            validate: {
+              isEmpty: (value: string) =>
+                isEmpty(value) || 'Please enter your email',
+            },
           })}
         />
+        {errors.email && <InlineError>{errors.email.message}</InlineError>}
 
-        {errors.email?.type === 'required' && <InlineError>Please enter your email</InlineError>}
-        {errors.email?.type === 'pattern' && <InlineError>Email is invalid</InlineError>}
-
-        {errors.email?.type === 'maxLength' && (
-          <InlineError>Maximum length of email is 30 characters</InlineError>
-        )}
       </Form.Group>
 
       <Form.Group sizeControl="large">
@@ -80,18 +90,18 @@ const Login = () => {
           type="password"
           placeholder="Password"
           {...register('password', {
-            required: 'Password is required',
-            minLength: 6,
+            validate: {
+              isEmpty: (value: string) =>
+                isEmpty(value) || 'Please enter your password',
+            },
+            minLength: {
+              value: 6,
+              message: 'Password should be at least 6 characters',
+            },
           })}
         />
 
-        {errors.password?.type === 'required' && (
-          <InlineError>Please enter your password</InlineError>
-        )}
-
-        {errors.password?.type === 'minLength' && (
-          <InlineError>Password should be at least 6 characters</InlineError>
-        )}
+        {errors.password && <InlineError>{errors.password.message}</InlineError>}
       </Form.Group>
 
       <Link
@@ -107,6 +117,7 @@ const Login = () => {
           size="large"
           className="u-backgroundPrimary hover:u-background"
           onClick={handleSubmit(handleLoginSubmit)}
+          type="submit"
         >
           Login
         </Button>
