@@ -275,10 +275,7 @@ describe('create item', () => {
         expect(screen.getByText(/create item form/i)).toBeInTheDocument();
       });
 
-      await userEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-      expect(screen.getByText(/please enter your item image url/i));
-      expect(screen.getByText(/please enter your item description/i));
+      expect(screen.getByRole('button', { name: /submit/i })).toBeDisabled();
     });
   });
 });

@@ -246,11 +246,7 @@ describe('create category', () => {
         expect(screen.getByText(/create category form/i)).toBeInTheDocument();
       });
 
-      await userEvent.click(screen.getByRole('button', { name: /submit/i }));
-
-      expect(screen.getByText(/please enter your category name/i));
-      expect(screen.getByText(/please enter your category image url/i));
-      expect(screen.getByText(/please enter your category description/i));
+      expect(screen.getByRole('button', { name: /submit/i })).toBeDisabled();
     });
   });
 
