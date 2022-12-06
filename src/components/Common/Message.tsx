@@ -8,6 +8,25 @@ import { clearMessage } from 'redux/actions/message.action';
 const Message = () => {
   const message = useAppSelector(messageSelector);
   const dispatch = useTypedDispatch();
+
+  useEffect(() => {
+    if (!message.status && !message.error && !message.message) {
+      return undefined;
+    }
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        toast.dismiss();
+        dispatch(clearMessage());
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyUp);
+    };
+  }, [dispatch, message]);
+
   useEffect(() => {
     if (!message.status && !message.error && !message.message) {
       return undefined;
