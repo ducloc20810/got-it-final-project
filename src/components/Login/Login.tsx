@@ -6,6 +6,7 @@ import { Form, Button, Loader } from '@ahaui/react';
 import { getUserInfo, login } from 'redux/actions/user';
 import { IFormLoginInputs } from 'types/form';
 import { EMAIL_REGEX } from 'constants/validation';
+import { AUTH_STORAGE_KEY } from 'constants/storage';
 import { useTypedDispatch } from 'hooks';
 import { isEmpty } from 'utils/library';
 import { ReactComponent as Logo } from 'assets/images/logo-only.svg';
@@ -32,7 +33,10 @@ const Login = () => {
       setIsLoading(true);
 
       dispatch(login(data.email, data.password))
-        .then(() => dispatch(getUserInfo()))
+        .then((resData) => {
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(resData));
+          return dispatch(getUserInfo());
+        })
         .then(() => {
           if (prevPath !== '/login' && prevPath !== '/signup') {
             navigate(prevPath);

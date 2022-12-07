@@ -9,6 +9,7 @@ import {
   getUserInfo,
 } from 'redux/actions/user';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/validation';
+import { AUTH_STORAGE_KEY } from 'constants/storage';
 import { isEmpty } from 'utils/library';
 import { IFormSignUpInputs } from 'types/form';
 import { useTypedDispatch } from 'hooks';
@@ -35,7 +36,10 @@ const SignUp = () => {
       const { email, name, password } = data;
       dispatch(myRegister(name, email, password))
         .then(() => dispatch(login(email, password)))
-        .then(() => dispatch(getUserInfo()))
+        .then((resData) => {
+          localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(resData));
+          return dispatch(getUserInfo());
+        })
         .then(() => {
           setIsLoading(false);
           if (prevPath !== '/login' && prevPath !== '/signup') {
