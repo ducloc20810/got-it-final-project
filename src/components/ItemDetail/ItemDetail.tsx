@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
 import { Skeleton } from '@ahaui/react';
 import { fetchItemDetail } from 'redux/actions/item';
@@ -7,6 +6,7 @@ import { breadcrumbSelector } from 'redux/reducers/breadcrumb';
 import { fetchCategoryDetail } from 'redux/actions/category';
 import { setBreadcrumb } from 'redux/actions/breadcrumb';
 import { useAppSelector, useFetch, useTypedDispatch } from 'hooks';
+import useParamsNum from 'hooks/useParamsNum';
 import { ItemType } from 'components/Items/ItemsType';
 import { Breadcrumb } from 'components/Common';
 import styles from './itemDetail.module.scss';
@@ -16,7 +16,7 @@ const imageAlt = 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-im
 const ItemDetail = () => {
   const breadcrumb = useAppSelector(breadcrumbSelector);
   const dispatch = useTypedDispatch();
-  const { itemId = '-1', categoryId = '-1' } = useParams();
+  const { itemId, categoryId } = useParamsNum('itemId', 'categoryId');
   const fetchItem = useCallback(() => fetchItemDetail(+categoryId, +itemId), [categoryId, itemId]);
 
   const [categoryLoading, setCategoryLoading] = useState(false);

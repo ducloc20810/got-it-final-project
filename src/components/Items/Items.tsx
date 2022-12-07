@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Button } from '@ahaui/react';
 import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item';
 import { userSelector } from 'redux/reducers/user.';
@@ -19,6 +18,7 @@ import {
 import { ModalList } from 'constants/modal';
 import useEdit from 'hooks/useEdit';
 import useDelete from 'hooks/useDelete';
+import useParamsNum from 'hooks/useParamsNum';
 import { PageWithTable } from 'components/Common';
 import ItemsTable from 'components/Items/ItemsTable';
 import { ItemsDataType, ItemType } from './ItemsType';
@@ -31,14 +31,14 @@ const Items = () => {
     items: [],
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { categoryId = -1 } = useParams();
+  const { categoryId } = useParamsNum('categoryId');
   const dispatch = useTypedDispatch();
   const closeModalHandle = useCloseModal();
   const handleUserNotLoggedIn = useAuthWarning();
   const handleUserIsNotAuthor = useAuthorWarning();
 
   const fetchData = useCallback(
-    (pageNumber: number) => fetchItemList(+categoryId, pageNumber),
+    (pageNumber: number) => fetchItemList(categoryId, pageNumber),
     [categoryId],
   );
 
@@ -53,7 +53,7 @@ const Items = () => {
     setData,
     setIsLoading,
     (id) => removeItem(+categoryId, id),
-    (pageNumber) => fetchItemList(+categoryId, pageNumber),
+    (pageNumber) => fetchItemList(categoryId, pageNumber),
   );
 
   const createItemOnClick = () => {
