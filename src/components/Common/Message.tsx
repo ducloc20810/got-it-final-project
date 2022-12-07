@@ -29,8 +29,9 @@ const Message = () => {
 
   useEffect(() => {
     if (!message.status && !message.error && !message.message) {
-      return undefined;
+      return;
     }
+    toast.dismiss();
 
     // If API return error
     if (message.status && message.error) {
@@ -49,9 +50,7 @@ const Message = () => {
     }
     else if (message.message) toast(message.message);
 
-    return () => {
-      dispatch(clearMessage());
-    };
+    dispatch(clearMessage());
   }, [message, dispatch]);
 
   return (
