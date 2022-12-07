@@ -4,6 +4,7 @@ import {
   applyMiddleware,
   AnyAction,
 } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import messageReducer from 'redux/reducers/message';
 import userReducer from 'redux/reducers/user.';
@@ -16,7 +17,7 @@ export const reducer = combineReducers({
   modal: modalReducer,
   breadcrumb: breadcrumbReducer,
 });
-export const store = createStore(reducer, applyMiddleware(thunk));
+export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
