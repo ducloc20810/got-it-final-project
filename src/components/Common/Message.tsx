@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppSelector, useTypedDispatch } from 'hooks';
@@ -10,14 +10,9 @@ const Message = () => {
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    if (!message.status && !message.error && !message.message) {
-      return undefined;
-    }
-
     const handleKeyUp = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         toast.dismiss();
-        dispatch(clearMessage());
       }
     };
 
