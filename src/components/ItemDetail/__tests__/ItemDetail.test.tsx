@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import { waitFor, screen } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/lib/node';
-import { renderWithProviders } from 'utils/test.utils';
-import * as itemAction from 'redux/actions/item.action';
-import * as categoryAction from 'redux/actions/category.action';
+import { renderWithProviders } from 'utils/test';
+import * as itemAction from 'redux/actions/item';
+import * as categoryAction from 'redux/actions/category';
 import ItemDetail from '../ItemDetail';
 
 const categoryId = '1';

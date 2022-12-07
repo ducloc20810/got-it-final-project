@@ -6,10 +6,10 @@ import {
   editCategory,
   fetchCategoryList,
   removeCategory,
-} from 'redux/actions/category.action';
-import { setModal } from 'redux/actions/modal.action';
-import { userSelector } from 'redux/reducers/user.reducer';
-import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
+} from 'redux/actions/category';
+import { setModal } from 'redux/actions/modal';
+import { userSelector } from 'redux/reducers/user.';
+import { setBreadcrumb } from 'redux/actions/breadcrumb';
 import { ModalList } from 'constants/modal';
 import { IFormCategoryInputs } from 'types/form';
 import useEdit from 'hooks/useEdit';

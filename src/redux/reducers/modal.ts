@@ -1,5 +1,5 @@
 import { RootState } from 'redux/store';
-import { ModalActions } from 'redux/actions/modal.action';
+import { ModalActions } from 'redux/actions/modal';
 import { Modal } from 'types/redux';
 
 type Action = {

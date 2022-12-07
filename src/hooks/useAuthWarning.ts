@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useCloseModal, useTypedDispatch } from 'hooks';
 import { ModalList } from 'constants/modal';
-import { clearModal, setModal } from 'redux/actions/modal.action';
+import { clearModal, setModal } from 'redux/actions/modal';
 
 const useAuthWarning = () => {
   const dispatch = useTypedDispatch();

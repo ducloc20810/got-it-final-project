@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { renderWithProviders } from "../../../../utils/test.utils";
+import { renderWithProviders } from "../../../../utils/test";
 import Sidebar from "../Sidebar";
 
 test("Sidebar contains main components and will style the current page with different color", () => {

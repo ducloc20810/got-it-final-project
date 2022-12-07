@@ -1,4 +1,4 @@
-import generateHeader from 'services/header.service';
+import generateHeader from 'services/header';
 import { snakeCaseObjKeys } from '../utils/library';
 
 export const AUTH = 'auth';

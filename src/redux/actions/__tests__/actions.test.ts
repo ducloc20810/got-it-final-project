@@ -1,7 +1,7 @@
 import { upperFirstChar } from 'utils/library';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import * as MessageActions from 'redux/actions/message.action';
+import * as MessageActions from 'redux/actions/message';
 import { handleAsyncAction } from '../utils';
 
 describe('handleAsyncAction api return data', () => {

@@ -1,7 +1,7 @@
 import { Icon } from '@ahaui/react';
 import { Link } from 'react-router-dom';
 import { useTypedDispatch } from 'hooks';
-import { addBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { addBreadcrumb } from 'redux/actions/breadcrumb';
 import { ItemType } from 'components/Items/ItemsType';
 
 type TableProps = {

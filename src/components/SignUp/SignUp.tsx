@@ -7,7 +7,7 @@ import {
   register as myRegister,
   login,
   getUserInfo,
-} from 'redux/actions/user.action';
+} from 'redux/actions/user';
 import { EMAIL_REGEX, NAME_REGEX } from 'constants/validation';
 import { isEmpty } from 'utils/library';
 import { IFormSignUpInputs } from 'types/form';

@@ -3,8 +3,8 @@ import { Header as AhaHeader, Dropdown, Icon } from '@ahaui/react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector, useTypedDispatch } from 'hooks';
 import { AUTH_STORAGE_KEY } from 'constants/storage';
-import { userSelector } from 'redux/reducers/user.reducer';
-import { getUserInfo, logout } from 'redux/actions/user.action';
+import { userSelector } from 'redux/reducers/user.';
+import { getUserInfo, logout } from 'redux/actions/user';
 import { ReactComponent as Logo } from 'assets/images/logo.svg';
 import styles from './Header.module.scss';
 

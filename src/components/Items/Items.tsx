@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from '@ahaui/react';
-import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item.action';
-import { userSelector } from 'redux/reducers/user.reducer';
-import { setModal } from 'redux/actions/modal.action';
-import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
-import { breadcrumbSelector } from 'redux/reducers/breadcrumb.reducer';
-import { fetchCategoryDetail } from 'redux/actions/category.action';
+import { createItem, editItem, fetchItemList, removeItem } from 'redux/actions/item';
+import { userSelector } from 'redux/reducers/user.';
+import { setModal } from 'redux/actions/modal';
+import { setBreadcrumb } from 'redux/actions/breadcrumb';
+import { breadcrumbSelector } from 'redux/reducers/breadcrumb';
+import { fetchCategoryDetail } from 'redux/actions/category';
 import { IFormItemInputs } from 'types/form';
 import {
   useAppSelector,

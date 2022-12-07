@@ -1,6 +1,6 @@
 import { useCloseModal, useTypedDispatch } from 'hooks';
 import { ModalList } from 'constants/modal';
-import { setModal } from 'redux/actions/modal.action';
+import { setModal } from 'redux/actions/modal';
 
 const useAuthorWarning = () => {
   const dispatch = useTypedDispatch();

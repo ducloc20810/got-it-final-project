@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@ahaui/react';
-import { addBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { addBreadcrumb } from 'redux/actions/breadcrumb';
 import { useTypedDispatch } from 'hooks';
 import { CategoryType } from 'components/Categories/CategoriesType';
 

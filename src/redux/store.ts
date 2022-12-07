@@ -5,10 +5,10 @@ import {
   AnyAction,
 } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import messageReducer from 'redux/reducers/message.reducer';
-import userReducer from 'redux/reducers/user.reducer';
-import breadcrumbReducer from './reducers/breadcrumb.reducer';
-import modalReducer from './reducers/modal.reducer';
+import messageReducer from 'redux/reducers/message';
+import userReducer from 'redux/reducers/user.';
+import breadcrumbReducer from './reducers/breadcrumb';
+import modalReducer from './reducers/modal';
 
 export const reducer = combineReducers({
   user: userReducer,

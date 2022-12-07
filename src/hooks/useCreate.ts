@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { TypedDispatch } from 'redux/store';
-import { offLoading, onLoading } from 'redux/actions/modal.action';
+import { offLoading, onLoading } from 'redux/actions/modal';
 import { GenericDataTable } from 'types/common';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import { useTypedDispatch, useCloseModal } from 'hooks';

@@ -4,7 +4,7 @@ import isURL from 'validator/lib/isURL';
 import { Button, Form } from '@ahaui/react';
 import { isEmpty } from 'utils/library';
 import { IFormItemInputs } from 'types/form';
-import { modalSelector } from 'redux/reducers/modal.reducer';
+import { modalSelector } from 'redux/reducers/modal';
 import { useAppSelector } from 'hooks';
 import { TABLE_ITEM_NAME_REGEX } from 'constants/validation';
 import { InlineError } from 'components/Common';

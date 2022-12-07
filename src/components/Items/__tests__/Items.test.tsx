@@ -5,9 +5,9 @@ import { setupServer } from 'msw/lib/node';
 import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 import { Message, Modal } from 'components/Common';
-import * as itemAction from 'redux/actions/item.action';
+import * as itemAction from 'redux/actions/item';
 import { store } from 'redux/store';
-import { renderWithProviders } from 'utils/test.utils';
+import { renderWithProviders } from 'utils/test';
 import { TEST_IMAGE_URL } from 'constants/test';
 import Items from '../Items';
 

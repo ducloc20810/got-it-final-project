@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAppSelector, useTypedDispatch } from 'hooks';
-import { messageSelector } from 'redux/reducers/message.reducer';
-import { clearMessage } from 'redux/actions/message.action';
+import { messageSelector } from 'redux/reducers/message';
+import { clearMessage } from 'redux/actions/message';
 
 const Message = () => {
   const message = useAppSelector(messageSelector);

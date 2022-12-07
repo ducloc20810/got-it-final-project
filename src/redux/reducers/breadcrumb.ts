@@ -1,5 +1,5 @@
 import { RootState } from 'redux/store';
-import { BreadcrumbActions } from 'redux/actions/breadcrumb.action';
+import { BreadcrumbActions } from 'redux/actions/breadcrumb';
 import { Breadcrumb } from 'types/redux';
 
 type Action = {

@@ -1,5 +1,5 @@
 import { useTypedDispatch } from 'hooks';
-import { clearModal, closeModal } from 'redux/actions/modal.action';
+import { clearModal, closeModal } from 'redux/actions/modal';
 
 const useCloseModal = () => {
   const dispatch = useTypedDispatch();

@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { Breadcrumb as AhaBreadcrumb } from '@ahaui/react';
 import { BreadcrumbItem } from 'types/redux';
-import { breadcrumbSelector } from 'redux/reducers/breadcrumb.reducer';
-import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
+import { breadcrumbSelector } from 'redux/reducers/breadcrumb';
+import { setBreadcrumb } from 'redux/actions/breadcrumb';
 import { useAppSelector, useTypedDispatch } from 'hooks';
 import styles from './Breadcrumb.module.scss';
 

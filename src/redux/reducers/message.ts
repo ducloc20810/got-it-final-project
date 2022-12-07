@@ -1,6 +1,6 @@
 import { RootState } from 'redux/store';
 import { Message } from 'types/redux';
-import { MessageActions } from 'redux/actions/message.action';
+import { MessageActions } from 'redux/actions/message';
 
 type Action = {
   type: string;

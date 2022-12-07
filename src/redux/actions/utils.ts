@@ -1,5 +1,5 @@
-import { setMessage } from 'redux/actions/message.action';
-import { UserActions } from 'redux/actions/user.action';
+import { setMessage } from 'redux/actions/message';
+import { UserActions } from 'redux/actions/user';
 import { TypedDispatch } from 'redux/store';
 import { AUTH_STORAGE_KEY } from 'constants/storage';
 import { camelCaseObjKeys, upperFirstChar } from 'utils/library';

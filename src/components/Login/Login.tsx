@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Loader } from '@ahaui/react';
-import { getUserInfo, login } from 'redux/actions/user.action';
+import { getUserInfo, login } from 'redux/actions/user';
 import { IFormLoginInputs } from 'types/form';
 import { EMAIL_REGEX } from 'constants/validation';
 import { useTypedDispatch } from 'hooks';

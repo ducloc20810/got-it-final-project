@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import isURL from 'validator/lib/isURL';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from '@ahaui/react';
-import { modalSelector } from 'redux/reducers/modal.reducer';
+import { modalSelector } from 'redux/reducers/modal';
 import { useAppSelector } from 'hooks';
 import { isEmpty } from 'utils/library';
 import { TABLE_ITEM_NAME_REGEX } from 'constants/validation';
