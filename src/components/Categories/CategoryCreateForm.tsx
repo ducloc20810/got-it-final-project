@@ -8,7 +8,7 @@ import { isEmpty } from 'utils/library';
 import { TABLE_ITEM_NAME_REGEX } from 'constants/validation';
 import { IFormCategoryInputs } from 'types/form';
 import { InlineError } from 'components/Common';
-import { CategoryPayload } from 'pages/Categories/CategoriesType';
+import { CategoryPayload } from 'components/Categories/CategoriesType';
 
 type CreateFormProps = {
   submitHandle: (data: IFormCategoryInputs) => void;

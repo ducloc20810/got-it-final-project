@@ -7,7 +7,7 @@ import { breadcrumbSelector } from 'redux/reducers/breadcrumb.reducer';
 import { fetchCategoryDetail } from 'redux/actions/category.action';
 import { setBreadcrumb } from 'redux/actions/breadcrumb.action';
 import { useAppSelector, useFetch, useTypedDispatch } from 'hooks';
-import { ItemType } from 'pages/Items/ItemsType';
+import { ItemType } from 'components/Items/ItemsType';
 import { Breadcrumb } from 'components/Common';
 import styles from './itemDetail.module.scss';
 
@@ -16,7 +16,7 @@ const imageAlt = 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-im
 const ItemDetail = () => {
   const breadcrumb = useAppSelector(breadcrumbSelector);
   const dispatch = useTypedDispatch();
-  const { itemId = -1, categoryId = -1 } = useParams();
+  const { itemId = '-1', categoryId = '-1' } = useParams();
   const fetchItem = useCallback(() => fetchItemDetail(+categoryId, +itemId), [categoryId, itemId]);
 
   const [categoryLoading, setCategoryLoading] = useState(false);

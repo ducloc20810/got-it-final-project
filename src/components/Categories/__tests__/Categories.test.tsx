@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { setupServer } from 'msw/lib/node';
 import { rest } from 'msw';
 import { renderWithProviders } from 'utils/test.utils';
-import { Categories } from 'pages';
+import { Categories } from 'components';
 import * as action from 'redux/actions/category.action';
 import { Message, Modal } from 'components/Common';
 import { TEST_IMAGE_URL } from 'constants/test';

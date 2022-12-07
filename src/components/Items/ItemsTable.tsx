@@ -2,7 +2,7 @@ import { Icon } from '@ahaui/react';
 import { Link } from 'react-router-dom';
 import { useTypedDispatch } from 'hooks';
 import { addBreadcrumb } from 'redux/actions/breadcrumb.action';
-import { ItemType } from 'pages/Items/ItemsType';
+import { ItemType } from 'components/Items/ItemsType';
 
 type TableProps = {
   categoryId: number | string;

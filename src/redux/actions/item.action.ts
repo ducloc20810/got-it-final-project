@@ -2,7 +2,7 @@ import { TypedDispatch } from 'redux/store';
 import { EndPoints } from 'constants/api';
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import helper from 'services/helper';
-import { ItemPayload } from '../../pages/Items/ItemsType';
+import { ItemPayload } from 'components/Items/ItemsType';
 import { handleAsyncAction } from './utils';
 
 export const ItemActions = {

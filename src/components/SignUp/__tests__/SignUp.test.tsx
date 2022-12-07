@@ -4,7 +4,7 @@ import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 import { faker } from '@faker-js/faker';
 import { renderWithProviders } from 'utils/test.utils';
-import SignUp from 'pages/SignUp/SignUp';
+import SignUp from 'components/SignUp/SignUp';
 import Message from 'components/Common/Message';
 import { store } from 'redux/store';
 import * as action from 'redux/actions/user.action';

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import classNames from 'classnames';
 import { Modal, Layout, Message } from 'components/Common';
-import { Categories, Home, Items, Login, SignUp, ItemDetail } from 'pages';
+import { Categories, Home, Items, Login, SignUp, ItemDetail } from 'components';
 import styles from 'App.module.scss';
 
 function App() {

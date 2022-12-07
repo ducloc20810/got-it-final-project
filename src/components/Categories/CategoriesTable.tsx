@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@ahaui/react';
 import { addBreadcrumb } from 'redux/actions/breadcrumb.action';
 import { useTypedDispatch } from 'hooks';
-import { CategoryType } from 'pages/Categories/CategoriesType';
+import { CategoryType } from 'components/Categories/CategoriesType';
 
 type TableProps = {
   list: Array<CategoryType> | undefined;

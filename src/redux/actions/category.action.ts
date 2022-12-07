@@ -1,7 +1,7 @@
 import { ITEMS_PER_PAGE } from 'constants/pagination';
 import { EndPoints } from 'constants/api';
 import helper from 'services/helper';
-import { CategoryPayload } from 'pages/Categories/CategoriesType';
+import { CategoryPayload } from 'components/Categories/CategoriesType';
 import { handleAsyncAction } from './utils';
 import { TypedDispatch } from '../store';
 

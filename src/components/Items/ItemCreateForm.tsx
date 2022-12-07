@@ -8,7 +8,7 @@ import { modalSelector } from 'redux/reducers/modal.reducer';
 import { useAppSelector } from 'hooks';
 import { TABLE_ITEM_NAME_REGEX } from 'constants/validation';
 import { InlineError } from 'components/Common';
-import { ItemPayload } from 'pages/Items/ItemsType';
+import { ItemPayload } from 'components/Items/ItemsType';
 
 type CreateFormProps = {
   submitHandle: (data: IFormItemInputs) => void;
